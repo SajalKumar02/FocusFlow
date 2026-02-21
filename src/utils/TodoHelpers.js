@@ -54,3 +54,7 @@ export const sortTodos = (todos, filter) => {
         }
     })
 }
+
+export const countTodos = (todos) => {
+    return todos.length;
+}

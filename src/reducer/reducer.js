@@ -10,9 +10,11 @@ export const initialiser = (initialValue = initialState) => JSON.parse(localStor
 export const todoReducer = (state, action) => {
     switch (action.type) {
         case "LOAD_TODOS":
-            const localTodos = JSON.parse(localStorage.getItem("todoState")) || initialState;
-            state.todos = localTodos.todos || [];
-            return state;
+            {
+                const localTodos = JSON.parse(localStorage.getItem("todoState")) || initialState;
+                state.todos = localTodos.todos || [];
+                return state;
+            }
         case "ADD_TODO":
             return {
                 ...state,
