@@ -13,6 +13,7 @@ const App = () => {
       <TodoList />
 
       {/* Add Todo Button */}
+      {/* This is for learning git */}
       <AddTodoButton />
     </div>
   );
