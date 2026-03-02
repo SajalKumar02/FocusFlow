@@ -1,6 +1,6 @@
-import TodoList from "./components/TodoList.jsx";
-import AddTodoButton from "./components/AddTodoButton.jsx";
-import TodoFilterSortRow from "./components/TodoFilterSortRow.jsx";
+import TodoList from "../features/components/TodoList.jsx";
+import AddTodoButton from "../features/components/AddTodoButton.jsx";
+import TodoFilterSortRow from "../features/components/TodoFilterSortRow.jsx";
 
 const App = () => {
   return (

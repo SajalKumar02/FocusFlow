@@ -45,7 +45,9 @@ const TodoItem = ({ item }) => {
         >
           <span className="capitalize">{item.title}</span>
           {"  "}
-          <span className="text-gray-700 font-light">{item.content}</span>
+          <span className="text-gray-700 font-light">
+            {item.content}
+          </span>
         </p>
       </div>
       <div className="flex flex-row items-center">

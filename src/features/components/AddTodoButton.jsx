@@ -20,11 +20,17 @@ const AddTodoButton = () => {
       alert("Title and content cannot be empty.");
       return;
     }
-    dispatch({ type: "ADD_TODO", payload: { title: title, content: content } });
+    dispatch({
+      type: "ADD_TODO",
+      payload: { title: title, content: content },
+    });
   };
 
   return (
-    <button className="font-semibold bg-gray-600 text-white border-2 p-2 mb-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors duration-300" onClick={handleAddTodo}>
+    <button
+      className="font-semibold bg-gray-600 text-white border-2 p-2 mb-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors duration-300"
+      onClick={handleAddTodo}
+    >
       Add Todo
     </button>
   );

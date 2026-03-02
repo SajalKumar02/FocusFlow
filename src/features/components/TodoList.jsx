@@ -1,9 +1,13 @@
 import { useContext, useMemo } from "react";
 
-import TodoContext from "../context/createContext";
+import TodoContext from "../context/createContext.jsx";
 import TodoItem from "./TodoItem.jsx";
 
-import { sortTodos, filterTodos, filterStatusTodos } from "../utils/TodoHelpers.js";
+import {
+  sortTodos,
+  filterTodos,
+  filterStatusTodos,
+} from "../../shared/utils/TodoHelpers.js";
 
 const TodoList = () => {
   const { state } = useContext(TodoContext);
@@ -20,7 +24,14 @@ const TodoList = () => {
     return filtered;
   }, [todos, filter, sort, status]);
 
-  return <div className="overflow-y-auto p-4">{filteredTodos && filteredTodos.map((item) => <TodoItem key={item.id} item={item} />)}</div>;
+  return (
+    <div className="overflow-y-auto p-4">
+      {filteredTodos &&
+        filteredTodos.map((item) => (
+          <TodoItem key={item.id} item={item} />
+        ))}
+    </div>
+  );
 };
 
 export default TodoList;
