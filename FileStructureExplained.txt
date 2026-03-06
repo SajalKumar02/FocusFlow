@@ -1,0 +1,29 @@
+src/
+  app/
+    App.jsx
+  components/
+    SideBar/
+      SideBar.jsx
+      Header.jsx
+      SearchBar.jsx
+      TaskSection.jsx
+      ListSection.jsx
+      Footer.jsx
+    MainContent/
+      MainContent.jsx
+    TaskPanel/
+      TaskDetailsPanel.jsx
+  todo/
+    TodoContext.jsx
+    todoReducer.js
+    TodoHelpers.js
+  layout/
+    LayoutContext.jsx        // sidebar open/close, maybe global theme
+    ModalProvider.jsx        // or simple Modal.jsx if small
+    ToastProvider.jsx        // or toaster logic
+  shared/ (optional, only if/when needed)
+    Button.jsx
+    InputBar.jsx
+    useLocalStorage.js
+  main.jsx
+  index.css
