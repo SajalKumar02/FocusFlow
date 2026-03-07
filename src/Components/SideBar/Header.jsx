@@ -1,16 +1,45 @@
 import React from "react";
-import { PanelRightClose } from "lucide-react";
-import { PanelRightOpen } from "lucide-react";
+import {
+  PanelRightClose,
+  PanelRightOpen,
+  ListTodo,
+} from "lucide-react";
 
-const Header = () => {
+const Header = ({ expanded, onToggle }) => {
   return (
-    <div className="flex items-center justify-between p-5 border-b border-slate-200">
-      <h1 className="text-xl font-bold tracking-tight text-slate-800">
-        MyTasks
-      </h1>
-      <button className="ml-2 p-2 rounded-xl transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400">
-        <PanelRightOpen />
-      </button>
+    <div className="flex items-center justify-between p-5 border-b border-slate-200 relative">
+      {expanded ? (
+        <h1 className="text-xl font-bold tracking-tight text-slate-800 flex items-center gap-2">
+          <ListTodo size={28} className="mr-1" />
+          MyTasks
+        </h1>
+      ) : (
+        // Show only an icon (a todo list) when collapsed
+        <span className="text-slate-800 flex justify-center w-full">
+          <ListTodo size={28} />
+        </span>
+      )}
+      {expanded ? (
+        // Circle button half inside/half outside the sidebar, vertically centered, flush right
+        <button
+          className="absolute top-1/2 right-[-24px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-12 h-12 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
+          onClick={onToggle}
+          aria-label="Collapse sidebar"
+          style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
+        >
+          <PanelRightClose />
+        </button>
+      ) : (
+        // Circle button half inside/half outside the sidebar, vertically centered, flush right
+        <button
+          className="absolute top-1/2 right-[-24px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-12 h-12 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
+          onClick={onToggle}
+          aria-label="Expand sidebar"
+          style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
+        >
+          <PanelRightOpen />
+        </button>
+      )}
     </div>
   );
 };

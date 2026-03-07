@@ -6,23 +6,28 @@ import TaskSection from "./TaskSection";
 import ListSection from "./ListSection";
 import Footer from "./Footer";
 
-const SideBar = () => {
+const SideBar = ({ expanded, onToggle }) => {
   return (
-    <aside className="flex flex-col h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg">
-      {/* Header */}
-      <Header />
+    <aside
+      className={`flex flex-col h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg transition-all duration-300 ${
+        expanded ? "w-64" : "w-20"
+      }`}
+    >
+      {/* Header - pass expanded/onToggle for button control */}
+      <Header expanded={expanded} onToggle={onToggle} />
 
-      {/* Search Bar */}
-      <SearchBar />
+      {/* Optionally hide/show content based on expanded */}
+      {/* Search Bar (show only if expanded) */}
+      <SearchBar expanded={expanded} onToggle={onToggle} />
 
       {/* Tasks Section */}
-      <TaskSection />
+      <TaskSection expanded={expanded} />
 
       {/* Lists Section */}
-      <ListSection />
+      <ListSection expanded={expanded} />
 
-      {/* Footer Actions */}
-      <Footer />
+      {/* Footer Actions (show only if expanded) */}
+      {expanded && <Footer />}
     </aside>
   );
 };

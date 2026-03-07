@@ -1,126 +1,145 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Plus, Star, Briefcase, Circle } from "lucide-react";
 
-const ListSection = () => {
+const LISTS = [
+  {
+    name: "Personal",
+    icon: Star,
+    color: "pink",
+    count: 4,
+  },
+  {
+    name: "Work",
+    icon: Briefcase,
+    color: "yellow",
+    count: 6,
+  },
+  {
+    name: "List 1",
+    icon: Circle,
+    count: 1,
+  },
+  // Add more lists here for testing scroll/overflow
+];
+
+// Darker shade for predefined lists
+const colorMap = {
+  pink: {
+    bg: "bg-pink-200",
+    text: "text-pink-700",
+    pill: "bg-pink-200 text-pink-800",
+    hover: "hover:bg-pink-300/60",
+  },
+  yellow: {
+    bg: "bg-yellow-200",
+    text: "text-yellow-800",
+    pill: "bg-yellow-200 text-yellow-900",
+    hover: "hover:bg-yellow-300/60",
+  },
+};
+
+// Use a visible, darker shade for general lists
+const generalColors = {
+  bg: "bg-slate-300",
+  text: "text-slate-700",
+  pill: "bg-slate-300 text-slate-700",
+  hover: "hover:bg-slate-400/60",
+};
+
+const ListSection = ({ expanded }) => {
+  const listsRef = useRef(null);
+
   return (
-    <div className="px-5 mt-10 flex-1">
+    <div className="p-5 flex-1 flex flex-col h-full min-h-0">
+      {/* Header row: title (left) and add button (right, only when expanded) */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-[11px] text-slate-400 font-bold tracking-widest uppercase">
+        <h2 className="text-[11px] mb-3 text-slate-400 font-bold tracking-widest uppercase">
           Lists
         </h2>
-        <button
-          className="flex items-center justify-center w-7 h-7 bg-slate-100 text-blue-500 rounded-full transition-all hover:bg-blue-50 active:bg-blue-200"
-          type="button"
-          title="Add List"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={3}
-            viewBox="0 0 24 24"
+        {expanded && (
+          <button
+            className="flex items-center justify-center w-7 h-7 bg-slate-100 text-blue-500 rounded-full transition-all hover:bg-blue-50 active:bg-blue-200"
+            type="button"
+            title="Add List"
           >
-            <path
-              d="M12 5v14M5 12h14"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            <Plus size={16} strokeWidth={3} />
+          </button>
+        )}
       </div>
-      <ul className="flex flex-col gap-2">
-        <li className="flex items-center justify-between py-2.5 px-3 rounded-xl transition-all cursor-pointer hover:bg-pink-50/60 group">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center rounded-full bg-pink-100 text-pink-500">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+      {/* Render lists differently based on expanded */}
+      <div
+        ref={listsRef}
+        className="flex-1 min-h-0 overflow-y-auto pr-1"
+        style={{
+          // Show a scrollbar only if necessary, future proofing for large sets
+          scrollbarWidth: "thin",
+        }}
+        tabIndex={0}
+        aria-label="List items"
+      >
+        <ul className="flex flex-col gap-2">
+          {LISTS.map((list) => {
+            // Only Personal and Work keep their color, others use general
+            const color =
+              list.name === "Personal"
+                ? colorMap.pink
+                : list.name === "Work"
+                  ? colorMap.yellow
+                  : generalColors;
+            return (
+              <li
+                key={list.name}
+                className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group ${color.hover} ${
+                  expanded ? "justify-between" : "justify-center"
+                }`}
               >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M14.31 8l5.74 9.94" strokeLinecap="round" />
-                <path d="M9.69 8h11.48" strokeLinecap="round" />
-                <path d="M7.38 12l5.74-9.94" strokeLinecap="round" />
-                <path
-                  d="M14.31 16l-5.74-9.94"
-                  strokeLinecap="round"
-                />
-                <path d="M9.69 16H3.21" strokeLinecap="round" />
-                <path
-                  d="M16.62 12l-5.74 9.94"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-            <span className="text-base font-medium text-slate-800">
-              Personal
-            </span>
-          </div>
-          <span className="bg-pink-100 text-xs font-semibold text-pink-600 px-2.5 py-0.5 rounded-full shadow">
-            {4}
-          </span>
-        </li>
-        <li className="flex items-center justify-between py-2.5 px-3 rounded-xl transition-all cursor-pointer hover:bg-yellow-50/60 group">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-600">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <rect width="18" height="18" x="3" y="3" rx="2" />
-              </svg>
-            </span>
-            <span className="text-base font-medium text-slate-800">
-              Work
-            </span>
-          </div>
-          <span className="bg-yellow-100 text-xs font-semibold text-yellow-600 px-2.5 py-0.5 rounded-full shadow">
-            {6}
-          </span>
-        </li>
-        <li className="flex items-center justify-between py-2.5 px-3 rounded-xl transition-all cursor-pointer hover:bg-teal-50/60 group">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center rounded-full bg-teal-100 text-teal-600">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <circle cx="12" cy="12" r="10" />
-              </svg>
-            </span>
-            <span className="text-base font-medium text-slate-800">
-              List 1
-            </span>
-          </div>
-          <span className="bg-teal-100 text-xs font-semibold text-teal-600 px-2.5 py-0.5 rounded-full shadow">
-            {1}
-          </span>
-        </li>
-      </ul>
-      {/* Hidden add new list input for future use */}
-      <div className="flex mt-3">
-        <input
-          type="text"
-          className="flex-1 py-1.5 px-3 text-sm rounded-xl border border-slate-300 outline-none transition-all focus:ring-2 focus:ring-blue-400"
-          placeholder="Add new list..."
-          style={{ display: "none" }}
-          disabled
-        />
-        <button
-          className="ml-2 px-4 py-1.5 text-sm rounded-xl bg-blue-500 text-white shadow-lg transition-all"
-          style={{ display: "none" }}
-          disabled
-        >
-          Add
-        </button>
+                <div
+                  className={`flex items-center ${
+                    expanded ? "gap-3" : "gap-0 justify-center w-full"
+                  }`}
+                >
+                  <span
+                    className={`inline-flex items-center justify-center rounded-full ${color.bg} ${color.text}`}
+                  >
+                    <list.icon size={18} strokeWidth={2} />
+                  </span>
+                  {expanded && (
+                    <span className="text-base font-medium text-slate-800 ml-3">
+                      {list.name}
+                    </span>
+                  )}
+                </div>
+                {expanded && (
+                  <span
+                    className={`${color.pill} text-xs font-semibold px-2.5 py-0.5 rounded-full shadow`}
+                  >
+                    {list.count}
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
+      {/* Hidden add new list input for future use (only show if expanded in future) */}
+      {expanded && (
+        <div className="flex mt-3">
+          <input
+            type="text"
+            className="flex-1 py-1.5 px-3 text-sm rounded-xl border border-slate-300 outline-none transition-all focus:ring-2 focus:ring-blue-400"
+            placeholder="Add new list..."
+            style={{ display: "none" }}
+            disabled
+          />
+          <button
+            className="ml-2 px-4 py-1.5 text-sm rounded-xl bg-blue-500 text-white shadow-lg transition-all"
+            style={{ display: "none" }}
+            disabled
+          >
+            Add
+          </button>
+        </div>
+      )}
     </div>
   );
 };

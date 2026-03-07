@@ -1,37 +1,45 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { Search } from "lucide-react";
 
-const SearchBar = () => {
+const SearchBar = ({ expanded, onToggle }) => {
+  const inputRef = useRef(null);
+
+  // Auto-focus the input when expanded or after triggering expand via icon
+  useEffect(() => {
+    if (expanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [expanded]);
+
+  // Handler for icon click in collapsed mode
+  const handleIconClick = () => {
+    if (typeof onToggle === "function") {
+      onToggle();
+      // focusing input will be handled via useEffect after expand
+    }
+  };
+
   return (
-    <div className="p-5">
-      <div className="flex items-center bg-slate-100 rounded-xl px-4 py-2.5 shadow-inner focus-within:ring-2 focus-within:ring-blue-400">
-        <svg
-          className="w-5 h-5 text-slate-400 mr-2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          viewBox="0 0 24 24"
+    <div className="p-5 border-b border-slate-200">
+      {expanded ? (
+        <div className="flex items-center bg-slate-100 rounded-xl px-4 py-2.5 shadow-inner focus-within:ring-2 focus-within:ring-blue-400">
+          <input
+            ref={inputRef}
+            className="bg-transparent outline-none flex-1 text-base placeholder-slate-400 text-slate-800"
+            type="text"
+            placeholder="Search tasks..."
+          />
+        </div>
+      ) : (
+        <button
+          className="w-10 h-10 flex items-center justify-center bg-slate-100 rounded-xl shadow-inner hover:bg-slate-200 transition-all"
+          aria-label="Expand sidebar and focus search"
+          type="button"
+          onClick={handleIconClick}
         >
-          <circle
-            cx="11"
-            cy="11"
-            r="8"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <path
-            d="M21 21l-4.35-4.35"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-        <input
-          className="bg-transparent outline-none flex-1 text-base placeholder-slate-400 text-slate-800"
-          type="text"
-          placeholder="Search tasks..."
-          // disabled // Switch to enable if desired
-        />
-      </div>
+          <Search size={22} className="text-slate-400" />
+        </button>
+      )}
     </div>
   );
 };
