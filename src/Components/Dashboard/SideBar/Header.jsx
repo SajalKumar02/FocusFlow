@@ -20,24 +20,22 @@ const Header = ({ expanded, onToggle }) => {
         </span>
       )}
       {expanded ? (
-        // Circle button half inside/half outside the sidebar, vertically centered, flush right
         <button
-          className="absolute top-1/2 right-[-24px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-12 h-12 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
+          className="absolute top-1/2 right-[-16px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-8 h-8 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
           onClick={onToggle}
           aria-label="Collapse sidebar"
           style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
         >
-          <PanelRightClose />
+          <PanelRightClose size={18} />
         </button>
       ) : (
-        // Circle button half inside/half outside the sidebar, vertically centered, flush right
         <button
-          className="absolute top-1/2 right-[-24px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-12 h-12 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
+          className="absolute top-1/2 right-[-16px] transform -translate-y-1/2 bg-white shadow-md border border-slate-200 w-8 h-8 flex items-center justify-center rounded-full transition-all hover:bg-slate-200 active:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-400 z-10"
           onClick={onToggle}
           aria-label="Expand sidebar"
           style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
         >
-          <PanelRightOpen />
+          <PanelRightOpen size={18} />
         </button>
       )}
     </div>

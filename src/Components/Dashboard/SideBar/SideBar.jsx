@@ -27,7 +27,7 @@ const SideBar = ({ expanded, onToggle }) => {
       <ListSection expanded={expanded} />
 
       {/* Footer Actions (show only if expanded) */}
-      {expanded && <Footer />}
+      <Footer expanded={expanded} />
     </aside>
   );
 };
