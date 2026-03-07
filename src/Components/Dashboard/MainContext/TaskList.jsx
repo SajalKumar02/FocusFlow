@@ -4,7 +4,7 @@ import { ToastContext } from "../../../Toast/ToastProvider";
 
 import { ChevronRight } from "lucide-react";
 
-const TaskList = () => {
+const TaskList = ({ setSelectedTask }) => {
   const { showSuccessToast } = useContext(ToastContext);
 
   const toggleTask = () => {

@@ -32,6 +32,15 @@ function todoReducer(state, action) {
       const listId = action.payload.listId;
       return state.filter((list) => list.id !== listId);
     }
+    // Create a list matching the title against the inputText (case-insensitive), returns the matched list or null
+    case "FIND_LIST_BY_TITLE": {
+      const { inputText } = action.payload;
+      const matchedList = state.find(
+        (list) =>
+          list.title.toLowerCase() === inputText.toLowerCase(),
+      );
+      return matchedList || null;
+    }
     // CRUD on Tasks
     case "ADD_TASK":
       return state.map((list) =>

@@ -1,19 +1,8 @@
 import React, { useRef } from "react";
 import { Plus, Star, Briefcase, Circle } from "lucide-react";
 
-const LISTS = [
-  {
-    name: "Personal",
-    icon: Star,
-    color: "pink",
-    count: 4,
-  },
-  {
-    name: "Work",
-    icon: Briefcase,
-    color: "yellow",
-    count: 6,
-  },
+// Only dynamic lists should be put here for future management
+const DYNAMIC_LISTS = [
   {
     name: "List 1",
     icon: Circle,
@@ -22,32 +11,171 @@ const LISTS = [
   // Add more lists here for testing scroll/overflow
 ];
 
-// Darker shade for predefined lists
-const colorMap = {
-  pink: {
-    bg: "bg-pink-200",
-    text: "text-pink-700",
-    pill: "bg-pink-200 text-pink-800",
-    hover: "hover:bg-pink-300/60",
-  },
-  yellow: {
-    bg: "bg-yellow-200",
-    text: "text-yellow-800",
-    pill: "bg-yellow-200 text-yellow-900",
-    hover: "hover:bg-yellow-300/60",
-  },
-};
-
-// Use a visible, darker shade for general lists
-const generalColors = {
-  bg: "bg-slate-300",
-  text: "text-slate-700",
-  pill: "bg-slate-300 text-slate-700",
-  hover: "hover:bg-slate-400/60",
-};
-
-const ListSection = ({ expanded }) => {
+const ListSection = ({
+  expanded,
+  selectedList,
+  handleSetSelectedList,
+}) => {
   const listsRef = useRef(null);
+
+  const handleSelect = (listName) => {
+    if (handleSetSelectedList) {
+      handleSetSelectedList(listName);
+    }
+  };
+
+  const renderPersonal = () => {
+    const isSelected = selectedList === "Personal";
+    return (
+      <li key="Personal">
+        <button
+          type="button"
+          className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
+            ${
+              isSelected
+                ? "border-2 border-pink-400 bg-pink-100/60 shadow"
+                : "bg-pink-50/80"
+            }
+            hover:bg-pink-100/60
+            ${expanded ? "justify-between" : "justify-center"}
+          `}
+          onClick={() => handleSelect("Personal")}
+          tabIndex={0}
+          aria-label="Personal"
+          aria-current={isSelected ? "page" : undefined}
+        >
+          <div
+            className={`flex items-center ${
+              expanded ? "gap-3" : "gap-0 justify-center w-full"
+            }`}
+          >
+            <span
+              className={`inline-flex items-center justify-center rounded-full bg-pink-200 text-pink-700 ${
+                isSelected ? "ring-2 ring-pink-400" : ""
+              }`}
+            >
+              <Star size={18} strokeWidth={2} />
+            </span>
+            {expanded && (
+              <span
+                className={`text-base ml-3 ${isSelected ? "text-pink-700 font-bold" : "font-medium text-slate-800"}`}
+              >
+                Personal
+              </span>
+            )}
+          </div>
+          {expanded && (
+            <span
+              className={`bg-pink-200 text-pink-700 text-xs font-semibold px-2.5 py-0.5 rounded-full shadow ${isSelected ? "border border-current" : ""}`}
+            >
+              4
+            </span>
+          )}
+        </button>
+      </li>
+    );
+  };
+
+  const renderWork = () => {
+    const isSelected = selectedList === "Work";
+    return (
+      <li key="Work">
+        <button
+          type="button"
+          className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
+            ${
+              isSelected
+                ? "border-2 border-emerald-400 bg-emerald-100/60 shadow"
+                : "bg-emerald-50/80"
+            }
+            hover:bg-emerald-100/60
+            ${expanded ? "justify-between" : "justify-center"}
+          `}
+          onClick={() => handleSelect("Work")}
+          tabIndex={0}
+          aria-label="Work"
+          aria-current={isSelected ? "page" : undefined}
+        >
+          <div
+            className={`flex items-center ${
+              expanded ? "gap-3" : "gap-0 justify-center w-full"
+            }`}
+          >
+            <span
+              className={`inline-flex items-center justify-center rounded-full bg-emerald-200 text-emerald-800 ${
+                isSelected ? "ring-2 ring-emerald-400" : ""
+              }`}
+            >
+              <Briefcase size={18} strokeWidth={2} />
+            </span>
+            {expanded && (
+              <span
+                className={`text-base ml-3 ${isSelected ? "text-emerald-800 font-bold" : "font-medium text-slate-800"}`}
+              >
+                Work
+              </span>
+            )}
+          </div>
+          {expanded && (
+            <span
+              className={`bg-emerald-200 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full shadow ${isSelected ? "border border-current" : ""}`}
+            >
+              6
+            </span>
+          )}
+        </button>
+      </li>
+    );
+  };
+
+  const renderDynamicList = (list) => {
+    const isSelected = selectedList === list.name;
+    const Icon = list.icon || Circle;
+    return (
+      <li key={list.name}>
+        <button
+          type="button"
+          className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
+            hover:bg-slate-200/60
+            ${expanded ? "justify-between" : "justify-center"}
+            ${isSelected ? "border-2 border-blue-400 bg-blue-100/[0.60] shadow" : ""}
+          `}
+          onClick={() => handleSelect(list.name)}
+          tabIndex={0}
+          aria-label={list.name}
+          aria-current={isSelected ? "page" : undefined}
+        >
+          <div
+            className={`flex items-center ${
+              expanded ? "gap-3" : "gap-0 justify-center w-full"
+            }`}
+          >
+            <span
+              className={`inline-flex items-center justify-center rounded-full bg-slate-300 text-slate-700 ${
+                isSelected ? "ring-2 ring-blue-400" : ""
+              }`}
+            >
+              <Icon size={18} strokeWidth={2} />
+            </span>
+            {expanded && (
+              <span
+                className={`text-base ml-3 ${isSelected ? "text-blue-700 font-bold" : "font-medium text-slate-800"}`}
+              >
+                {list.name}
+              </span>
+            )}
+          </div>
+          {expanded && (
+            <span
+              className={`bg-slate-300 text-slate-700 text-xs font-semibold px-2.5 py-0.5 rounded-full shadow ${isSelected ? "border border-current" : ""}`}
+            >
+              {list.count}
+            </span>
+          )}
+        </button>
+      </li>
+    );
+  };
 
   return (
     <div className="p-5 flex-1 flex flex-col h-full min-h-0">
@@ -66,59 +194,19 @@ const ListSection = ({ expanded }) => {
           </button>
         )}
       </div>
-      {/* Render lists differently based on expanded */}
       <div
         ref={listsRef}
         className="flex-1 min-h-0 overflow-y-auto pr-1"
         style={{
-          // Show a scrollbar only if necessary, future proofing for large sets
           scrollbarWidth: "thin",
         }}
         tabIndex={0}
         aria-label="List items"
       >
         <ul className="flex flex-col gap-2">
-          {LISTS.map((list) => {
-            // Only Personal and Work keep their color, others use general
-            const color =
-              list.name === "Personal"
-                ? colorMap.pink
-                : list.name === "Work"
-                  ? colorMap.yellow
-                  : generalColors;
-            return (
-              <li
-                key={list.name}
-                className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group ${color.hover} ${
-                  expanded ? "justify-between" : "justify-center"
-                }`}
-              >
-                <div
-                  className={`flex items-center ${
-                    expanded ? "gap-3" : "gap-0 justify-center w-full"
-                  }`}
-                >
-                  <span
-                    className={`inline-flex items-center justify-center rounded-full ${color.bg} ${color.text}`}
-                  >
-                    <list.icon size={18} strokeWidth={2} />
-                  </span>
-                  {expanded && (
-                    <span className="text-base font-medium text-slate-800 ml-3">
-                      {list.name}
-                    </span>
-                  )}
-                </div>
-                {expanded && (
-                  <span
-                    className={`${color.pill} text-xs font-semibold px-2.5 py-0.5 rounded-full shadow`}
-                  >
-                    {list.count}
-                  </span>
-                )}
-              </li>
-            );
-          })}
+          {renderPersonal()}
+          {renderWork()}
+          {DYNAMIC_LISTS.map(renderDynamicList)}
         </ul>
       </div>
       {/* Hidden add new list input for future use (only show if expanded in future) */}

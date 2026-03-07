@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 
 import SideBar from "../Components/Dashboard/SideBar/SideBar";
-import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
 import MainContext from "../Components/Dashboard/MainContext/MainContext";
+import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
 
-const Layout = () => {
+const Dashboard = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedList, setSelectedList] = useState(null);
 
   const handleSidebarToggle = () => {
     setSidebarExpanded((prev) => !prev);
+  };
+
+  const handleSetSelectedTask = (task) => {
+    setSelectedTask(task);
+  };
+
+  const handleSetSelectedList = (list) => {
+    setSelectedList(list);
   };
 
   return (
@@ -22,6 +32,8 @@ const Layout = () => {
         <SideBar
           expanded={sidebarExpanded}
           onToggle={handleSidebarToggle}
+          selectedList={selectedList}
+          handleSetSelectedList={handleSetSelectedList}
         />
       </div>
 
@@ -29,17 +41,16 @@ const Layout = () => {
       <div
         className={`flex-1 transition-all duration-300 overflow-auto`}
       >
-        <MainContext />
+        <MainContext handleSetSelectedTask={handleSetSelectedTask} />
       </div>
 
-      {/* TaskDetailsPanel - ensure it's visible, fixed width */}
       <div
         className={`border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300`}
       >
-        <TaskDetailsPanel />
+        <TaskDetailsPanel selectedTask={selectedTask} />
       </div>
     </div>
   );
 };
 
-export default Layout;
+export default Dashboard;

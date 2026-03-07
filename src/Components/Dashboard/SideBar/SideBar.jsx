@@ -2,11 +2,16 @@ import React from "react";
 
 import Header from "./Header";
 import SearchBar from "./SearchBar";
-import TaskSection from "./TaskSection";
+import PresetListsSection from "./PresetListsSection .jsx";
 import ListSection from "./ListSection";
 import Footer from "./Footer";
 
-const SideBar = ({ expanded, onToggle }) => {
+const SideBar = ({
+  expanded,
+  onToggle,
+  selectedList,
+  handleSetSelectedList,
+}) => {
   return (
     <aside
       className={`flex flex-col h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg transition-all duration-300 ${
@@ -21,10 +26,18 @@ const SideBar = ({ expanded, onToggle }) => {
       <SearchBar expanded={expanded} onToggle={onToggle} />
 
       {/* Tasks Section */}
-      <TaskSection expanded={expanded} />
+      <PresetListsSection
+        expanded={expanded}
+        selectedList={selectedList}
+        handleSetSelectedList={handleSetSelectedList}
+      />
 
       {/* Lists Section */}
-      <ListSection expanded={expanded} />
+      <ListSection
+        expanded={expanded}
+        selectedList={selectedList}
+        handleSetSelectedList={handleSetSelectedList}
+      />
 
       {/* Footer Actions (show only if expanded) */}
       <Footer expanded={expanded} />
