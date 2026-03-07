@@ -13,6 +13,9 @@ function todoReducer(state, action) {
       localStorage.setItem("todos", JSON.stringify(action.payload));
       return action.payload;
     }
+    case "GET_LIST_NAMES": {
+      return state.map((list) => list.title);
+    }
     // CRUD on List
     case "ADD_LIST": {
       const newList = {
@@ -31,15 +34,6 @@ function todoReducer(state, action) {
     case "DELETE_LIST": {
       const listId = action.payload.listId;
       return state.filter((list) => list.id !== listId);
-    }
-    // Create a list matching the title against the inputText (case-insensitive), returns the matched list or null
-    case "FIND_LIST_BY_TITLE": {
-      const { inputText } = action.payload;
-      const matchedList = state.find(
-        (list) =>
-          list.title.toLowerCase() === inputText.toLowerCase(),
-      );
-      return matchedList || null;
     }
     // CRUD on Tasks
     case "ADD_TASK":
@@ -147,6 +141,68 @@ function todoReducer(state, action) {
           }),
         };
       });
+    }
+
+    // Preset lists
+    case "GET_TODAYS_TASKS": {
+      const today = new Date();
+      // Format as YYYY-MM-DD
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+
+      // Gather all tasks from all lists where deadline matches today (ignores time part)
+      const todaysTasks = [];
+      state.forEach((list) => {
+        list.tasks.forEach((task) => {
+          if (
+            task.deadline &&
+            typeof task.deadline === "string" &&
+            task.deadline.slice(0, 10) === todayStr
+          ) {
+            todaysTasks.push({ ...task, listId: list.id });
+          }
+        });
+      });
+      return todaysTasks;
+    }
+    case "GET_UPCOMING_TASKS": {
+      const now = new Date();
+
+      // Gather all tasks with a deadline in the future (strictly after now)
+      const upcomingTasks = [];
+      state.forEach((list) => {
+        list.tasks.forEach((task) => {
+          if (task.deadline && typeof task.deadline === "string") {
+            const taskDate = new Date(task.deadline);
+            if (taskDate > now) {
+              upcomingTasks.push({ ...task, listId: list.id });
+            }
+          }
+        });
+      });
+
+      // Sort by soonest deadline first
+      upcomingTasks.sort(
+        (a, b) => new Date(a.deadline) - new Date(b.deadline),
+      );
+
+      return upcomingTasks;
+    }
+    // Other Lists
+    case "GET_TASKS_FROM_LIST": {
+      // action.payload.listId is the id of the list ('personal', 'work', or a numeric id)
+      const { listId } = action.payload;
+      // Support both numeric, 'personal', and 'work' keys
+      const matchingList = state.find(
+        (list) =>
+          list.id === listId ||
+          (typeof list.id === "string" &&
+            (list.id === "personal" || list.id === "work") &&
+            list.id === listId),
+      );
+      return matchingList ? matchingList.tasks : [];
     }
     default:
       return state;
