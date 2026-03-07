@@ -17,7 +17,7 @@ const Layout = () => {
       <div
         className={`${
           sidebarExpanded ? "w-64" : "w-16"
-        } flex-shrink-0 transition-all duration-300`}
+        } flex-shrink-0 transition-all duration-400`}
       >
         <SideBar
           expanded={sidebarExpanded}
