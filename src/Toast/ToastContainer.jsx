@@ -16,7 +16,9 @@ const ToastContainer = () => {
                   ? "bg-green-600 text-white"
                   : toast.type === "deleted"
                     ? "bg-red-600 text-white"
-                    : "bg-gray-900 text-white"
+                    : toast.type === "updated"
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-900 text-white"
               }`}
             >
               {toast.message}

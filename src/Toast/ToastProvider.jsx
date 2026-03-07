@@ -21,14 +21,33 @@ const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
   // Show a success toast
-  const showSuccessToast = useCallback(() => {
+  const showSuccessToast = useCallback(
+    (message = "Task Completed") => {
+      const id = Date.now() + Math.random();
+      setToasts((prev) => [
+        ...prev,
+        {
+          id,
+          type: "success",
+          message,
+        },
+      ]);
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((toast) => toast.id !== id));
+      }, 3000); // 3-second duration
+    },
+    [],
+  );
+
+  // Show an updated toast; accepts custom message
+  const showUpdatedToast = useCallback((message = "Task Updated") => {
     const id = Date.now() + Math.random();
     setToasts((prev) => [
       ...prev,
       {
         id,
-        type: "success",
-        message: "Task Completed",
+        type: "updated",
+        message,
       },
     ]);
     setTimeout(() => {
@@ -55,6 +74,7 @@ const ToastProvider = ({ children }) => {
   const value = {
     toasts,
     showSuccessToast,
+    showUpdatedToast,
     showDeletedToast,
   };
 
