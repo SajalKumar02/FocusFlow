@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { ToastContext } from "../../Toast/ToastProvider";
 
 import { ChevronRight } from "lucide-react";
 
 const TaskList = () => {
+  const { showSuccessToast } = useContext(ToastContext);
+
+  const toggleTask = () => {
+    showSuccessToast();
+  };
+
   return (
     <div className="flex flex-col gap-2">
       {["Task 1", "Task 2", "Task 3"].map((task, idx) => (
         <div
           key={idx}
           className="flex items-center px-4 py-2 bg-white border-t border-b border-slate-200 hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
+          onClick={toggleTask}
         >
           <input
             type="checkbox"

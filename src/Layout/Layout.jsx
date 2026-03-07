@@ -4,6 +4,8 @@ import SideBar from "../Components/SideBar/SideBar";
 import TaskDetailsPanel from "../Components/TaskDetailsPanel/TaskDetailsPanel";
 import MainContext from "../Components/MainContext/MainContext";
 
+import ToastContainer from "../Toast/ToastContainer";
+
 const layout = () => {
   return (
     <div className="flex flex-row h-screen w-full overflow-hidden">
@@ -21,6 +23,8 @@ const layout = () => {
       <div className="w-1/2 border-l border-slate-200 bg-white">
         <TaskDetailsPanel />
       </div>
+
+      {/* <ToastContainer toasts={[{ message: "String" }]} /> */}
     </div>
   );
 };
