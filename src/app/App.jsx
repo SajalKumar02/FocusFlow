@@ -1,14 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 
-import Layout from "../Layout/layout";
+import Dashboard from "../Pages/Dashboard";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/sign-in" />
+        <Route path="/settings" />
       </Routes>
     </Router>
   );

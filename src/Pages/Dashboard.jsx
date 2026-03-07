@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import SideBar from "../Components/SideBar/SideBar";
-import TaskDetailsPanel from "../Components/TaskDetailsPanel/TaskDetailsPanel";
-import MainContext from "../Components/MainContext/MainContext";
+import SideBar from "../Components/Dashboard/SideBar/SideBar";
+import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
+import MainContext from "../Components/Dashboard/MainContext/MainContext";
 
 const Layout = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -27,18 +27,14 @@ const Layout = () => {
 
       {/* Main Content fills available space and ensures visibility */}
       <div
-        className={`${
-          sidebarExpanded ? "w-1/2" : "w-2/3"
-        } transition-all duration-300`}
+        className={`flex-1 transition-all duration-300 overflow-auto`}
       >
         <MainContext />
       </div>
 
       {/* TaskDetailsPanel - ensure it's visible, fixed width */}
       <div
-        className={`border-l border-slate-200 bg-white ${
-          sidebarExpanded ? "w-1/2" : "w-1/3"
-        } transition-all duration-300`}
+        className={`border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300`}
       >
         <TaskDetailsPanel />
       </div>

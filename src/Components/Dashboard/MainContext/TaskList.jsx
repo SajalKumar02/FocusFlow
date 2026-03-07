@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { ToastContext } from "../../Toast/ToastProvider";
+import { ToastContext } from "../../../Toast/ToastProvider";
 
 import { ChevronRight } from "lucide-react";
 
