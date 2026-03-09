@@ -81,7 +81,7 @@ const ListSection = ({
           className="flex-1 min-h-0 overflow-y-auto overflow-x-visible pr-2 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
           style={{ overflow: "visible" }}
         >
-          <ul className="flex flex-col gap-1 relative overflow-visible">
+          <ul className="flex flex-col gap-2 relative overflow-visible">
             {lists.map((list) => (
               <ListComponent
                 key={list.id}

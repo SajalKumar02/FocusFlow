@@ -4,14 +4,14 @@ import Header from "./Header.jsx";
 import AddNewTask from "./AddNewTask.jsx";
 import TaskList from "./TaskList.jsx";
 
-const MainContent = ({ setSelectedTask }) => {
+const MainContent = ({ handleSetSelectedTask }) => {
   return (
     <div className="w-full p-6 flex flex-col">
       <Header />
 
       <AddNewTask />
 
-      <TaskList setSelectedTask={setSelectedTask} />
+      <TaskList handleSetSelectedTask={handleSetSelectedTask} />
     </div>
   );
 };

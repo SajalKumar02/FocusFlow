@@ -1,6 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-
-import { ListContext } from "../ListState/ListProvider";
+import React, { useState } from "react";
 
 import SideBar from "../Components/Dashboard/SideBar/SideBar";
 import MainContent from "../Components/Dashboard/MainContext/MainContent";
@@ -10,22 +8,17 @@ const Dashboard = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [selectedTask, setSelectedTask] = useState(null);
   const [selectedList, setSelectedList] = useState("Upcoming");
-  const { getListFromLocalStorage } = useContext(ListContext);
-
-  useEffect(() => {
-    getListFromLocalStorage();
-  }, []);
 
   const handleSidebarToggle = () => {
     setSidebarExpanded((prev) => !prev);
   };
 
-  const handleSetSelectedTask = (task) => {
-    setSelectedTask(task);
+  const handleSetSelectedTask = (taskid) => {
+    setSelectedTask(taskid);
   };
 
-  const handleSetSelectedList = (list) => {
-    setSelectedList(list);
+  const handleSetSelectedList = (listid) => {
+    setSelectedList(listid);
   };
 
   return (
@@ -54,7 +47,10 @@ const Dashboard = () => {
       <div
         className={`border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300`}
       >
-        <TaskDetailsPanel selectedTask={selectedTask} />
+        <TaskDetailsPanel
+          selectedTask={selectedTask}
+          handleSetSelectedList={handleSetSelectedList}
+        />
       </div>
     </div>
   );

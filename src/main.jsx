@@ -6,7 +6,7 @@ import "./index.css";
 import App from "./app/App.jsx";
 
 // Todo Setup
-// import TodoProvider from "./TodoState/TodoProvider.jsx";
+import TodoProvider from "./TaskState/TaskProvider.jsx";
 // List Setup
 import ListProvider from "./ListState/ListProvider.jsx";
 // Toast Setup
@@ -19,10 +19,10 @@ createRoot(root).render(
   // <StrictMode>
   <ToastProvider>
     <ListProvider>
-      {/* <TodoProvider> */}
-      <App />
-      <ToastContainer />
-      {/* </TodoProvider> */}
+      <TodoProvider>
+        <App />
+        <ToastContainer />
+      </TodoProvider>
     </ListProvider>
   </ToastProvider>,
   // </StrictMode>,
