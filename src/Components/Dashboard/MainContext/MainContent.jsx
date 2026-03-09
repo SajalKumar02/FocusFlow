@@ -4,9 +4,9 @@ import Header from "./Header.jsx";
 import AddNewTask from "./AddNewTask.jsx";
 import TaskList from "./TaskList.jsx";
 
-const MainContext = ({ setSelectedTask }) => {
+const MainContent = ({ setSelectedTask }) => {
   return (
-    <div className="w-full mx-2 px-8 py-6 flex flex-col">
+    <div className="w-full p-6 flex flex-col">
       <Header />
 
       <AddNewTask />
@@ -16,4 +16,4 @@ const MainContext = ({ setSelectedTask }) => {
   );
 };
 
-export default MainContext;
+export default MainContent;

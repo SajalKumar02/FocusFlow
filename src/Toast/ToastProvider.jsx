@@ -20,50 +20,19 @@ const ToastContext = createContext();
 const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  // Show a success toast
-  const showSuccessToast = useCallback(
-    (message = "Task Completed") => {
-      const id = Date.now() + Math.random();
-      setToasts((prev) => [
-        ...prev,
-        {
-          id,
-          type: "success",
-          message,
-        },
-      ]);
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((toast) => toast.id !== id));
-      }, 3000); // 3-second duration
-    },
-    [],
-  );
-
-  // Show an updated toast; accepts custom message
-  const showUpdatedToast = useCallback((message = "Task Updated") => {
+  /**
+   * showToast
+   * @param {"success"|"warning"|"danger"} type - Toast color type: "success" = green, "warning" = yellow, "danger" = red
+   * @param {string} message - Message to display in the toast (will be shown exactly as passed)
+   */
+  const showToast = useCallback((type, message) => {
     const id = Date.now() + Math.random();
     setToasts((prev) => [
       ...prev,
       {
         id,
-        type: "updated",
-        message,
-      },
-    ]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    }, 3000); // 3-second duration
-  }, []);
-
-  // Show a deleted/danger toast; accepts custom message
-  const showDeletedToast = useCallback((message = "Task Deleted") => {
-    const id = Date.now() + Math.random();
-    setToasts((prev) => [
-      ...prev,
-      {
-        id,
-        type: "deleted",
-        message,
+        type, // success, warning, danger
+        message, // show exactly as passed
       },
     ]);
     setTimeout(() => {
@@ -73,9 +42,7 @@ const ToastProvider = ({ children }) => {
 
   const value = {
     toasts,
-    showSuccessToast,
-    showUpdatedToast,
-    showDeletedToast,
+    showToast,
   };
 
   return (

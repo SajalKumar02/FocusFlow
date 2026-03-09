@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+
+import { ListContext } from "../ListState/ListProvider";
 
 import SideBar from "../Components/Dashboard/SideBar/SideBar";
-import MainContext from "../Components/Dashboard/MainContext/MainContext";
+import MainContent from "../Components/Dashboard/MainContext/MainContent";
 import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
 
 const Dashboard = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [selectedTask, setSelectedTask] = useState(null);
-  const [selectedList, setSelectedList] = useState(null);
+  const [selectedList, setSelectedList] = useState("Upcoming");
+  const { getListFromLocalStorage } = useContext(ListContext);
+
+  useEffect(() => {
+    getListFromLocalStorage();
+  }, []);
 
   const handleSidebarToggle = () => {
     setSidebarExpanded((prev) => !prev);
@@ -26,7 +33,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <div
         className={`${
-          sidebarExpanded ? "w-64" : "w-16"
+          sidebarExpanded ? "w-64" : "w-20"
         } flex-shrink-0 transition-all duration-400`}
       >
         <SideBar
@@ -39,9 +46,9 @@ const Dashboard = () => {
 
       {/* Main Content fills available space and ensures visibility */}
       <div
-        className={`flex-1 transition-all duration-300 overflow-auto`}
+        className={`flex-1 min-w-0 transition-all duration-300 overflow-auto`}
       >
-        <MainContext handleSetSelectedTask={handleSetSelectedTask} />
+        <MainContent handleSetSelectedTask={handleSetSelectedTask} />
       </div>
 
       <div

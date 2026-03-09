@@ -3,7 +3,7 @@ import React from "react";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 import PresetListsSection from "./PresetListsSection .jsx";
-import ListSection from "./ListSection";
+import ListSection from "./ListSection/ListSection.jsx";
 import Footer from "./Footer";
 
 const SideBar = ({
