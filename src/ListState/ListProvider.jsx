@@ -57,16 +57,7 @@ const ListProvider = ({ children }) => {
     }
   };
 
-  // helpers for purity
-  const canAddMoreLists = lists.length < 4;
-
   const addList = (newList) => {
-    if (!canAddMoreLists) {
-      showToast("warning", "You can have a maximum of 4 lists.");
-      return;
-    }
-
-    // Find the next available unique positive integer id (lowest gap)
     const usedIds = new Set(
       lists
         .map((l) =>

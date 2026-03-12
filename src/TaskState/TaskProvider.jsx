@@ -12,6 +12,9 @@ import {
   toggleTask,
   editTask,
 } from "./TaskActions";
+
+import { PRESET_IDS } from "../utils/ListHelper";
+
 const TaskContext = createContext();
 const LOCAL_STORAGE_KEY = "tasks";
 
@@ -108,6 +111,8 @@ const TaskProvider = ({ children }) => {
         removeTask: handleRemoveTask,
         toggleTask: handleToggleTask,
         editTask: handleEditTask,
+        // List Utils
+        PRESET_IDS: PRESET_IDS,
       }}
     >
       {children}

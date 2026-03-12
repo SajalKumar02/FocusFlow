@@ -26,7 +26,7 @@ const Header = ({ expanded, onToggle }) => {
           aria-label="Collapse sidebar"
           style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
         >
-          <PanelRightClose size={18} />
+          <PanelRightOpen size={18} />
         </button>
       ) : (
         <button
@@ -35,7 +35,7 @@ const Header = ({ expanded, onToggle }) => {
           aria-label="Expand sidebar"
           style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.07)" }}
         >
-          <PanelRightOpen size={18} />
+          <PanelRightClose size={18} />
         </button>
       )}
     </div>

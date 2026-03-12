@@ -15,7 +15,9 @@ const AddNewTask = ({ selectedList }) => {
     const title = inputValue.trim();
     if (!title) return;
 
-    const listid = lists.find((list) => list.id === selectedList).id;
+    const listid = lists.find(
+      (list) => list?.id === selectedList,
+    )?.id;
 
     addTask(title, listid);
     setInputValue("");

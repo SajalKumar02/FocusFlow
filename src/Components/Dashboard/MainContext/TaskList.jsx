@@ -3,20 +3,15 @@ import { ChevronRight } from "lucide-react";
 
 import { TaskContext } from "../../../TaskState/TaskProvider";
 
-const PRESET_IDS = {
-  ALL: -1,
-  TODAY: -2,
-};
-
 const TaskList = ({ selectedList, handleSetSelectedTask }) => {
-  const { tasks, toggleTask } = useContext(TaskContext);
+  const { tasks, toggleTask, PRESET_IDS } = useContext(TaskContext);
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       if (selectedList === PRESET_IDS.ALL) return true;
       return task.list === selectedList;
     });
-  }, [tasks, selectedList]);
+  }, [tasks, selectedList, PRESET_IDS]);
 
   return (
     <div className="flex flex-col gap-2">

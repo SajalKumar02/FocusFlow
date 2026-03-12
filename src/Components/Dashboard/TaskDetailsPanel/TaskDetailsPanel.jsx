@@ -6,10 +6,7 @@ import TaskSection from "./TaskSection";
 import SubTaskSection from "./SubTaskSection";
 import ActionBar from "./ActionBar";
 
-const TaskDetailsPanel = ({
-  selectedTask,
-  handleSetSelectedList,
-}) => {
+const TaskDetailsPanel = ({ selectedTask }) => {
   const { tasks, editTask, removeTask } = useContext(TaskContext);
 
   const [taskState, setTaskState] = useState(() =>
@@ -55,7 +52,6 @@ const TaskDetailsPanel = ({
     if (taskState && removeTask) {
       removeTask(taskState.id);
       setTaskState(null);
-      handleSetSelectedList(null);
     }
   };
 

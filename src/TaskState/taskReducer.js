@@ -5,8 +5,6 @@ const initialState = [];
 function taskReducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_TASK":
-      console.log(action.payload);
-
       return [
         ...state,
         {

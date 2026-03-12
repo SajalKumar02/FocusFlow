@@ -7,6 +7,7 @@ import React, {
 import { Plus, ListIcon } from "lucide-react";
 
 import { ListContext } from "../../../../ListState/ListProvider";
+import { ToastContext } from "../../../../Toast/ToastProvider";
 
 import ListComponent from "./listComponent";
 
@@ -16,6 +17,7 @@ const ListSection = ({
   handleSetSelectedList,
 }) => {
   const { lists, addList } = useContext(ListContext);
+  const { showToast } = useContext(ToastContext);
 
   const [newListTitle, setNewListTitle] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -38,6 +40,14 @@ const ListSection = ({
   }, [expanded]);
 
   const handleAddList = () => {
+    // helpers for purity
+    const canAddMoreLists = lists.length < 4;
+
+    if (!canAddMoreLists) {
+      showToast("warning", "You can have a maximum of 4 lists.");
+      return;
+    }
+
     if (!showInput) {
       setShowInput(true);
       return;
