@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 const ListComponent = ({
   title,
@@ -14,6 +14,13 @@ const ListComponent = ({
   borderClass = "",
   ariaLabel = "",
 }) => {
+  // Prevent unnecessary re-renders or update depth loops from handler identity
+  const handleClick = useCallback(() => {
+    if (typeof onSelect === "function") {
+      onSelect();
+    }
+  }, [onSelect]);
+
   return (
     <li>
       <button
@@ -23,7 +30,7 @@ const ListComponent = ({
           ${colorClass}
           ${selected ? borderClass : ""}
         `}
-        onClick={onSelect}
+        onClick={handleClick}
         tabIndex={0}
         aria-label={ariaLabel || title}
         aria-current={selected ? "page" : undefined}

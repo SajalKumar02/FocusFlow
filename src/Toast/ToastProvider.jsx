@@ -37,7 +37,7 @@ const ToastProvider = ({ children }) => {
     ]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    }, 3000); // 3-second duration
+    }, 2000); // 2-second duration
   }, []);
 
   const value = {

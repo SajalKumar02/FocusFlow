@@ -1,11 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
-
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { Plus } from "lucide-react";
+import { ToastContext } from "../../../Toast/ToastProvider";
+
+const MAX_SUBTASKS = 6;
 
 const SubTaskSection = ({ subtasks, onChange }) => {
   const [adding, setAdding] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
+
+  const { showToast } = useContext(ToastContext);
 
   useEffect(() => {
     if (adding && inputRef.current) {
@@ -15,12 +24,32 @@ const SubTaskSection = ({ subtasks, onChange }) => {
 
   const handleAddClick = (e) => {
     e.preventDefault();
+    // Check if subtask limit reached
+    if ((subtasks ? subtasks.length : 0) >= MAX_SUBTASKS) {
+      showToast &&
+        showToast(
+          "warning",
+          `You can only add up to ${MAX_SUBTASKS} subtasks.`,
+        );
+      return;
+    }
     setAdding(true);
     setInputValue("");
   };
 
   const handleInputKeyDown = (e) => {
     if (e.key === "Enter") {
+      // Check if subtask limit reached on submit (in case a user bypassed button restriction)
+      if ((subtasks ? subtasks.length : 0) >= MAX_SUBTASKS) {
+        showToast &&
+          showToast(
+            "warning",
+            `You can only add up to ${MAX_SUBTASKS} subtasks.`,
+          );
+        setAdding(false);
+        setInputValue("");
+        return;
+      }
       // Complete: add subtask when Enter is pressed and input is non-empty
       if (onChange && inputValue.trim() !== "") {
         const newSubtask = {
@@ -36,6 +65,17 @@ const SubTaskSection = ({ subtasks, onChange }) => {
       setAdding(false);
       setInputValue("");
     }
+  };
+
+  // Toggle subtask completed state
+  const handleToggleComplete = (index) => {
+    if (!onChange) return;
+    const updatedSubtasks = subtasks.map((subtask, idx) =>
+      idx === index
+        ? { ...subtask, completed: !subtask.completed }
+        : subtask,
+    );
+    onChange(updatedSubtasks);
   };
 
   return (
@@ -63,17 +103,20 @@ const SubTaskSection = ({ subtasks, onChange }) => {
           onBlur={() => setAdding(false)}
         />
       )}
-      <ul className="flex flex-col">
+      <ul className="flex flex-col max-h-60 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
         {Array.isArray(subtasks) && subtasks.length > 0 ? (
           subtasks.map((subtask, idx) => (
-            <li key={subtask.id || idx} className="flex items-center">
+            <li
+              key={subtask.id || idx}
+              className="flex items-center min-w-0"
+            >
               <input
                 type="checkbox"
-                className="h-3 w-3 mx-2 accent-slate-300"
+                className="h-3 w-3 mx-2 accent-slate-300 cursor-pointer flex-shrink-0"
                 checked={!!subtask.completed}
-                readOnly
+                onChange={() => handleToggleComplete(idx)}
               />
-              <span className="text-slate-600 text-sm font-medium">
+              <span className="text-slate-600 text-sm font-medium truncate max-w-xs">
                 {subtask.title || `Subtask ${idx + 1}`}
               </span>
             </li>

@@ -1,9 +1,11 @@
 // Action creators that return action objects for reducers
 
-export const addTask = (title) => ({
-  type: "ADD_TASK",
-  payload: title,
-});
+export const addTask = (title, listid) => {
+  return {
+    type: "ADD_TASK",
+    payload: { title, listid },
+  };
+};
 
 export const removeTask = (id) => ({
   type: "REMOVE_TASK",

@@ -5,9 +5,16 @@ import MainContent from "../Components/Dashboard/MainContext/MainContent";
 import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
 
 const Dashboard = () => {
+  // Sidebar state
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
+  // List selection state
+  const [selectedList, setSelectedList] = useState(-1);
+  // Task selection state
   const [selectedTask, setSelectedTask] = useState(null);
-  const [selectedList, setSelectedList] = useState("Upcoming");
+
+  const handleSetSelectedList = (listid) => {
+    setSelectedList(listid);
+  };
 
   const handleSidebarToggle = () => {
     setSidebarExpanded((prev) => !prev);
@@ -15,10 +22,6 @@ const Dashboard = () => {
 
   const handleSetSelectedTask = (taskid) => {
     setSelectedTask(taskid);
-  };
-
-  const handleSetSelectedList = (listid) => {
-    setSelectedList(listid);
   };
 
   return (
@@ -41,9 +44,13 @@ const Dashboard = () => {
       <div
         className={`flex-1 min-w-0 transition-all duration-300 overflow-auto`}
       >
-        <MainContent handleSetSelectedTask={handleSetSelectedTask} />
+        <MainContent
+          selectedList={selectedList}
+          handleSetSelectedTask={handleSetSelectedTask}
+        />
       </div>
 
+      {/* TaskDetailsPanel */}
       <div
         className={`border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300`}
       >

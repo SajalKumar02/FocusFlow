@@ -17,13 +17,27 @@ const TaskSection = ({ task, onChange }) => {
   };
 
   const handleListChange = (e) => {
-    // Value will be string - try to keep consistent with list value types
-    onChange({ list: e.target.value });
+    const value = e.target.value;
+
+    if (value === "") {
+      // Don't allow selecting "No List" (disabled), so nothing to do
+      return;
+    }
+    const selected = lists.find((list) => String(list.id) === value);
+    if (selected) {
+      onChange({ list: selected.id });
+    }
   };
 
   const handleDueDateChange = (e) => {
     onChange({ dueDate: e.target.value });
   };
+
+  // Figure out the currently selected list
+  const selectedList =
+    lists && lists.length > 0
+      ? lists.find((list) => String(list.id) === String(task.list))
+      : null;
 
   return (
     <div className="flex flex-col gap-1">
@@ -51,18 +65,19 @@ const TaskSection = ({ task, onChange }) => {
           </label>
           <select
             className="border border-slate-200 rounded-md px-2 py-1 text-sm text-slate-700"
-            value={task.list || ""}
+            value={selectedList ? selectedList.id : ""}
             onChange={handleListChange}
           >
-            {lists && lists.length > 0 ? (
+            <option value="" disabled>
+              No List
+            </option>
+            {lists &&
+              lists.length > 0 &&
               lists.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.title}
                 </option>
-              ))
-            ) : (
-              <option value="">No List</option>
-            )}
+              ))}
           </select>
         </div>
         <div className="grid grid-cols-2">

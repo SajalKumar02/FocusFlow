@@ -65,7 +65,20 @@ const ListProvider = ({ children }) => {
       showToast("warning", "You can have a maximum of 4 lists.");
       return;
     }
-    const id = `${Date.now()}-${newList.title}`;
+
+    // Find the next available unique positive integer id (lowest gap)
+    const usedIds = new Set(
+      lists
+        .map((l) =>
+          typeof l.id === "number" ? l.id : parseInt(l.id, 10) || 0,
+        )
+        .filter((id) => id > 0),
+    );
+    let id = 1;
+    while (usedIds.has(id)) {
+      id += 1;
+    }
+
     setLists((prev) => [...prev, { ...newList, id }]);
     showToast("success", "List added");
   };

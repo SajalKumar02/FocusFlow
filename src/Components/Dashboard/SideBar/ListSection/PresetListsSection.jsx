@@ -1,41 +1,47 @@
 import React from "react";
-import { Users, Sun } from "lucide-react";
+import { FolderKanban, CalendarDays } from "lucide-react";
 
-const CustomLinkSection = ({
+// Numeric ids for preset lists
+const PRESET_IDS = {
+  ALL: -1,
+  TODAY: -2,
+};
+
+const PresetListsSection = ({
   expanded,
   selectedList,
   handleSetSelectedList,
 }) => {
-  // Handles the selection of a task list
-  const handleSelect = (taskLabel) => {
+  // Handles the selection of a list by listId, using the provided prop
+  const handleSelectList = (listId) => {
     if (handleSetSelectedList) {
-      handleSetSelectedList(taskLabel);
+      handleSetSelectedList(listId);
     }
   };
 
-  // First button: Upcoming
-  const isUpcomingSelected = selectedList === "Upcoming";
-  // Second button: Today
-  const isTodaySelected = selectedList === "Today";
+  // Determine which preset list is selected via prop (numeric ids)
+  const isAllSelected = selectedList === PRESET_IDS.ALL;
+  const isTodaySelected = selectedList === PRESET_IDS.TODAY;
 
   return (
     <div className="p-5 border-b border-slate-200">
       <h2 className="text-[11px] mb-3 text-slate-400 font-bold tracking-widest uppercase">
-        Tasks
+        Lists
       </h2>
       <ul className="flex flex-col gap-2">
+        {/* All */}
         <li>
           <button
             type="button"
             className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
-              ${isUpcomingSelected ? "bg-blue-100 border border-blue-400 shadow" : "bg-blue-50/60"}
-              ${"hover:bg-blue-50/60"} ${"focus:ring-blue-400"}
+              ${isAllSelected ? "bg-slate-200 border border-slate-400 shadow" : "bg-slate-50/60"}
+              hover:bg-slate-50/60 focus:ring-slate-400
               ${expanded ? "justify-between" : "justify-center"}
             `}
-            onClick={() => handleSelect("Upcoming")}
+            onClick={() => handleSelectList(PRESET_IDS.ALL)}
             tabIndex={0}
-            aria-label="Upcoming"
-            aria-current={isUpcomingSelected ? "page" : undefined}
+            aria-label="All"
+            aria-current={isAllSelected ? "page" : undefined}
           >
             <div
               className={`flex items-center ${
@@ -43,13 +49,9 @@ const CustomLinkSection = ({
               }`}
             >
               <span
-                className={`inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-600 ${
-                  isUpcomingSelected
-                    ? "ring-2 ring-offset-2 ring-inset ring-current"
-                    : ""
-                }`}
+                className={`inline-flex items-center justify-center rounded-full bg-slate-200 text-slate-700`}
               >
-                <Users
+                <FolderKanban
                   size={20}
                   className="w-5 h-5"
                   aria-hidden="true"
@@ -59,35 +61,36 @@ const CustomLinkSection = ({
               {expanded && (
                 <span
                   className={`text-base ml-3 ${
-                    isUpcomingSelected
-                      ? "text-blue-700 font-bold"
+                    isAllSelected
+                      ? "text-slate-800 font-bold"
                       : "font-medium text-slate-800"
                   }`}
                 >
-                  Upcoming
+                  All
                 </span>
               )}
             </div>
             {expanded && (
               <span
-                className={`bg-blue-100 text-xs font-semibold text-blue-600 px-2.5 py-0.5 rounded-full shadow ${
-                  isUpcomingSelected ? "border border-current" : ""
+                className={`bg-slate-100 text-xs font-semibold text-slate-700 px-2.5 py-0.5 rounded-full shadow ${
+                  isAllSelected ? "border border-current" : ""
                 }`}
               >
-                3
+                8
               </span>
             )}
           </button>
         </li>
+        {/* Today */}
         <li>
           <button
             type="button"
             className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
               ${isTodaySelected ? "bg-green-100 border border-green-400 shadow" : "bg-green-50/60"}
-              ${"hover:bg-green-50/60"} ${"focus:ring-green-400"}
+              hover:bg-green-50/60 focus:ring-green-400
               ${expanded ? "justify-between" : "justify-center"}
             `}
-            onClick={() => handleSelect("Today")}
+            onClick={() => handleSelectList(PRESET_IDS.TODAY)}
             tabIndex={0}
             aria-label="Today"
             aria-current={isTodaySelected ? "page" : undefined}
@@ -98,13 +101,9 @@ const CustomLinkSection = ({
               }`}
             >
               <span
-                className={`inline-flex items-center justify-center rounded-full bg-green-100 text-green-700 ${
-                  isTodaySelected
-                    ? "ring-2 ring-offset-2 ring-inset ring-current"
-                    : ""
-                }`}
+                className={`inline-flex items-center justify-center rounded-full bg-green-100 text-green-700`}
               >
-                <Sun
+                <CalendarDays
                   size={20}
                   className="w-5 h-5"
                   aria-hidden="true"
@@ -139,4 +138,4 @@ const CustomLinkSection = ({
   );
 };
 
-export default CustomLinkSection;
+export default PresetListsSection;

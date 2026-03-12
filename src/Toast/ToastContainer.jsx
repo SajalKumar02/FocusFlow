@@ -14,11 +14,13 @@ const ToastContainer = () => {
               className={`px-4 py-2 rounded shadow-lg min-w-[240px] max-w-xs ${
                 toast.type === "success"
                   ? "bg-green-600 text-white"
-                  : toast.type === "deleted"
-                    ? "bg-red-600 text-white"
-                    : toast.type === "updated"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-900 text-white"
+                  : toast.type === "warning"
+                    ? "bg-yellow-500 text-black"
+                    : toast.type === "deleted"
+                      ? "bg-red-600 text-white"
+                      : toast.type === "updated"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-900 text-white"
               }`}
             >
               {toast.message}

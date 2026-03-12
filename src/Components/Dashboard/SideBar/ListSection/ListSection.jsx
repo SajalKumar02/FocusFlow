@@ -21,13 +21,27 @@ const ListSection = ({
   const [showInput, setShowInput] = useState(false);
   const inputRef = useRef(null);
 
+  // Focus input only when shown and expanded - safe (doesn't trigger update depth loop)
+  useEffect(() => {
+    if (expanded && showInput && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showInput, expanded]);
+
+  // Avoid update depth cycles: Do NOT call setState for showInput within an effect
+  // that also depends on showInput. Instead, close input on collapse via expanded change alone.
+  useEffect(() => {
+    if (!expanded) {
+      setShowInput(false);
+      setNewListTitle("");
+    }
+  }, [expanded]);
+
   const handleAddList = () => {
-    // Only show the input if it's not currently visible
     if (!showInput) {
       setShowInput(true);
       return;
     }
-
     const title = newListTitle.trim();
     if (title) {
       addList({ title });
@@ -45,15 +59,6 @@ const ListSection = ({
       setNewListTitle("");
     }
   };
-
-  useEffect(() => {
-    if (showInput && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [showInput]);
-
-  // The key fix: Add "relative" to the wrapping ul to ensure ring/outline does not get clipped
-  // Also adjust padding to create a bit more room for the visual ring
 
   return (
     <div className="p-5 flex-1 flex flex-col h-full min-h-0">

@@ -24,6 +24,7 @@ const initialTasks = [
     title: "Welcome to Task Manager!",
     completed: false,
     subtasks: [],
+    list: 0,
   },
   {
     id: 2,
@@ -33,12 +34,14 @@ const initialTasks = [
       { id: 201, title: "Check the box", completed: false },
       { id: 202, title: "Add a new task", completed: false },
     ],
+    list: 0,
   },
   {
     id: 3,
     title: "Feel free to add or remove tasks",
     completed: false,
     subtasks: [],
+    list: 0,
   },
 ];
 
@@ -74,8 +77,8 @@ const TaskProvider = ({ children }) => {
     }
   }, [tasks]);
 
-  const handleAddTask = (title) => {
-    dispatch(addTask(title));
+  const handleAddTask = (title, listid) => {
+    dispatch(addTask(title, listid));
     showToast("success", "Task added!");
   };
 

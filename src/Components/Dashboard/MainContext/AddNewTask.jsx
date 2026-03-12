@@ -3,24 +3,21 @@ import React, { useContext, useState } from "react";
 import { Plus } from "lucide-react";
 
 import { TaskContext } from "../../../TaskState/TaskProvider";
+import { ListContext } from "../../../ListState/ListProvider";
 
-const AddNewTask = () => {
+const AddNewTask = ({ selectedList }) => {
   const { addTask } = useContext(TaskContext);
+  const { lists } = useContext(ListContext);
   const [inputValue, setInputValue] = useState("");
-
-  // Helper to generate a unique ID. In a real app, use something stronger!
-  const generateId = () => Date.now();
 
   const handleAddTask = (e) => {
     e.preventDefault();
     const title = inputValue.trim();
     if (!title) return;
-    addTask({
-      id: generateId(),
-      title,
-      completed: false,
-      subtasks: [],
-    });
+
+    const listid = lists.find((list) => list.id === selectedList).id;
+
+    addTask(title, listid);
     setInputValue("");
   };
 
