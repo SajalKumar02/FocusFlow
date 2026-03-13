@@ -15,14 +15,12 @@ const PresetListsSection = ({
   const { PRESET_IDS, getCountOfPresetLists } =
     useContext(TaskContext);
 
-  // Handles the selection of a list by listId, using the provided prop
   const handleSelectList = (listId) => {
     if (handleSetSelectedList) {
       handleSetSelectedList(listId);
     }
   };
 
-  // Determine which preset list is selected via prop (numeric ids)
   const isAllSelected = selectedList === PRESET_IDS.ALL;
   const isTodaySelected = selectedList === PRESET_IDS.TODAY;
   const isOverdueSelected = selectedList === PRESET_IDS.OVERDUE;

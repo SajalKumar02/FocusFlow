@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Filter, SortAsc } from "lucide-react";
 
-// Example filter and sort options
 const FILTER_OPTIONS = [
   { value: "all", label: "All Tasks" },
   { value: "completed", label: "Completed" },

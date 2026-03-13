@@ -7,7 +7,6 @@ const TaskSection = ({ task, onChange }) => {
 
   if (!task) return null;
 
-  // Handler functions for all editable fields
   const handleTitleChange = (e) => {
     onChange({ title: e.target.value });
   };
@@ -20,7 +19,6 @@ const TaskSection = ({ task, onChange }) => {
     const value = e.target.value;
 
     if (value === "") {
-      // Don't allow selecting "No List" (disabled), so nothing to do
       return;
     }
     const selected = lists.find((list) => String(list.id) === value);
@@ -33,7 +31,6 @@ const TaskSection = ({ task, onChange }) => {
     onChange({ dueDate: e.target.value });
   };
 
-  // Figure out the currently selected list
   const selectedList =
     lists && lists.length > 0
       ? lists.find((list) => String(list.id) === String(task.list))

@@ -23,7 +23,6 @@ const TaskDetailsPanel = ({ selectedTask }) => {
     setTaskState(found);
   }, [selectedTask, tasks]);
 
-  // Optionally: Display a message if no task is selected
   if (!taskState) {
     return (
       <div className="flex flex-col h-full p-8 bg-slate-50 items-center justify-center text-slate-400">
@@ -32,7 +31,6 @@ const TaskDetailsPanel = ({ selectedTask }) => {
     );
   }
 
-  // Handlers to update the state (simple example for task, subtasks)
   const handleTaskChange = (updates) => {
     setTaskState((prev) => ({ ...prev, ...updates }));
   };
@@ -55,7 +53,6 @@ const TaskDetailsPanel = ({ selectedTask }) => {
     }
   };
 
-  // ---- SOLUTION: Use key to force TaskSection remount when selectedTask changes ----
   return (
     <div className="flex flex-col h-full p-8 bg-slate-50">
       <div className="flex flex-col gap-8 flex-1">

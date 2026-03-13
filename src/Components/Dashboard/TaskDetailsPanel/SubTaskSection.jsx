@@ -39,7 +39,6 @@ const SubTaskSection = ({ subtasks, onChange }) => {
 
   const handleInputKeyDown = (e) => {
     if (e.key === "Enter") {
-      // Check if subtask limit reached on submit (in case a user bypassed button restriction)
       if ((subtasks ? subtasks.length : 0) >= MAX_SUBTASKS) {
         showToast &&
           showToast(
@@ -50,10 +49,9 @@ const SubTaskSection = ({ subtasks, onChange }) => {
         setInputValue("");
         return;
       }
-      // Complete: add subtask when Enter is pressed and input is non-empty
       if (onChange && inputValue.trim() !== "") {
         const newSubtask = {
-          id: Date.now(), // simple unique ID; in a real app, use better uuid
+          id: Date.now(),
           title: inputValue.trim(),
           completed: false,
         };

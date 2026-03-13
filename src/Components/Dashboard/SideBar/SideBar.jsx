@@ -21,8 +21,6 @@ const SideBar = ({
       {/* Header - pass expanded/onToggle for button control */}
       <Header expanded={expanded} onToggle={onToggle} />
 
-      {/* Optionally hide/show content based on expanded */}
-      {/* Search Bar (show only if expanded) */}
       <SearchBar expanded={expanded} onToggle={onToggle} />
 
       {/* Tasks Section */}

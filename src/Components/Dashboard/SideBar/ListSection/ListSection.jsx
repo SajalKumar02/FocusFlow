@@ -37,7 +37,6 @@ const ListSection = ({
   }, [expanded]);
 
   const handleAddList = () => {
-    // helpers for purity
     const canAddMoreLists = lists.length < 4;
 
     if (!canAddMoreLists) {
@@ -69,7 +68,7 @@ const ListSection = ({
 
   return (
     <div className="p-5 flex-1 flex flex-col h-full min-h-0">
-      {/* Header row: title (left) and add button (right, only when expanded) */}
+      {/* Header row */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-[11px] mb-3 text-slate-400 font-bold tracking-widest uppercase">
           Lists
@@ -87,7 +86,7 @@ const ListSection = ({
         )}
       </div>
 
-      {/* Ensure no parent clips the ListComponent rings */}
+      {/* ListComponent */}
       <div className="relative flex-1 min-h-0 flex flex-col overflow-visible">
         <div
           className="flex-1 min-h-0 overflow-y-auto overflow-x-visible pr-2 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
@@ -119,7 +118,6 @@ const ListSection = ({
         </div>
       </div>
 
-      {/* Show add new list input only when showInput is true and expanded */}
       {expanded && showInput && (
         <div className="flex mt-3 w-full max-w-full overflow-hidden">
           <input

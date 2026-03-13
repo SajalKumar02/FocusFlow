@@ -6,10 +6,9 @@ import {
 import { Link } from "react-router";
 
 const Footer = ({ expanded }) => {
-  // Handler to clear localStorage when the sign out button is clicked
   const handleSignOut = () => {
     localStorage.clear();
-    window.location.reload(); // Refresh the whole page
+    window.location.reload();
   };
 
   return (

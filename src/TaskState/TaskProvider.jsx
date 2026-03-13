@@ -76,7 +76,6 @@ const TaskProvider = ({ children }) => {
 
   const { showToast } = useContext(ToastContext);
 
-  // Update localStorage when tasks change
   useEffect(() => {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));

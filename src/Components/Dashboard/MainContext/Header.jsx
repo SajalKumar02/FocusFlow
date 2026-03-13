@@ -9,7 +9,6 @@ const Header = () => {
       day: "numeric",
       year: "numeric",
     };
-    // Example output: Friday, Mar 6, 2026
     return now.toLocaleDateString("en-US", options);
   };
 

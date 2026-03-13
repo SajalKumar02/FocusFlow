@@ -34,7 +34,6 @@ const ListProvider = ({ children }) => {
     }
   });
 
-  // Persist lists to localStorage when lists change
   useEffect(() => {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lists));
@@ -42,10 +41,8 @@ const ListProvider = ({ children }) => {
       console.error("Failed to save lists to localStorage:", e);
       showToast("danger", "Failed to save lists");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lists]); // omit showToast from deps (it's stable from context)
+  }, [lists, showToast]);
 
-  // fetch/restore lists from localStorage
   const getListFromLocalStorage = () => {
     try {
       const data = localStorage.getItem(LOCAL_STORAGE_KEY);

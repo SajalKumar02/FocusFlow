@@ -4,18 +4,15 @@ import { Search } from "lucide-react";
 const SearchBar = ({ expanded, onToggle }) => {
   const inputRef = useRef(null);
 
-  // Auto-focus the input when expanded or after triggering expand via icon
   useEffect(() => {
     if (expanded && inputRef.current) {
       inputRef.current.focus();
     }
   }, [expanded]);
 
-  // Handler for icon click in collapsed mode
   const handleIconClick = () => {
     if (typeof onToggle === "function") {
       onToggle();
-      // focusing input will be handled via useEffect after expand
     }
   };
 

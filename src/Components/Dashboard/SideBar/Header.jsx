@@ -14,7 +14,6 @@ const Header = ({ expanded, onToggle }) => {
           MyTasks
         </h1>
       ) : (
-        // Show only an icon (a todo list) when collapsed
         <span className="text-slate-800 flex justify-center w-full">
           <ListTodo size={28} />
         </span>

@@ -14,7 +14,6 @@ const ListComponent = ({
   borderClass = "",
   ariaLabel = "",
 }) => {
-  // Prevent unnecessary re-renders or update depth loops from handler identity
   const handleClick = useCallback(() => {
     if (typeof onSelect === "function") {
       onSelect();

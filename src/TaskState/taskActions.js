@@ -1,5 +1,3 @@
-// Action creators that return action objects for reducers
-
 export const addTask = (title, listid) => {
   return {
     type: "ADD_TASK",
