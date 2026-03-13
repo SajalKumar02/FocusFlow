@@ -108,15 +108,27 @@ const SubTaskSection = ({ subtasks, onChange }) => {
           subtasks.map((subtask, idx) => (
             <li
               key={subtask.id || idx}
-              className="flex items-center min-w-0"
+              className={`flex items-center min-w-0 px-2 py-1 rounded-md transition-colors ${
+                subtask.completed
+                  ? "bg-slate-100 opacity-80"
+                  : "hover:bg-blue-50"
+              }`}
             >
               <input
                 type="checkbox"
-                className="h-3 w-3 mx-2 accent-slate-300 cursor-pointer flex-shrink-0"
+                className="h-4 w-4 mx-2 accent-blue-500 border-slate-300 cursor-pointer flex-shrink-0 transition-colors"
                 checked={!!subtask.completed}
                 onChange={() => handleToggleComplete(idx)}
+                aria-label={`Mark subtask '${subtask.title || `Subtask ${idx + 1}`}' as completed`}
               />
-              <span className="text-slate-600 text-sm font-medium truncate max-w-xs">
+              <span
+                className={`text-sm font-medium truncate max-w-xs ${
+                  subtask.completed
+                    ? "text-slate-400 line-through"
+                    : "text-slate-700"
+                }`}
+                title={subtask.title || `Subtask ${idx + 1}`}
+              >
                 {subtask.title || `Subtask ${idx + 1}`}
               </span>
             </li>

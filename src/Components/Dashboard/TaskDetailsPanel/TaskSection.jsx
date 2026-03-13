@@ -59,12 +59,12 @@ const TaskSection = ({ task, onChange }) => {
       />
 
       <div className="flex flex-col gap-3 mt-2 w-75">
-        <div className="grid grid-cols-2">
-          <label className="my-auto me-4 text-slate-500 text-sm font-medium mb-1">
+        <div className="grid grid-cols-2 items-center">
+          <label className="me-4 text-slate-500 text-sm font-medium mb-1 flex items-center h-full">
             List
           </label>
           <select
-            className="border border-slate-200 rounded-md px-2 py-1 text-sm text-slate-700"
+            className="border border-slate-200 rounded-lg px-3 py-2 text-base text-slate-700 focus:outline-none focus:border-blue-500 bg-white shadow-sm transition-all"
             value={selectedList ? selectedList.id : ""}
             onChange={handleListChange}
           >
@@ -80,15 +80,16 @@ const TaskSection = ({ task, onChange }) => {
               ))}
           </select>
         </div>
-        <div className="grid grid-cols-2">
-          <label className="my-auto me-4 text-slate-500 text-sm font-medium mb-1">
+        <div className="grid grid-cols-2 items-center">
+          <label className="me-4 text-slate-500 text-sm font-medium mb-1 flex items-center h-full">
             Due Date
           </label>
           <input
             type="date"
-            className="border border-slate-200 rounded-md px-2 py-1 text-sm text-slate-700"
+            className="border border-slate-300 rounded-lg px-3 py-2 text-base text-slate-700 focus:outline-none focus:border-blue-500 bg-white shadow-sm transition-all"
             value={task.dueDate ? task.dueDate.substring(0, 10) : ""}
             onChange={handleDueDateChange}
+            min={new Date().toISOString().substring(0, 10)}
           />
         </div>
       </div>
