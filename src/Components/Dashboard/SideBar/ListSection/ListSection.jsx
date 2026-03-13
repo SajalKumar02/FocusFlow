@@ -23,15 +23,12 @@ const ListSection = ({
   const [showInput, setShowInput] = useState(false);
   const inputRef = useRef(null);
 
-  // Focus input only when shown and expanded - safe (doesn't trigger update depth loop)
   useEffect(() => {
     if (expanded && showInput && inputRef.current) {
       inputRef.current.focus();
     }
   }, [showInput, expanded]);
 
-  // Avoid update depth cycles: Do NOT call setState for showInput within an effect
-  // that also depends on showInput. Instead, close input on collapse via expanded change alone.
   useEffect(() => {
     if (!expanded) {
       setShowInput(false);

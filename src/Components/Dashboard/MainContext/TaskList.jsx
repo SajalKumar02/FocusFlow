@@ -1,26 +1,21 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { ChevronRight } from "lucide-react";
 
 import { TaskContext } from "../../../TaskState/TaskProvider";
 
 const TaskList = ({ selectedList, handleSetSelectedTask }) => {
-  const { tasks, toggleTask, PRESET_IDS } = useContext(TaskContext);
+  const { toggleTask, getFilteredTasks } = useContext(TaskContext);
 
-  const filteredTasks = useMemo(() => {
-    return tasks.filter((task) => {
-      if (selectedList === PRESET_IDS.ALL) return true;
-      return task.list === selectedList;
-    });
-  }, [tasks, selectedList, PRESET_IDS]);
+  const filteredTasks = getFilteredTasks(selectedList);
 
   return (
     <div className="flex flex-col gap-2">
-      {filteredTasks.length === 0 ? (
+      {filteredTasks?.length === 0 ? (
         <div className="text-slate-400 text-center py-6">
           No tasks yet
         </div>
       ) : (
-        filteredTasks.map((task) => (
+        filteredTasks?.map((task) => (
           <div
             key={task.id}
             className="flex items-center px-4 py-2 bg-white border-t border-b border-slate-200 hover:bg-blue-50 transition-colors duration-150 cursor-pointer"

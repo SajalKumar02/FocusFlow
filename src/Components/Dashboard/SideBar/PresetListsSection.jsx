@@ -1,18 +1,19 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import {
   FolderKanban,
   CalendarDays,
   AlertCircle,
 } from "lucide-react";
 
-import { TaskContext } from "../../../../TaskState/TaskProvider";
+import { TaskContext } from "../../../TaskState/TaskProvider";
 
 const PresetListsSection = ({
   expanded,
   selectedList,
   handleSetSelectedList,
 }) => {
-  const { tasks, PRESET_IDS } = useContext(TaskContext);
+  const { PRESET_IDS, getCountOfPresetLists } =
+    useContext(TaskContext);
 
   // Handles the selection of a list by listId, using the provided prop
   const handleSelectList = (listId) => {
@@ -79,7 +80,7 @@ const PresetListsSection = ({
                   isAllSelected ? "border border-current" : ""
                 }`}
               >
-                {8}
+                {getCountOfPresetLists(PRESET_IDS.ALL)}
               </span>
             )}
           </button>
@@ -131,7 +132,7 @@ const PresetListsSection = ({
                   isTodaySelected ? "border border-current" : ""
                 }`}
               >
-                {4}
+                {getCountOfPresetLists(PRESET_IDS.TODAY)}
               </span>
             )}
           </button>
@@ -183,7 +184,7 @@ const PresetListsSection = ({
                   isOverdueSelected ? "border border-current" : ""
                 }`}
               >
-                {1}
+                {getCountOfPresetLists(PRESET_IDS.OVERDUE)}
               </span>
             )}
           </button>

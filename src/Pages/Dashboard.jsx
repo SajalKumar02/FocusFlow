@@ -44,7 +44,7 @@ const Dashboard = () => {
         />
       </div>
 
-      {/* Main Content fills available space and ensures visibility */}
+      {/* Main Content */}
       <div
         className={`flex-1 min-w-0 transition-all duration-300 overflow-auto`}
       >

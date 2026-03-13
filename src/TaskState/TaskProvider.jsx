@@ -13,10 +13,13 @@ import {
   editTask,
 } from "./TaskActions";
 
-import { PRESET_IDS } from "../utils/ListHelper";
+import {
+  PRESET_IDS,
+  getTaskCountForList,
+  filterTasksByListId,
+} from "../utils/ListHelper";
 
 const TaskContext = createContext();
-const LOCAL_STORAGE_KEY = "tasks";
 
 // Toast Setup
 import { ToastContext } from "../Toast/ToastProvider";
@@ -62,6 +65,8 @@ const loadtasksFromLocalStorage = () => {
   }
 };
 
+const LOCAL_STORAGE_KEY = "tasks";
+
 const TaskProvider = ({ children }) => {
   const [tasks, dispatch] = useReducer(
     taskReducer,
@@ -103,6 +108,14 @@ const TaskProvider = ({ children }) => {
     showToast("success", "Task updated!");
   };
 
+  const getCountOfPresetLists = (listid) => {
+    return getTaskCountForList(listid, tasks);
+  };
+
+  const getFilteredTasks = (listid) => {
+    return filterTasksByListId(listid, tasks);
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -113,6 +126,8 @@ const TaskProvider = ({ children }) => {
         editTask: handleEditTask,
         // List Utils
         PRESET_IDS: PRESET_IDS,
+        getFilteredTasks: getFilteredTasks,
+        getCountOfPresetLists: getCountOfPresetLists,
       }}
     >
       {children}
