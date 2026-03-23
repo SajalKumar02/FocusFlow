@@ -11,7 +11,7 @@ import {
   removeTask,
   toggleTask,
   editTask,
-} from "./TaskActions";
+} from "./taskActions.js";
 
 import {
   PRESET_IDS,
