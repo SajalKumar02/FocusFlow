@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 
-import Dashboard from "../Pages/Dashboard";
-import Settings from "../Pages/Settings";
+import Dashboard from "../Pages/Dashboard/Dashboard.jsx";
+import Settings from "../Pages/Settings/Settings.jsx";
 
 const App = () => {
   return (

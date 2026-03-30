@@ -5,6 +5,8 @@ import "./index.css";
 
 import App from "./app/App.jsx";
 
+// Theme Setup
+import ThemeProvider from "./Theme/ThemeContext.jsx";
 // Todo Setup
 import TaskProvider from "./TaskState/TaskProvider.jsx";
 // List Setup
@@ -17,13 +19,15 @@ const root = document.getElementById("root");
 
 createRoot(root).render(
   // <StrictMode>
-  <ToastProvider>
-    <ListProvider>
-      <TaskProvider>
-        <App />
-        <ToastContainer />
-      </TaskProvider>
-    </ListProvider>
-  </ToastProvider>,
+  <ThemeProvider>
+    <ToastProvider>
+      <ListProvider>
+        <TaskProvider>
+          <App />
+          <ToastContainer />
+        </TaskProvider>
+      </ListProvider>
+    </ToastProvider>
+  </ThemeProvider>,
   // </StrictMode>,
 );

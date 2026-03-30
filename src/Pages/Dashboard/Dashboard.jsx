@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 
-import SideBar from "../Components/Dashboard/SideBar/SideBar";
-import MainContent from "../Components/Dashboard/MainContext/MainContent";
-import TaskDetailsPanel from "../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
+import SideBar from "../../Components/Dashboard/SideBar/SideBar";
+import MainContent from "../../Components/Dashboard/MainContext/MainContent";
+import TaskDetailsPanel from "../../Components/Dashboard/TaskDetailsPanel/TaskDetailsPanel";
 
-import { TaskContext } from "../TaskState/TaskProvider";
+import { TaskContext } from "../../TaskState/TaskProvider";
 
 const Dashboard = () => {
   const { PRESET_IDS } = useContext(TaskContext);
