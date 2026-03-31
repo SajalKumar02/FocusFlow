@@ -11,7 +11,15 @@ const ThemeProvider = ({ children }) => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
 
   useEffect(() => {
-    console.log(theme);
+    const root = document.documentElement;
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
