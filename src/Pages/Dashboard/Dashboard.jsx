@@ -8,7 +8,6 @@ import { TaskContext } from "../../TaskState/TaskProvider";
 
 const Dashboard = () => {
   const { PRESET_IDS } = useContext(TaskContext);
-
   // Sidebar state
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   // List selection state
@@ -55,11 +54,18 @@ const Dashboard = () => {
       </div>
 
       {/* TaskDetailsPanel */}
-      <div
-        className={`border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300`}
-      >
-        <TaskDetailsPanel selectedTask={selectedTask} />
-      </div>
+      {selectedTask !== null && (
+        <div
+          className="border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300 h-screen
+            xl:static
+            sm:absolute right-0"
+        >
+          <TaskDetailsPanel
+            selectedTask={selectedTask}
+            handleSetSelectedTask={handleSetSelectedTask}
+          />
+        </div>
+      )}
     </div>
   );
 };
