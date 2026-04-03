@@ -40,3 +40,10 @@ export const getTaskCountForList = (listId, tasks) => {
   const filteredList = filterTasksByListId(listId, tasks);
   return filteredList.length;
 };
+
+export const filterTaskByString = (filteringString, tasks) => {
+  const lowerFilter = filteringString.toLowerCase();
+  return tasks.filter((task) =>
+    task.title.toLowerCase().includes(lowerFilter),
+  );
+};

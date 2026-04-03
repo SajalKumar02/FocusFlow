@@ -17,6 +17,7 @@ import {
   PRESET_IDS,
   getTaskCountForList,
   filterTasksByListId,
+  filterTaskByString,
 } from "../utils/ListHelper";
 
 // Toast Setup
@@ -85,7 +86,11 @@ const TaskProvider = ({ children }) => {
     return getTaskCountForList(listid, tasks);
   };
 
-  const getFilteredTasks = (listid) => {
+  const getFilteredTasks = (listid, filteringString) => {
+    if (filteringString && filteringString.trim() !== "") {
+      const listFilteredTasks = filterTasksByListId(listid, tasks);
+      return filterTaskByString(filteringString, listFilteredTasks);
+    }
     return filterTasksByListId(listid, tasks);
   };
 
@@ -93,12 +98,12 @@ const TaskProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         tasks,
+        PRESET_IDS: PRESET_IDS,
         addTask: handleAddTask,
         removeTask: handleRemoveTask,
         toggleTask: handleToggleTask,
         editTask: handleEditTask,
         // List Utils
-        PRESET_IDS: PRESET_IDS,
         getFilteredTasks: getFilteredTasks,
         getCountOfPresetLists: getCountOfPresetLists,
       }}
@@ -109,4 +114,5 @@ const TaskProvider = ({ children }) => {
 };
 
 export { TaskContext };
+
 export default TaskProvider;

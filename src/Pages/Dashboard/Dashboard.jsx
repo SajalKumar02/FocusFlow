@@ -15,6 +15,8 @@ const Dashboard = () => {
   // Task selection state
   const [selectedTask, setSelectedTask] = useState(null);
 
+  const [filteringString, setFilteringString] = useState("");
+
   const handleSetSelectedList = (listid) => {
     setSelectedList(listid);
   };
@@ -25,6 +27,10 @@ const Dashboard = () => {
 
   const handleSetSelectedTask = (taskid) => {
     setSelectedTask(taskid);
+  };
+
+  const handleSetFilteringString = (fileringString) => {
+    setFilteringString(fileringString);
   };
 
   return (
@@ -40,6 +46,8 @@ const Dashboard = () => {
           onToggle={handleSidebarToggle}
           selectedList={selectedList}
           handleSetSelectedList={handleSetSelectedList}
+          fileringString={filteringString}
+          handleSetFilteringString={handleSetFilteringString}
         />
       </div>
 
@@ -50,6 +58,7 @@ const Dashboard = () => {
         <MainContent
           selectedList={selectedList}
           handleSetSelectedTask={handleSetSelectedTask}
+          filteringString={filteringString}
         />
       </div>
 

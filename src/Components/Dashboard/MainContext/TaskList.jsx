@@ -3,10 +3,17 @@ import { ChevronRight } from "lucide-react";
 
 import { TaskContext } from "../../../TaskState/TaskProvider";
 
-const TaskList = ({ selectedList, handleSetSelectedTask }) => {
+const TaskList = ({
+  selectedList,
+  handleSetSelectedTask,
+  filteringString,
+}) => {
   const { toggleTask, getFilteredTasks } = useContext(TaskContext);
 
-  const filteredTasks = getFilteredTasks(selectedList);
+  const filteredTasks = getFilteredTasks(
+    selectedList,
+    filteringString,
+  );
 
   return (
     <div className="flex flex-col gap-2">
