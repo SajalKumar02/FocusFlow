@@ -17,39 +17,16 @@ import {
   PRESET_IDS,
   getTaskCountForList,
   filterTasksByListId,
+  filterTaskByString,
 } from "../utils/ListHelper";
-
-const TaskContext = createContext();
 
 // Toast Setup
 import { ToastContext } from "../Toast/ToastProvider";
 
-const initialTasks = [
-  {
-    id: 1,
-    title: "Welcome to Task Manager!",
-    completed: false,
-    subtasks: [],
-    list: 0,
-  },
-  {
-    id: 2,
-    title: "Try completing this task",
-    completed: false,
-    subtasks: [
-      { id: 201, title: "Check the box", completed: false },
-      { id: 202, title: "Add a new task", completed: false },
-    ],
-    list: 0,
-  },
-  {
-    id: 3,
-    title: "Feel free to add or remove tasks",
-    completed: false,
-    subtasks: [],
-    list: 0,
-  },
-];
+const LOCAL_STORAGE_KEY = "tasks";
+
+const TaskContext = createContext();
+import initialTasks from "./InitialTask.js";
 
 const loadtasksFromLocalStorage = () => {
   try {
@@ -64,8 +41,6 @@ const loadtasksFromLocalStorage = () => {
     return initialTasks;
   }
 };
-
-const LOCAL_STORAGE_KEY = "tasks";
 
 const TaskProvider = ({ children }) => {
   const [tasks, dispatch] = useReducer(
@@ -111,7 +86,11 @@ const TaskProvider = ({ children }) => {
     return getTaskCountForList(listid, tasks);
   };
 
-  const getFilteredTasks = (listid) => {
+  const getFilteredTasks = (listid, filteringString) => {
+    if (filteringString && filteringString.trim() !== "") {
+      const listFilteredTasks = filterTasksByListId(listid, tasks);
+      return filterTaskByString(filteringString, listFilteredTasks);
+    }
     return filterTasksByListId(listid, tasks);
   };
 
@@ -119,12 +98,12 @@ const TaskProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         tasks,
+        PRESET_IDS: PRESET_IDS,
         addTask: handleAddTask,
         removeTask: handleRemoveTask,
         toggleTask: handleToggleTask,
         editTask: handleEditTask,
         // List Utils
-        PRESET_IDS: PRESET_IDS,
         getFilteredTasks: getFilteredTasks,
         getCountOfPresetLists: getCountOfPresetLists,
       }}
@@ -135,4 +114,5 @@ const TaskProvider = ({ children }) => {
 };
 
 export { TaskContext };
+
 export default TaskProvider;

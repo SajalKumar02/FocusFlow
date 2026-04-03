@@ -6,7 +6,12 @@ import TaskSection from "./TaskSection";
 import SubTaskSection from "./SubTaskSection";
 import ActionBar from "./ActionBar";
 
-const TaskDetailsPanel = ({ selectedTask }) => {
+import { X } from "lucide-react";
+
+const TaskDetailsPanel = ({
+  selectedTask,
+  handleSetSelectedTask,
+}) => {
   const { tasks, editTask, removeTask } = useContext(TaskContext);
 
   const [taskState, setTaskState] = useState(() =>
@@ -25,8 +30,18 @@ const TaskDetailsPanel = ({ selectedTask }) => {
 
   if (!taskState) {
     return (
-      <div className="flex flex-col h-full p-8 bg-slate-50 items-center justify-center text-slate-400">
-        <span className="text-lg">No task selected</span>
+      <div className="">
+        <button
+          className="m-2 hover:text-slate-600 transition-colors text-lg"
+          onClick={() => handleSetSelectedTask(null)}
+          aria-label="Close task details"
+          type="button"
+        >
+          <X size={24} />
+        </button>
+        <div className="flex flex-col h-full p-8 items-center justify-center">
+          <span className="text-lg">No task selected</span>
+        </div>
       </div>
     );
   }
@@ -56,6 +71,15 @@ const TaskDetailsPanel = ({ selectedTask }) => {
   return (
     <div className="flex flex-col h-full p-8 bg-slate-50">
       <div className="flex flex-col gap-8 flex-1">
+        <button
+          className="text-slate-400 hover:text-slate-600 transition-colors text-lg"
+          onClick={() => handleSetSelectedTask(null)}
+          aria-label="Close task details"
+          type="button"
+        >
+          <X size={24} />
+        </button>
+
         {/* Task Info */}
         <TaskSection
           key={taskState?.id}

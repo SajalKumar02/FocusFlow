@@ -1,7 +1,13 @@
 import React, { useRef, useEffect } from "react";
+
 import { Search } from "lucide-react";
 
-const SearchBar = ({ expanded, onToggle }) => {
+const SearchBar = ({
+  expanded,
+  onToggle,
+  filteringString,
+  handleSetFilteringString,
+}) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -24,6 +30,8 @@ const SearchBar = ({ expanded, onToggle }) => {
             ref={inputRef}
             className="bg-transparent outline-none flex-1 text-base placeholder-slate-400 text-slate-800"
             type="text"
+            value={filteringString}
+            onChange={(e) => handleSetFilteringString(e.target.value)}
             placeholder="Search tasks..."
           />
         </div>

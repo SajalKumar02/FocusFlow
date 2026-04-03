@@ -1,7 +1,8 @@
 import React from "react";
+
 import { Clock } from "lucide-react";
 
-const Settings = () => {
+const UnderDevelopmentStage = () => {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-xl max-w-md mx-auto mt-10 p-8">
       <h1 className="font-montserrat text-3xl text-gray-800 mb-2 tracking-wide">
@@ -22,4 +23,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default UnderDevelopmentStage;

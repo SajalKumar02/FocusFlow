@@ -11,6 +11,8 @@ const SideBar = ({
   onToggle,
   selectedList,
   handleSetSelectedList,
+  filteringString,
+  handleSetFilteringString,
 }) => {
   return (
     <aside
@@ -21,7 +23,13 @@ const SideBar = ({
       {/* Header - pass expanded/onToggle for button control */}
       <Header expanded={expanded} onToggle={onToggle} />
 
-      <SearchBar expanded={expanded} onToggle={onToggle} />
+      <SearchBar
+        selectedList={selectedList}
+        expanded={expanded}
+        onToggle={onToggle}
+        filteringString={filteringString}
+        handleSetFilteringString={handleSetFilteringString}
+      />
 
       {/* Tasks Section */}
       <PresetListsSection
