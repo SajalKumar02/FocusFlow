@@ -8,5 +8,5 @@ export default defineConfig({
   server: {
     allowedHosts: ["all"],
   },
-  base: "/React-Context_Reducer_TODO/",
+  // base: "/React-Context_Reducer_TODO/",
 });

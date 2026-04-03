@@ -1,0 +1,39 @@
+---
+description: Light/dark theme colors and typography for FocusFlow UI
+globs: src/**/*.{jsx,js,css}
+alwaysApply: false
+---
+
+# Theme palette (Tailwind + `.dark`)
+
+The app uses Tailwind with `@custom-variant dark (&:where(.dark, .dark *));` in `src/index.css`. Scope dark styles with `dark:` on the root `.dark` element (or `class="dark"` on `html`/`body`).
+
+**Use only shades derived from the hex values below**—no unrelated accent colors.
+
+## Light theme (default)
+
+| Role                                      | Hex       | Notes                                          |
+| ----------------------------------------- | --------- | ---------------------------------------------- |
+| Page / surface background                 | `#e5e7eb` | Primary canvas                                 |
+| Heading text (page title, section titles) | `#E0E0E0` | Bold headings                                  |
+| Body / secondary / labels                 | `#E0E0E0` | Descriptions, monospace labels, ancillary copy |
+
+## Dark theme (`dark:`)
+
+| Role                      | Hex                             | Notes                                                                                                                                                                                                                   |
+| ------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page / surface background | `#171d26`                       | Primary canvas — lighter, subtler than before; less heavy than `#101828` for a more open feel                                                                                                                           |
+| Heading text              | **Gradient** based on `#eeb1fc` | For a lighter look, start with `from-[#eeb1fc]` and blend to `to-[#f5dafc]` or a white-tinted variant of purple for highlight, keeping it _within the same family_ (not a new hue). Use reduced intensity for subtlety. |
+| Body / secondary / labels | `#e2e6ee`                       | Lighter/softer than before for higher contrast and airier mood (used instead of pure white for gentleness)                                                                                                              |
+
+## Implementation hints
+
+- Prefer **CSS variables** in `index.css` for backgrounds and text roles if the same tokens repeat, then reference them in components; otherwise Tailwind arbitrary colors like `bg-[#e5e7eb] dark:bg-[#171d26]` are acceptable.
+- **Headings:** light = solid `#202b3b`; dark = `bg-gradient-to-*` + `bg-clip-text text-transparent` with a gentle purple gradient (see above).
+- **Separators / borders:** use transparentized or mixed tints of palette hues—e.g. a translucent purple line under a header (`#eeb1fc` at low opacity over `#171d26`); avoid harsh high-contrast borders.
+- **Monospace labels** (e.g. “Toggle Theme”): inherit body/label text color for the theme, only changing font family.
+
+## Do not
+
+- Introduce colors outside this system (e.g. default Tailwind `blue-500` for primary UI) unless mapping to a documented shade above.
+- Store theme colors only in scattered magic strings long-term—centralize in `index.css` or a small theme map when adding new screens.

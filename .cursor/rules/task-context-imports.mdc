@@ -1,0 +1,19 @@
+---
+description: Correct TaskContext import from TaskProvider
+globs: src/**/*.{jsx,js}
+alwaysApply: false
+---
+
+# TaskContext imports
+
+`TaskProvider.jsx` exports **`TaskContext`** as a **named** export and **`TaskProvider`** as the **default** export.
+
+```javascript
+// BAD — default is the Provider component, not the context; useContext(...) is undefined
+import TaskContext from "../../TaskState/TaskProvider.jsx";
+
+// GOOD — same object passed to <TaskContext.Provider>
+import { TaskContext } from "../../TaskState/TaskProvider.jsx";
+```
+
+Always destructure from `useContext(TaskContext)` after using the named import.

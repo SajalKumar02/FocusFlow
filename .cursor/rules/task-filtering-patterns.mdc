@@ -1,0 +1,12 @@
+---
+description: Task list vs search filtering; keep tasks as source of truth
+globs: src/{TaskState,utils,Components}/**/*.{jsx,js}
+alwaysApply: false
+---
+
+# Task data and filtering
+
+- **`tasks` in `TaskProvider`** (reducer state) is the full persisted list. Do not replace or mutate it for search, list tabs, or other UI filters.
+- **Derive** what to show: compose helpers (e.g. `filterTasksByListId` then a search helper) and pass results to the UI.
+- Prefer **pure helpers** in `src/utils/ListHelper.js` (or adjacent utils) and thin wrappers in `TaskProvider` if the app needs a single `getFilteredTasks`-style API.
+- **Search query** is UI state: lift in the dashboard (or expose `searchQuery` / setter via context), not part of the task reducer.
