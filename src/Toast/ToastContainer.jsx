@@ -5,7 +5,7 @@ const ToastContainer = () => {
   const { toasts } = useContext(ToastContext);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
       {toasts.length === 0
         ? null
         : toasts.map((toast, idx) => (
