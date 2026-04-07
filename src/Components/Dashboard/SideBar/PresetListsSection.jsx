@@ -26,7 +26,7 @@ const PresetListsSection = ({
   const isOverdueSelected = selectedList === PRESET_IDS.OVERDUE;
 
   return (
-    <div className="p-5 border-b border-slate-200">
+    <div className="py-5 px-3 border-b border-slate-200">
       <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
         Tasks
       </h2>
@@ -35,9 +35,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
-              ${isAllSelected ? "bg-slate-200 border border-slate-400 shadow" : "bg-slate-50/60"}
-              hover:bg-slate-50/60 focus:ring-slate-400
+            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+              ${
+                isAllSelected
+                  ? "bg-gradient-to-r from-slate-300 to-slate-200 border border-slate-500 ring-2 ring-slate-300"
+                  : "bg-slate-100/80 border border-slate-300"
+              }
+              hover:bg-slate-200 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.ALL)}
@@ -87,9 +91,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
-              ${isTodaySelected ? "bg-green-100 border border-green-400 shadow" : "bg-green-50/60"}
-              hover:bg-green-50/60 focus:ring-green-400
+            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+              ${
+                isTodaySelected
+                  ? "bg-gradient-to-r from-green-200 to-green-100 border border-green-500 ring-2 ring-green-300"
+                  : "bg-green-100/80 border border-green-300"
+              }
+              hover:bg-green-200 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.TODAY)}
@@ -139,9 +147,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
-              ${isOverdueSelected ? "bg-red-100 border border-red-400 shadow" : "bg-red-50/60"}
-              hover:bg-red-50/60 focus:ring-red-400
+            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+              ${
+                isOverdueSelected
+                  ? "bg-gradient-to-r from-red-200 to-red-100 border border-red-400 ring-2 ring-red-200"
+                  : "bg-red-50/80 border border-red-200"
+              }
+              hover:bg-red-100 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-400
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.OVERDUE)}

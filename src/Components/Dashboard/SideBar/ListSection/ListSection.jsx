@@ -67,7 +67,7 @@ const ListSection = ({
   };
 
   return (
-    <div className="p-5 flex-1 flex flex-col h-full min-h-0">
+    <div className="py-5 px-3 flex-1 flex flex-col h-full min-h-0">
       {/* Header row */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
@@ -88,11 +88,8 @@ const ListSection = ({
 
       {/* ListComponent */}
       <div className="relative flex-1 min-h-0 flex flex-col overflow-visible">
-        <div
-          className="flex-1 min-h-0 overflow-y-auto overflow-x-visible pr-2 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
-          style={{ overflow: "visible" }}
-        >
-          <ul className="flex flex-col gap-2 relative overflow-visible">
+        <div className="flex-1 min-h-0 overflow-y-visible overflow-x-visible scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
+          <ul className="flex flex-col gap-2 relative overflow-visible w-full">
             {lists.map((list) => (
               <ListComponent
                 key={list.id}
@@ -103,13 +100,8 @@ const ListSection = ({
                 onSelect={() => handleSetSelectedList(list.id)}
                 colorClass={
                   selectedList === list.id
-                    ? "bg-blue-50 text-blue-600"
-                    : "hover:bg-slate-100 text-slate-700"
-                }
-                borderClass={
-                  selectedList === list.id
-                    ? "ring-2 ring-blue-400 z-10 relative"
-                    : ""
+                    ? "bg-gradient-to-r from-slate-300 to-slate-200 text-slate-900 border border-slate-500 ring-2 ring-slate-300"
+                    : "bg-slate-200/80 text-slate-800 border border-slate-400"
                 }
                 ariaLabel={list.title}
               />
