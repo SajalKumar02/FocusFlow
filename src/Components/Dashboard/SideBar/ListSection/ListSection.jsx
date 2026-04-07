@@ -70,7 +70,7 @@ const ListSection = ({
     <div className="p-5 flex-1 flex flex-col h-full min-h-0">
       {/* Header row */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-[11px] mb-3 text-slate-400 font-bold tracking-widest uppercase">
+        <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
           Lists
         </h2>
         {expanded && (

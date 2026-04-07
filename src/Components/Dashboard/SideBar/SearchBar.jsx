@@ -23,9 +23,9 @@ const SearchBar = ({
   };
 
   return (
-    <div className="p-5 border-b border-slate-200">
+    <div className="p-5">
       {expanded ? (
-        <div className="flex items-center bg-slate-100 rounded-xl px-4 py-2.5 shadow-inner focus-within:ring-2 focus-within:ring-blue-400">
+        <div className="flex items-center gap-2 bg-white/70 backdrop-blur rounded-2xl px-5 py-3 shadow-lg border border-gray-200 focus-within:ring-2 focus-within:ring-accent transition-all duration-200">
           <input
             ref={inputRef}
             className="bg-transparent outline-none flex-1 text-base placeholder-slate-400 text-slate-800"

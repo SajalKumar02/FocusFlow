@@ -34,12 +34,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-row h-screen w-full overflow-hidden">
+    <div className="h-screen grid grid-cols-[auto_1fr] bg-primary">
       {/* Sidebar */}
-      <div
-        className={`${
-          sidebarExpanded ? "w-64" : "w-20"
-        } flex-shrink-0 transition-all duration-400`}
+      <aside
+        className={`
+          border-r border-slate-200 shadow-xl backdrop-blur-lg 
+          transition-all duration-300 
+          ${sidebarExpanded ? "w-64" : "w-20"}`}
       >
         <SideBar
           expanded={sidebarExpanded}
@@ -49,12 +50,10 @@ const Dashboard = () => {
           fileringString={filteringString}
           handleSetFilteringString={handleSetFilteringString}
         />
-      </div>
+      </aside>
 
       {/* Main Content */}
-      <div
-        className={`flex-1 min-w-0 transition-all duration-300 overflow-auto`}
-      >
+      <div className="">
         <MainContent
           selectedList={selectedList}
           handleSetSelectedTask={handleSetSelectedTask}
@@ -64,11 +63,7 @@ const Dashboard = () => {
 
       {/* TaskDetailsPanel */}
       {selectedTask !== null && (
-        <div
-          className="border-l border-slate-200 bg-white w-[400px] flex-shrink-0 transition-all duration-300 h-screen
-            xl:static
-            sm:absolute right-0"
-        >
+        <div className="">
           <TaskDetailsPanel
             selectedTask={selectedTask}
             handleSetSelectedTask={handleSetSelectedTask}

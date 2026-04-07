@@ -27,7 +27,7 @@ const PresetListsSection = ({
 
   return (
     <div className="p-5 border-b border-slate-200">
-      <h2 className="text-[11px] mb-3 text-slate-400 font-bold tracking-widest uppercase">
+      <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
         Tasks
       </h2>
       <ul className="flex flex-col gap-2">

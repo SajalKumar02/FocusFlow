@@ -15,11 +15,7 @@ const SideBar = ({
   handleSetFilteringString,
 }) => {
   return (
-    <aside
-      className={`flex flex-col h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg transition-all duration-300 ${
-        expanded ? "w-64" : "w-20"
-      }`}
-    >
+    <div className="h-full flex flex-col">
       {/* Header - pass expanded/onToggle for button control */}
       <Header expanded={expanded} onToggle={onToggle} />
 
@@ -47,7 +43,7 @@ const SideBar = ({
 
       {/* Footer Actions (show only if expanded) */}
       <Footer expanded={expanded} />
-    </aside>
+    </div>
   );
 };
 
