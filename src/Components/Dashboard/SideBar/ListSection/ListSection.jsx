@@ -70,12 +70,12 @@ const ListSection = ({
     <div className="py-5 px-3 flex-1 flex flex-col h-full min-h-0">
       {/* Header row */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
+        <h2 className="text-xs mb-3 text-slate-500 font-bold tracking-widest uppercase">
           Lists
         </h2>
         {expanded && (
           <button
-            className="flex items-center justify-center w-7 h-7 bg-slate-100 text-blue-500 rounded-full transition-all hover:bg-blue-50 active:bg-blue-200"
+            className="flex items-center justify-center w-7 h-7 bg-indigo-50 text-indigo-600 rounded-full transition-colors hover:bg-indigo-100 active:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
             type="button"
             title="Add List"
             onClick={handleAddList}
@@ -100,9 +100,10 @@ const ListSection = ({
                 onSelect={() => handleSetSelectedList(list.id)}
                 colorClass={
                   selectedList === list.id
-                    ? "bg-gradient-to-r from-slate-300 to-slate-200 text-slate-900 border border-slate-500 ring-2 ring-slate-300"
-                    : "bg-slate-200/80 text-slate-800 border border-slate-400"
+                    ? "bg-indigo-50 text-slate-900 border-indigo-200 shadow-sm border border-l-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                    : "bg-transparent text-slate-700 hover:bg-slate-50 border border-transparent hover:border-slate-200 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
                 }
+                borderClass={selectedList === list.id ? "border-l-indigo-600" : ""}
                 ariaLabel={list.title}
               />
             ))}
@@ -118,7 +119,7 @@ const ListSection = ({
             value={newListTitle}
             onChange={(e) => setNewListTitle(e.target.value)}
             onKeyDown={handleInputKeyDown}
-            className="flex-1 min-w-0 py-1.5 px-3 text-sm rounded-xl border border-slate-300 transition-all focus:border-blue-400 focus:ring-0 focus:outline-none"
+            className="flex-1 min-w-0 py-1.5 px-3 text-sm rounded-xl border border-slate-300 text-slate-900 placeholder:text-slate-400 transition-colors focus:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus:outline-none"
             placeholder="Add new list..."
             aria-label="Add new list"
           />

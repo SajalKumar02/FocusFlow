@@ -27,7 +27,7 @@ const MainContent = ({
         handleSort={handleSort}
       /> */}
 
-      <section className="flex flex-col gap-4 mb-6 py-3 px-5 rounded-2xl bg-white/75 shadow-xl border border-slate-200 backdrop-blur-md">
+      <section className="flex flex-col gap-4 mb-6 py-4 px-5 rounded-2xl bg-white shadow-md border border-slate-200">
         <AddNewTask selectedList={selectedList} />
 
         <TaskList

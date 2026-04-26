@@ -27,7 +27,7 @@ const PresetListsSection = ({
 
   return (
     <div className="py-5 px-3 border-b border-slate-200">
-      <h2 className="text-xs mb-3 text-slate-400 font-bold tracking-widest uppercase">
+      <h2 className="text-xs mb-3 text-slate-500 font-bold tracking-widest uppercase">
         Tasks
       </h2>
       <ul className="flex flex-col gap-2">
@@ -35,13 +35,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+            className={`flex items-center py-2.5 px-3 rounded-xl transition-colors duration-150 cursor-pointer group w-full outline-none relative border border-transparent border-l-4
               ${
                 isAllSelected
-                  ? "bg-gradient-to-r from-slate-300 to-slate-200 border border-slate-500 ring-2 ring-slate-300"
-                  : "bg-slate-100/80 border border-slate-300"
+                  ? "bg-indigo-50 border border-indigo-200 border-l-indigo-600 shadow-sm"
+                  : "bg-transparent hover:bg-slate-50 hover:border-slate-200"
               }
-              hover:bg-slate-200 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500
+              focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.ALL)}
@@ -55,7 +55,11 @@ const PresetListsSection = ({
               }`}
             >
               <span
-                className={`inline-flex items-center justify-center rounded-full bg-slate-200 text-slate-700`}
+                className={`inline-flex items-center justify-center rounded-full ${
+                  isAllSelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-500"
+                }`}
               >
                 <FolderKanban
                   size={20}
@@ -68,8 +72,8 @@ const PresetListsSection = ({
                 <span
                   className={`text-base ml-3 ${
                     isAllSelected
-                      ? "text-slate-800 font-bold"
-                      : "font-medium text-slate-800"
+                      ? "text-slate-900 font-bold"
+                      : "font-medium text-slate-600"
                   }`}
                 >
                   All
@@ -78,8 +82,12 @@ const PresetListsSection = ({
             </div>
             {expanded && (
               <span
-                className={`bg-slate-100 text-xs font-semibold text-slate-700 px-2.5 py-0.5 rounded-full shadow ${
+                className={`text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm ${
                   isAllSelected ? "border border-current" : ""
+                } ${
+                  isAllSelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-600"
                 }`}
               >
                 {getCountOfPresetLists(PRESET_IDS.ALL)}
@@ -91,13 +99,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+            className={`flex items-center py-2.5 px-3 rounded-xl transition-colors duration-150 cursor-pointer group w-full outline-none relative border border-transparent border-l-4
               ${
                 isTodaySelected
-                  ? "bg-gradient-to-r from-green-200 to-green-100 border border-green-500 ring-2 ring-green-300"
-                  : "bg-green-100/80 border border-green-300"
+                  ? "bg-indigo-50 border border-indigo-200 border-l-indigo-600 shadow-sm"
+                  : "bg-transparent hover:bg-slate-50 hover:border-slate-200"
               }
-              hover:bg-green-200 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500
+              focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.TODAY)}
@@ -111,7 +119,11 @@ const PresetListsSection = ({
               }`}
             >
               <span
-                className={`inline-flex items-center justify-center rounded-full bg-green-100 text-green-700`}
+                className={`inline-flex items-center justify-center rounded-full ${
+                  isTodaySelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-500"
+                }`}
               >
                 <CalendarDays
                   size={20}
@@ -124,8 +136,8 @@ const PresetListsSection = ({
                 <span
                   className={`text-base ml-3 ${
                     isTodaySelected
-                      ? "text-green-800 font-bold"
-                      : "font-medium text-slate-800"
+                      ? "text-slate-900 font-bold"
+                      : "font-medium text-slate-600"
                   }`}
                 >
                   Today
@@ -134,8 +146,12 @@ const PresetListsSection = ({
             </div>
             {expanded && (
               <span
-                className={`bg-green-100 text-xs font-semibold text-green-700 px-2.5 py-0.5 rounded-full shadow ${
+                className={`text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm ${
                   isTodaySelected ? "border border-current" : ""
+                } ${
+                  isTodaySelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-600"
                 }`}
               >
                 {getCountOfPresetLists(PRESET_IDS.TODAY)}
@@ -147,13 +163,13 @@ const PresetListsSection = ({
         <li>
           <button
             type="button"
-            className={`flex items-center py-2.5 px-3 rounded-lg shadow-sm transition-all cursor-pointer group w-full outline-none
+            className={`flex items-center py-2.5 px-3 rounded-xl transition-colors duration-150 cursor-pointer group w-full outline-none relative border border-transparent border-l-4
               ${
                 isOverdueSelected
-                  ? "bg-gradient-to-r from-red-200 to-red-100 border border-red-400 ring-2 ring-red-200"
-                  : "bg-red-50/80 border border-red-200"
+                  ? "bg-indigo-50 border border-indigo-200 border-l-indigo-600 shadow-sm"
+                  : "bg-transparent hover:bg-slate-50 hover:border-slate-200"
               }
-              hover:bg-red-100 hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-400
+              focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500
               ${expanded ? "justify-between" : "justify-center"}
             `}
             onClick={() => handleSelectList(PRESET_IDS.OVERDUE)}
@@ -167,7 +183,11 @@ const PresetListsSection = ({
               }`}
             >
               <span
-                className={`inline-flex items-center justify-center rounded-full bg-red-100 text-red-700`}
+                className={`inline-flex items-center justify-center rounded-full ${
+                  isOverdueSelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-500"
+                }`}
               >
                 <AlertCircle
                   size={20}
@@ -180,8 +200,8 @@ const PresetListsSection = ({
                 <span
                   className={`text-base ml-3 ${
                     isOverdueSelected
-                      ? "text-red-800 font-bold"
-                      : "font-medium text-slate-800"
+                      ? "text-slate-900 font-bold"
+                      : "font-medium text-slate-600"
                   }`}
                 >
                   Overdue
@@ -190,8 +210,12 @@ const PresetListsSection = ({
             </div>
             {expanded && (
               <span
-                className={`bg-red-100 text-xs font-semibold text-red-700 px-2.5 py-0.5 rounded-full shadow ${
+                className={`text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm ${
                   isOverdueSelected ? "border border-current" : ""
+                } ${
+                  isOverdueSelected
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-slate-100 text-slate-600"
                 }`}
               >
                 {getCountOfPresetLists(PRESET_IDS.OVERDUE)}

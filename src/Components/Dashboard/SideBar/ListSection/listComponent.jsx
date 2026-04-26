@@ -24,7 +24,7 @@ const ListComponent = ({
     <li>
       <button
         type="button"
-        className={`flex items-center py-2.5 px-3 rounded-xl transition-all cursor-pointer group w-full outline-none
+        className={`flex items-center py-2.5 px-3 rounded-xl transition-colors duration-150 cursor-pointer group w-full outline-none relative border border-transparent border-l-4
           ${expanded ? "justify-between" : "justify-center"}
           ${colorClass}
           ${selected ? borderClass : ""}
@@ -47,7 +47,7 @@ const ListComponent = ({
           {expanded && (
             <span
               className={`text-base ml-3 ${
-                selected ? "font-bold" : "font-medium text-slate-800"
+                selected ? "font-bold text-slate-900" : "font-medium text-slate-600"
               }`}
             >
               {title}
@@ -56,7 +56,7 @@ const ListComponent = ({
         </div>
         {expanded && count !== undefined && (
           <span
-            className={`text-xs font-semibold px-2.5 py-0.5 rounded-full shadow ${countBgClass} ${countTextClass} ${
+            className={`text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm ${countBgClass} ${countTextClass} ${
               selected ? "border border-current" : ""
             }`}
           >
