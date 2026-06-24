@@ -13,7 +13,7 @@ Access the deployed app here: [https://focusflow34.netlify.app/](https://focusfl
 ## ✨ Features
 
 - **Task Management:** Add, complete, edit, and delete tasks.
-- **Details Panel:** Modify task titles, descriptions, lists, and due dates.
+- **Details Page:** Modify task titles, descriptions, lists, and due dates.
 - **Subtasks:** Add and manage up to 6 subtasks per task.
 - **Custom Lists:** Create up to 4 custom lists, all stored locally.
 - **Preset Views:** Instantly switch between All, Today, and Overdue views.
@@ -79,18 +79,6 @@ All data is saved privately in your browser using `localStorage`:
 - Theme: under the `theme` key
 
 To delete all app data, go to **Settings** and click the button to delete all data.
-
----
-
-## 🌐 Deployment (Netlify)
-
-- The project is deployed using [Netlify](https://www.netlify.com/).
-- Vite builds the app into the `dist/` folder by default.
-- To deploy to Netlify:
-  1. Push your code to your preferred Git repository.
-  2. [Connect your repository to Netlify](https://app.netlify.com/start).
-  3. Set the build command to `npm run build` and the publish directory to `dist`.
-  4. Netlify will automatically build and deploy your site on every push.
 
 ---
 
