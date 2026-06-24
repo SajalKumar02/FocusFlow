@@ -82,13 +82,15 @@ To delete all app data, go to **Settings** and click the button to delete all da
 
 ---
 
-## 🌐 Deployment (GitHub Pages)
+## 🌐 Deployment (Netlify)
 
-- The repo uses [`gh-pages`](https://www.npmjs.com/package/gh-pages).
-- Vite builds the app into `dist/` by default.
-- To deploy to GitHub Pages:
-  - Publish the `dist/` folder: `gh-pages -d dist`
-  - If needed, set a `base` path in `vite.config.js` for subdirectory deployments.
+- The project is deployed using [Netlify](https://www.netlify.com/).
+- Vite builds the app into the `dist/` folder by default.
+- To deploy to Netlify:
+  1. Push your code to your preferred Git repository.
+  2. [Connect your repository to Netlify](https://app.netlify.com/start).
+  3. Set the build command to `npm run build` and the publish directory to `dist`.
+  4. Netlify will automatically build and deploy your site on every push.
 
 ---
 

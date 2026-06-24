@@ -1,12 +1,6 @@
 {
   "semi": true,
-<<<<<<< HEAD
-  "doubleQuote": true,
-  "trailingComma": "all",
-  "printWidth": 300
-=======
   "singleQuote": true,
   "trailingComma": "all",
   "printWidth": 80
->>>>>>> v2
 }
