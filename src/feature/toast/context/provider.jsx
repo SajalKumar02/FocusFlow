@@ -1,15 +1,7 @@
-<<<<<<<< HEAD:src/features/toast/ContextProvider/ToastProvider.jsx
-import React, { useState, useCallback } from "react";
-
-import ToastContext from "./ToastContext";
-
-const ToastProvider = ({ children }) => {
-========
 import React, { useState, useCallback } from 'react';
 import ToastContext from './context';
 
 export const ToastProvider = ({ children }) => {
->>>>>>>> v2:src/feature/toast/context/provider.jsx
   const [toasts, setToasts] = useState([]);
 
   const showToast = useCallback((type, message) => {
