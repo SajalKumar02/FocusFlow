@@ -7,7 +7,9 @@ import { ChevronRight } from 'lucide-react';
 
 const TaskList = () => {
   const { tasks, toggleTask } = useTasks();
+
   const { listId } = useParams();
+
   const navigate = useNavigate();
 
   const filteredTasks = getTasksByList(tasks, listId);
@@ -31,14 +33,18 @@ const TaskList = () => {
               }}
               className="mr-2 w-4 h-4 border border-slate-200 bg-white rounded cursor-pointer transition-colors duration-150"
             />
-            <span
-              className={`text-slate-800 ${task.completed ? 'line-through text-slate-400' : ''}`}
+            <div
+              className="flex w-full justify-between"
               onClick={() => navigate(`/tasks/${task.id}`)}
             >
-              {task.title}
-            </span>
-            <div className="flex-1" />
-            <ChevronRight className="w-5 h-5 text-slate-400" />
+              <span
+                className={`text-slate-800 ${task.completed ? 'line-through text-slate-400' : ''}`}
+              >
+                {task.title}
+              </span>
+              <div className="flex-1" />
+              <ChevronRight className="w-5 h-5 text-slate-400" />
+            </div>
           </div>
         ))
       )}

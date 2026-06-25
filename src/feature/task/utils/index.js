@@ -21,11 +21,11 @@ const isOverdue = (task) => {
 export const getTasksByList = (tasks, listId = 0) => {
   if (!Array.isArray(tasks)) return [];
   switch (listId) {
-    case defaultListNames[0].id:
+    case defaultListNames[0].value:
       return tasks;
-    case defaultListNames[1].id:
+    case defaultListNames[1].value:
       return tasks.filter(isToday);
-    case defaultListNames[2].id:
+    case defaultListNames[2].value:
       return tasks.filter(isOverdue);
     default:
       return tasks.filter((t) => t.list === listId);

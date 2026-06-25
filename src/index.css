@@ -1,9 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 .bg-sidebar {
   @apply bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg;
+  font-family:
+    'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif;
 }
 
 .sidebar-component {

@@ -25,7 +25,7 @@ const SearchBar = () => {
         <Search size={18} />
       </span>
       <input
-        className="bg-gray-100 outline-none rounded-md px-4 py-2 w-full pl-10"
+        className="rounded-lg px-4 py-1.5 w-full pl-10 outline outline-slate-300"
         type="text"
         placeholder="Search tasks..."
         value={searchInput}

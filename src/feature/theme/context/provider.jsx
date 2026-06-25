@@ -19,20 +19,26 @@ const ThemeProvider = ({ children }) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  useEffect(() => {
+    const root = document.documentElement;
 
-  const setLightTheme = () => setTheme('light');
-  const setDarkTheme = () => setTheme('dark');
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'));
 
   return (
     <ThemeContext.Provider
       value={{
         theme,
         toggleTheme,
-        setLightTheme,
-        setDarkTheme,
       }}
     >
       {children}
@@ -40,5 +46,5 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-export { ThemeContext }
+export { ThemeContext };
 export default ThemeProvider;

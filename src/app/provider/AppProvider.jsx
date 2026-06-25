@@ -4,11 +4,11 @@ import { ToastProvider, ToastContainer } from '../../feature/toast';
 
 export const AppProviders = ({ children }) => {
   return (
-    <ToastProvider>
-      <ThemeProvider>
+    <ThemeProvider>
+      <ToastProvider>
         <TaskProvider>{children}</TaskProvider>
         <ToastContainer />
-      </ThemeProvider>
-    </ToastProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 };

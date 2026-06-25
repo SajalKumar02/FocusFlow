@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import TaskContext from './context';
 
@@ -26,62 +26,79 @@ const TaskProvider = ({ children }) => {
   const [lists, setLists] = useState(() => getInitialData(LIST, initialLists));
 
   // TASK FUNCTIONS
-  const addTask = (task) => {
+  const addTask = useCallback((task) => {
     setTasks((prev) => [...prev, task]);
-  };
+  }, []);
 
-  const toggleTask = (id) => {
+  const toggleTask = useCallback((id) => {
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task,
       ),
     );
-  };
+  }, []);
 
-  const editTask = (id, updatedTask) => {
+  const editTask = useCallback((id, updatedTask) => {
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? { ...task, ...updatedTask } : task)),
     );
-  };
+  }, []);
 
-  const removeTask = (id) => {
+  const removeTask = useCallback((id) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
+  }, []);
 
-  const deleteAllTasks = () => {
+  const deleteAllTasks = useCallback(() => {
     setTasks([]);
     localStorage.setItem(TASK, JSON.stringify([]));
-  };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(TASK, JSON.stringify(tasks));
   }, [tasks]);
 
   // LIST FUNCTIONS
-  const addList = ({ newList }) => {
+  const addList = useCallback((title) => {
     setLists((prev) => {
-      const updatedLists = [...prev, newList];
+      const updatedLists = [
+        ...prev,
+        {
+          id: new Date(),
+          title: title.charAt(0).toUpperCase() + title.slice(1),
+          value: title.toLowerCase(),
+        },
+      ];
       return updatedLists;
     });
-  };
-  const editList = ({ id, newTitle }) => {
+  }, []);
+
+  const editList = useCallback(({ id, newTitle }) => {
     setLists((prev) =>
       prev.map((list) =>
         list.id === id ? { ...list, title: newTitle } : list,
       ),
     );
-  };
-  const removeList = ({ id }) => {
+  }, []);
+
+  const removeList = useCallback(({ id }) => {
     setLists((prev) => prev.filter((list) => list.id !== id));
-  };
-  const deleteAllLists = () => {
+  }, []);
+
+  const deleteAllLists = useCallback(() => {
     setLists([]);
     localStorage.setItem(LIST, JSON.stringify([]));
-  };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(LIST, JSON.stringify(lists));
   }, [lists]);
+
+  const deleteAllData = useCallback(() => {
+    setTasks(initialTasks);
+    setLists(initialLists);
+    localStorage.setItem(TASK, JSON.stringify(initialTasks));
+    localStorage.setItem(LIST, JSON.stringify(initialLists));
+  }, []);
 
   return (
     <TaskContext.Provider
@@ -100,6 +117,8 @@ const TaskProvider = ({ children }) => {
         editList,
         removeList,
         deleteAllLists,
+        // New User
+        deleteAllData,
       }}
     >
       {children}
