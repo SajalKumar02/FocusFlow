@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
-
-import { Settings, X } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 import SidebarItems from './SidebarItems.jsx';
 import SearchBar from './SearchBar.jsx';
+
 import { useTasks } from '../../context/useTask.js';
 import { useToast } from '../../../toast';
-import { useNavigate } from 'react-router';
+
+import { Settings, X } from 'lucide-react';
 
 const Sidebar = ({ handleSidebarToggle }) => {
   const { lists, defaultListNames, addList } = useTasks();
@@ -62,9 +63,9 @@ const Sidebar = ({ handleSidebarToggle }) => {
   return (
     <div className="px-4 py-2 flex flex-col gap-3 h-full">
       {/* CLOSE BUTTON */}
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row py-1 items-center justify-between">
         <div className="flex items-center">
-          <p className="text-md font-semibold text-slate-700 tracking-tight select-none">
+          <p className="text-lg font-semibold text-slate-700 tracking-tight select-none">
             FocusFlow
           </p>
         </div>

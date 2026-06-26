@@ -26,8 +26,17 @@ const TaskProvider = ({ children }) => {
   const [lists, setLists] = useState(() => getInitialData(LIST, initialLists));
 
   // TASK FUNCTIONS
-  const addTask = useCallback((task) => {
-    setTasks((prev) => [...prev, task]);
+  const addTask = useCallback((title) => {
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        title: title,
+        completed: false,
+        subtasks: [],
+        list: '',
+      },
+    ]);
   }, []);
 
   const toggleTask = useCallback((id) => {

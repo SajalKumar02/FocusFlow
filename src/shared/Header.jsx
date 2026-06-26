@@ -5,7 +5,7 @@ import DateTimeHeader from './DateTimeHeader';
 
 const Header = ({ handleSidebarToggle }) => {
   return (
-    <div className="flex flex-row items-center gap-4 px-2">
+    <div className="flex flex-row items-center gap-4 p-2 md:py-0 border-b border-slate-200">
       <div className="flex">
         <Menu
           size={24}

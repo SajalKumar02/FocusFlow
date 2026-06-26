@@ -18,17 +18,21 @@ const isOverdue = (task) => {
   return dueDate < now;
 };
 
-export const getTasksByList = (tasks, listId = 0) => {
+export const getTasksByList = (tasks, listId) => {
   if (!Array.isArray(tasks)) return [];
-  switch (listId) {
-    case defaultListNames[0].value:
-      return tasks;
-    case defaultListNames[1].value:
-      return tasks.filter(isToday);
-    case defaultListNames[2].value:
-      return tasks.filter(isOverdue);
-    default:
-      return tasks.filter((t) => t.list === listId);
+  if (!listId) {
+    return tasks;
+  } else {
+    switch (listId) {
+      case defaultListNames[0].value:
+        return tasks;
+      case defaultListNames[1].value:
+        return tasks.filter(isToday);
+      case defaultListNames[2].value:
+        return tasks.filter(isOverdue);
+      default:
+        return tasks.filter((t) => t.list === listId);
+    }
   }
 };
 

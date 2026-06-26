@@ -1,10 +1,19 @@
 import { Plus } from 'lucide-react';
 import React, { useState } from 'react';
+import { useTasks } from '../../context/useTask';
 
 const AddNewTask = () => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddTask = () => {};
+  const { addTask } = useTasks();
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    const trimmedValue = inputValue.trim();
+    if (!trimmedValue) return;
+    addTask(trimmedValue);
+    setInputValue('');
+  };
 
   return (
     <form onSubmit={handleAddTask} className="flex items-center gap-2">

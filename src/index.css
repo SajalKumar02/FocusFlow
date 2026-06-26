@@ -12,3 +12,7 @@
 .sidebar-component {
   @apply border-b border-slate-200;
 }
+
+body {
+  font-family: monospace;
+}
