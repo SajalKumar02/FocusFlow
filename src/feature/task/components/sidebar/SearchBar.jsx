@@ -5,15 +5,15 @@ import { Search } from 'lucide-react';
 
 const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchInput = searchParams.get('q') || '';
+  const searchInput = searchParams.get('task') || '';
 
   const handleInputChange = (e) => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
       if (e.target.value) {
-        newParams.set('q', e.target.value);
+        newParams.set('task', e.target.value);
       } else {
-        newParams.delete('q');
+        newParams.delete('task');
       }
       return newParams;
     });

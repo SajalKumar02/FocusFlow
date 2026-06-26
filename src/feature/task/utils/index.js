@@ -41,3 +41,9 @@ export const filterTaskByString = (filteringString, tasks) => {
   const lowerFilter = filteringString.toLowerCase();
   return tasks.filter((task) => task.title.toLowerCase().includes(lowerFilter));
 };
+
+export const getTasksByString = (tasks, searchString) => {
+  if (!Array.isArray(tasks) || !searchString) return tasks;
+  const lowerSearch = searchString.toLowerCase();
+  return tasks.filter((task) => task.title.toLowerCase().includes(lowerSearch));
+};

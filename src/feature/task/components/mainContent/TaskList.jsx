@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 
-import { getTasksByList } from '../../utils';
+import { getTasksByList, getTasksByString } from '../../utils';
 import { useTasks } from '../../context/useTask';
 import { ChevronRight } from 'lucide-react';
 
@@ -12,7 +12,11 @@ const TaskList = () => {
 
   const navigate = useNavigate();
 
-  const filteredTasks = getTasksByList(tasks, listId);
+  const [searchParams] = useSearchParams();
+  const searchInput = searchParams.get('task') || '';
+
+  const filteredTasksByList = getTasksByList(tasks, listId);
+  const filteredTasks = getTasksByString(filteredTasksByList, searchInput);
 
   return (
     <div className="flex flex-col gap-2">

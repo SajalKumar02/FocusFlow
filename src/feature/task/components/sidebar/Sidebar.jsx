@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 
-import { ListIcon, Settings, X } from 'lucide-react';
+import { Settings, X } from 'lucide-react';
 
 import SidebarItems from './SidebarItems.jsx';
-import SearchBar from '../mainContent/SearchBar.jsx';
+import SearchBar from './SearchBar.jsx';
 import { useTasks } from '../../context/useTask.js';
 import { useToast } from '../../../toast';
 import { useNavigate } from 'react-router';
 
-const Sidebar = () => {
+const Sidebar = ({ handleSidebarToggle }) => {
   const { lists, defaultListNames, addList } = useTasks();
   const { showToast } = useToast();
 
@@ -69,7 +69,10 @@ const Sidebar = () => {
           </p>
         </div>
         <div>
-          <button className="p-1 rounded hover:bg-slate-100 active:bg-slate-200 cursor-pointer transition-colors">
+          <button
+            className="p-1 rounded hover:bg-slate-100 active:bg-slate-200 cursor-pointer transition-colors"
+            onClick={handleSidebarToggle}
+          >
             <X className="h-5 w-5 text-slate-400 hover:text-slate-600 transition-colors" />
           </button>
         </div>
