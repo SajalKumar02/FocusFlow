@@ -1,3 +1,3 @@
-export { default as ThemeProvider } from './context/provider';
+export { default as ThemeProvider } from '@/feature/theme//context/provider';
 
-export { useTheme } from './context/useTheme';
+export { useTheme } from '@/feature/theme/context/useTheme';

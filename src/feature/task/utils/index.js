@@ -1,4 +1,4 @@
-import { defaultListNames } from '../constants/initialLists';
+import { defaultListNames } from '@/feature/task/constants/initialLists';
 
 const isToday = (task) => {
   if (!task.dueDate) return false;

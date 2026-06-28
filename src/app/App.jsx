@@ -2,11 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 
 // Layout
-import Layout from '../layout/Layout';
+import Layout from '@/layout/Layout';
 // Pages
-import { MainContent } from '../feature/task';
-import TaskDetails from '../pages/TaskDetails';
-import Settings from '../pages/Settings';
+import { MainContent } from '@/feature/task';
+
+import TaskDetails from '@/pages/TaskDetails';
+import Settings from '@/pages/Settings';
 
 const App = () => {
   return (

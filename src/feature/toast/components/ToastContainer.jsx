@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { useToast } from '../context/useToast';
+import { useToast } from '@/feature/toast/context/useToast';
 
 const ToastContainer = () => {
   const { toasts } = useToast();
 
-  // Assign color classes based on toast type
   const getToastColor = (type) => {
     switch (type) {
       case 'success':

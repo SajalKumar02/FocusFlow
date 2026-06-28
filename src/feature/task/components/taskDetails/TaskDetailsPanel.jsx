@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import { useTasks } from '../../context/useTask';
-import { useToast } from '../../../toast';
+import { useTasks } from '@/feature/task/context/useTask';
+import { useToast } from '@/feature/toast/context/useToast';
 
-import { getPercentageCompleteCount, getTaskByTaskId } from '../../utils';
+import {
+  getPercentageCompleteCount,
+  getTaskByTaskId,
+} from '@/feature/task/utils';
 
 import { Save, Trash2, X } from 'lucide-react';
 

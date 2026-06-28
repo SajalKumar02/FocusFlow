@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-import { useTheme } from '../feature/theme';
-import { useTasks } from '../feature/task';
+import { useTheme } from '@/feature/theme';
+import { useTasks } from '@/feature/task';
+import { useToast } from '@/feature/toast';
 
 import { List, Palette, Pen, Trash } from 'lucide-react';
-import { useToast } from '../feature/toast';
 
 const Settings = () => {
   const { lists, deleteAllData, removeList, editList } = useTasks();
@@ -23,12 +23,12 @@ const Settings = () => {
   return (
     <div className="focusflow-component">
       {/* Appearance */}
-      <div className="settingss-card bg-surface border-app">
-        <div className="settingss-card-header">
+      <div className="settings-card bg-surface border-app">
+        <div className="settings-card-header">
           <Palette size={22} className="text-title" />
           <p className="text-lg font-bold text-title">Appearance</p>
         </div>
-        <div className="settingss-card-body">
+        <div className="settings-card-body">
           <div>
             <p className="text-lg text-title">Toggle Theme</p>
             <p className="ms-1 text-sm font-semibold text-muted">
@@ -62,8 +62,8 @@ const Settings = () => {
         </div>
       </div>
       {/* List Management */}
-      <div className="settingss-card bg-surface border-app">
-        <div className="settingss-card-header">
+      <div className="settings-card bg-surface border-app">
+        <div className="settings-card-header">
           <List size={20} className="text-title" />
           <p className="text-lg font-bold text-title">List Management</p>
         </div>
@@ -106,12 +106,12 @@ const Settings = () => {
         </div>
       </div>
       {/* Delete All Data */}
-      <div className="settingss-card bg-surface border-app">
+      <div className="settings-card bg-surface border-app">
         {/* Delete ALL DATA */}
-        <div className="settingss-card-header">
+        <div className="settings-card-header">
           <p className="text-lg font-bold text-title">Delete All Data</p>
         </div>
-        <div className="settingss-card-body">
+        <div className="settings-card-body">
           {/* DELETE ALL DATA */}
           <div>
             <p className="text-sm text-muted">

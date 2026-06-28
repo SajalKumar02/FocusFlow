@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TaskList from './TaskList';
-import AddNewTask from './AddNewTask';
+import TaskList from '@/feature/task/components/mainContent/TaskList';
+import AddNewTask from '@/feature/task/components/mainContent/AddNewTask';
 
 const MainContent = () => {
   return (

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 
-import { Sidebar } from '../feature/task';
-import Header from '../shared/Header';
+import { Sidebar } from '@/feature/task';
+import Header from '@/shared/Header';
 
 const Layout = () => {
   const [showSidebar, setShowSidebar] = useState(false);

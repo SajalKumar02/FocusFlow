@@ -1,16 +1,16 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import TaskContext from './context';
+import TaskContext from '@/feature/task/context/context';
 
 import {
   initialTasks,
   LOCAL_STORAGE_KEY as TASK,
-} from '../constants/initialTasks';
+} from '@/feature/task/constants/initialTasks';
 import {
   initialLists,
   defaultListNames,
   LOCAL_STORAGE_KEY as LIST,
-} from '../constants/initialLists';
+} from '@/feature/task/constants/initialLists';
 
 const TaskProvider = ({ children }) => {
   const getInitialData = (key, fallback) => {

@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
-import ThemeContext from './context';
 
-import { LOCAL_STORAGE_KEY, DEFAULT_THEME } from '../constants/initialThemes';
+import ThemeContext from '@/feature/theme/context/context';
+
+import {
+  LOCAL_STORAGE_KEY,
+  DEFAULT_THEME,
+} from '@/feature/theme/constants/initialThemes';
 
 const ThemeProvider = ({ children }) => {
   const getInitialTheme = () => {

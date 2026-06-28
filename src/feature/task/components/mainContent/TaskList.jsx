@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
+import { useTasks } from '@/feature/task/context/useTask';
+import { useToast } from '@/feature/toast';
+
+import { getTasksByList, getTasksByString } from '@/feature/task/utils';
+
 import { ChevronRight } from 'lucide-react';
-
-import { useTasks } from '../../context/useTask';
-import { useToast } from '../../../toast';
-
-import { getTasksByList, getTasksByString } from '../../utils';
 
 const TaskList = () => {
   const { tasks, toggleTask } = useTasks();

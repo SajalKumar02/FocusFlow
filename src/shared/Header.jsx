@@ -1,6 +1,7 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
 import { useLocation } from 'react-router';
+
+import { Menu } from 'lucide-react';
 
 const Header = ({ handleSidebarToggle }) => {
   const location = useLocation();

@@ -1,7 +1,9 @@
-import { Plus } from 'lucide-react';
 import React, { useState } from 'react';
-import { useTasks } from '../../context/useTask';
-import { useToast } from '../../../toast';
+
+import { useTasks } from '@/feature/task/context/useTask';
+import { useToast } from '@/feature/toast';
+
+import { Plus } from 'lucide-react';
 
 const AddNewTask = () => {
   const [inputValue, setInputValue] = useState('');

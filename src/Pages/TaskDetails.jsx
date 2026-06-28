@@ -1,7 +1,7 @@
 import React from 'react';
-import TaskDetailsPanel from '../feature/task/components/taskDetails/TaskDetailsPanel';
+import TaskDetailsPanel from '@/feature/task/components/taskDetails/TaskDetailsPanel';
 
-import BackButton from '../shared/BackButton';
+import BackButton from '@/shared/BackButton';
 
 const TaskDetails = () => {
   return (
