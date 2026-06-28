@@ -51,3 +51,14 @@ export const getTasksByString = (tasks, searchString) => {
   const lowerSearch = searchString.toLowerCase();
   return tasks.filter((task) => task.title.toLowerCase().includes(lowerSearch));
 };
+
+export const getTaskByTaskId = (tasks, taskId) => {
+  if (!Array.isArray(tasks) || !taskId) return [];
+  return tasks.filter((task) => String(task.id) === String(taskId));
+};
+
+export const getPercentageCompleteCount = (task) => {
+  if (!Array.isArray(task.subtasks) || task.subtasks.length === 0) return 0;
+  const completedCount = task.subtasks.filter((st) => st.completed).length;
+  return Math.round((completedCount * 100) / task.subtasks.length);
+};

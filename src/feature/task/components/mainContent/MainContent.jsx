@@ -5,9 +5,11 @@ import AddNewTask from './AddNewTask.jsx';
 
 const MainContent = () => {
   return (
-    <div className="flex flex-col gap-2 px-4">
-      <AddNewTask />
-      <TaskList />
+    <div className="focusflow-component">
+      <div className="bg-white grid gap-2 rounded-lg border border-slate-200 p-4">
+        <AddNewTask />
+        <TaskList />
+      </div>
     </div>
   );
 };

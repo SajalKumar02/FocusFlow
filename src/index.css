@@ -2,17 +2,25 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.bg-sidebar {
-  @apply bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg;
-  font-family:
-    'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif;
-}
-
-.sidebar-component {
-  @apply border-b border-slate-200;
-}
-
 body {
   font-family: monospace;
+}
+
+.taskdetailspanel-component {
+  @apply border border-slate-200 p-4;
+}
+
+.focusflow-component {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.settings-card {
+  @apply bg-white gap-2 rounded-lg border border-slate-200 p-4;
+}
+
+.settings-card-header {
+  @apply flex flex-row gap-2 items-center;
+}
+.settings-card-body {
+  @apply grid grid-cols-[3fr_1fr];
 }

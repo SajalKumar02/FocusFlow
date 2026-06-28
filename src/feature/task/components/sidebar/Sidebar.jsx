@@ -34,7 +34,8 @@ const Sidebar = ({ handleSidebarToggle }) => {
 
     if (!canAddMoreLists) {
       showToast('warning', "You can't have more than 4 lists. ");
-      showToast('warning', 'LOGIN FIRST');
+      setShowListInput(false);
+      setNewListTitle('');
       return;
     }
 

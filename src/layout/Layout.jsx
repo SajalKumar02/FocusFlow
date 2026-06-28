@@ -35,7 +35,7 @@ const Layout = () => {
           handleSidebarToggle={handleSidebarToggle}
         />
       </aside>
-      <main className="flex-1 grid grid-rows-[auto_1fr] gap-2 transition-all duration-200 overflow-y-auto">
+      <main className="flex-1 grid grid-rows-[auto_1fr] transition-all duration-200 overflow-y-auto">
         <Header handleSidebarToggle={handleSidebarToggle} />
         <Outlet />
       </main>

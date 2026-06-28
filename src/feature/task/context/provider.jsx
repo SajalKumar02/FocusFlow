@@ -81,7 +81,7 @@ const TaskProvider = ({ children }) => {
     });
   }, []);
 
-  const editList = useCallback(({ id, newTitle }) => {
+  const editList = useCallback((id, newTitle) => {
     setLists((prev) =>
       prev.map((list) =>
         list.id === id ? { ...list, title: newTitle } : list,
@@ -89,7 +89,7 @@ const TaskProvider = ({ children }) => {
     );
   }, []);
 
-  const removeList = useCallback(({ id }) => {
+  const removeList = useCallback((id) => {
     setLists((prev) => prev.filter((list) => list.id !== id));
   }, []);
 
