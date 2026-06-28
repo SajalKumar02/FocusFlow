@@ -7,7 +7,7 @@ import Layout from '@/layout/Layout';
 import { MainContent } from '@/feature/task';
 
 import TaskDetails from '@/pages/TaskDetails';
-import Settings from '@/pages/Settings.jsx';
+import Settings from '@/pages/Settings';
 
 const App = () => {
   return (
