@@ -6,7 +6,7 @@ import Layout from '../layout/Layout';
 // Pages
 import { MainContent } from '../feature/task';
 import TaskDetails from '../pages/TaskDetails';
-import Setting from '../pages/Setting';
+import Settings from '../pages/Settings';
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <Route index path="/" element={<MainContent />} />
           <Route index path="/lists/:listId" element={<MainContent />} />
           <Route path="/tasks/:taskId" element={<TaskDetails />} />
-          <Route path="/settings" element={<Setting />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>

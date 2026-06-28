@@ -7,7 +7,7 @@ import { useTasks } from '../feature/task';
 import { List, Palette, Pen, Trash } from 'lucide-react';
 import { useToast } from '../feature/toast';
 
-const Setting = () => {
+const Settings = () => {
   const { lists, deleteAllData, removeList, editList } = useTasks();
   const { theme, toggleTheme } = useTheme();
   const { showToast } = useToast();
@@ -23,12 +23,12 @@ const Setting = () => {
   return (
     <div className="focusflow-component">
       {/* Appearance */}
-      <div className="settings-card bg-surface border-app">
-        <div className="settings-card-header">
+      <div className="settingss-card bg-surface border-app">
+        <div className="settingss-card-header">
           <Palette size={22} className="text-title" />
           <p className="text-lg font-bold text-title">Appearance</p>
         </div>
-        <div className="settings-card-body">
+        <div className="settingss-card-body">
           <div>
             <p className="text-lg text-title">Toggle Theme</p>
             <p className="ms-1 text-sm font-semibold text-muted">
@@ -62,8 +62,8 @@ const Setting = () => {
         </div>
       </div>
       {/* List Management */}
-      <div className="settings-card bg-surface border-app">
-        <div className="settings-card-header">
+      <div className="settingss-card bg-surface border-app">
+        <div className="settingss-card-header">
           <List size={20} className="text-title" />
           <p className="text-lg font-bold text-title">List Management</p>
         </div>
@@ -106,12 +106,12 @@ const Setting = () => {
         </div>
       </div>
       {/* Delete All Data */}
-      <div className="settings-card bg-surface border-app">
+      <div className="settingss-card bg-surface border-app">
         {/* Delete ALL DATA */}
-        <div className="settings-card-header">
+        <div className="settingss-card-header">
           <p className="text-lg font-bold text-title">Delete All Data</p>
         </div>
-        <div className="settings-card-body">
+        <div className="settingss-card-body">
           {/* DELETE ALL DATA */}
           <div>
             <p className="text-sm text-muted">
@@ -141,4 +141,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default Settings;
