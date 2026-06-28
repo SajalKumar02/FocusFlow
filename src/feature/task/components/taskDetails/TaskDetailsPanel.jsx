@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { useTasks } from '../../context/useTask';
+import { useToast } from '../../../toast';
+
 import { getPercentageCompleteCount, getTaskByTaskId } from '../../utils';
 
-import { Plus, Save, Trash2, X } from 'lucide-react';
+import { Save, Trash2, X } from 'lucide-react';
 
 const TaskDetailsPanel = () => {
   const { taskId } = useParams();
   const { tasks, lists, editTask, removeTask } = useTasks();
+  const { showToast } = useToast();
 
   const [task, setTask] = useState(() => getTaskByTaskId(tasks, taskId)[0]);
   const [newSubTaskTitle, setNewSubTaskTitle] = useState('');
@@ -19,11 +22,13 @@ const TaskDetailsPanel = () => {
 
   const handleDeleteTask = () => {
     removeTask(task.id);
+    showToast('success', 'Task deleted');
     navigate('/');
   };
 
   const handleEditTask = () => {
     editTask(task.id, task);
+    showToast('success', 'Task updated');
     navigate('/');
   };
 
@@ -49,6 +54,7 @@ const TaskDetailsPanel = () => {
         },
       ],
     }));
+    showToast('success', 'Subtask Added');
     setNewSubTaskTitle('');
   };
 

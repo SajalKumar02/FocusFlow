@@ -46,6 +46,7 @@ const Sidebar = ({ handleSidebarToggle }) => {
 
     if (title) {
       addList(title);
+      showToast('success', 'List Added');
       setNewListTitle('');
       setShowListInput(false);
     }

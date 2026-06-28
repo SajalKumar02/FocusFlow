@@ -1,12 +1,16 @@
 import React from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
-import { getTasksByList, getTasksByString } from '../../utils';
-import { useTasks } from '../../context/useTask';
 import { ChevronRight } from 'lucide-react';
+
+import { useTasks } from '../../context/useTask';
+import { useToast } from '../../../toast';
+
+import { getTasksByList, getTasksByString } from '../../utils';
 
 const TaskList = () => {
   const { tasks, toggleTask } = useTasks();
+  const { showToast } = useToast();
 
   const { listId } = useParams();
 
@@ -34,6 +38,12 @@ const TaskList = () => {
               onChange={(e) => {
                 e.stopPropagation();
                 toggleTask(task.id);
+                showToast(
+                  task.completed ? 'info' : 'success',
+                  task.completed
+                    ? 'Task marked as incomplete'
+                    : 'Task Completed',
+                );
               }}
               className="mr-2 w-4 h-4 border border-slate-200 bg-white rounded cursor-pointer transition-colors duration-150"
             />

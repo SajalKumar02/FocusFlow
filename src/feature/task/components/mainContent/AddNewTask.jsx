@@ -1,17 +1,20 @@
 import { Plus } from 'lucide-react';
 import React, { useState } from 'react';
 import { useTasks } from '../../context/useTask';
+import { useToast } from '../../../toast';
 
 const AddNewTask = () => {
   const [inputValue, setInputValue] = useState('');
 
   const { addTask } = useTasks();
+  const { showToast } = useToast();
 
   const handleAddTask = (e) => {
     e.preventDefault();
     const trimmedValue = inputValue.trim();
     if (!trimmedValue) return;
     addTask(trimmedValue);
+    showToast('success', 'Task Added');
     setInputValue('');
   };
 

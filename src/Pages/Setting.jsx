@@ -5,15 +5,18 @@ import { useTheme } from '../feature/theme';
 import { useTasks } from '../feature/task';
 
 import { List, Palette, Pen, Trash } from 'lucide-react';
+import { useToast } from '../feature/toast';
 
 const Setting = () => {
-  const { theme, toggleTheme } = useTheme();
   const { lists, deleteAllData, removeList, editList } = useTasks();
+  const { theme, toggleTheme } = useTheme();
+  const { showToast } = useToast();
 
   const navigate = useNavigate();
 
   const handleDeleteAllData = () => {
     deleteAllData();
+    showToast('danger', 'All Data Deleted');
     navigate('/');
   };
 
