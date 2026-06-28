@@ -6,7 +6,7 @@ FocusFlow is a sleek, lightweight task manager built with React and Vite. Organi
 
 ## 🌍 Live Demo
 
-Access the deployed app here: [https://focusflow34.netlify.app/](https://focusflow34.netlify.app/)
+Access the deployed app here: [https://focusflow34.netlify.app/](https://focusflow-v01.netlify.app/)
 
 ---
 
