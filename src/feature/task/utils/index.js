@@ -18,17 +18,21 @@ const isOverdue = (task) => {
   return dueDate < now;
 };
 
-export const getTasksByList = (tasks, listId = 0) => {
+export const getTasksByList = (tasks, listId) => {
   if (!Array.isArray(tasks)) return [];
-  switch (listId) {
-    case defaultListNames[0].value:
-      return tasks;
-    case defaultListNames[1].value:
-      return tasks.filter(isToday);
-    case defaultListNames[2].value:
-      return tasks.filter(isOverdue);
-    default:
-      return tasks.filter((t) => t.list === listId);
+  if (!listId) {
+    return tasks;
+  } else {
+    switch (listId) {
+      case defaultListNames[0].value:
+        return tasks;
+      case defaultListNames[1].value:
+        return tasks.filter(isToday);
+      case defaultListNames[2].value:
+        return tasks.filter(isOverdue);
+      default:
+        return tasks.filter((t) => t.list === listId);
+    }
   }
 };
 
@@ -40,4 +44,21 @@ export const getTaskCountForList = (listId, tasks) => {
 export const filterTaskByString = (filteringString, tasks) => {
   const lowerFilter = filteringString.toLowerCase();
   return tasks.filter((task) => task.title.toLowerCase().includes(lowerFilter));
+};
+
+export const getTasksByString = (tasks, searchString) => {
+  if (!Array.isArray(tasks) || !searchString) return tasks;
+  const lowerSearch = searchString.toLowerCase();
+  return tasks.filter((task) => task.title.toLowerCase().includes(lowerSearch));
+};
+
+export const getTaskByTaskId = (tasks, taskId) => {
+  if (!Array.isArray(tasks) || !taskId) return [];
+  return tasks.filter((task) => String(task.id) === String(taskId));
+};
+
+export const getPercentageCompleteCount = (task) => {
+  if (!Array.isArray(task.subtasks) || task.subtasks.length === 0) return 0;
+  const completedCount = task.subtasks.filter((st) => st.completed).length;
+  return Math.round((completedCount * 100) / task.subtasks.length);
 };

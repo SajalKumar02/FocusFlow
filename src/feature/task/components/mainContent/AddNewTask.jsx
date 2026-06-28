@@ -1,23 +1,35 @@
 import { Plus } from 'lucide-react';
 import React, { useState } from 'react';
+import { useTasks } from '../../context/useTask';
+import { useToast } from '../../../toast';
 
 const AddNewTask = () => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddTask = () => {};
+  const { addTask } = useTasks();
+  const { showToast } = useToast();
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    const trimmedValue = inputValue.trim();
+    if (!trimmedValue) return;
+    addTask(trimmedValue);
+    showToast('success', 'Task Added');
+    setInputValue('');
+  };
 
   return (
     <form onSubmit={handleAddTask} className="flex items-center gap-2">
       <input
         type="text"
-        className="flex-1 px-3 py-2 rounded-md border border-slate-200 shadow focus:outline-none focus:ring-2 focus:ring-blue-200"
+        className="flex-1 px-3 py-2 rounded-md border border-app shadow focus:outline-none focus:ring-2 focus:ring-blue-200 bg-surface text-title placeholder:text-muted"
         placeholder="Add new task..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         aria-label="New Task Title"
       />
       <button
-        className="flex items-center px-4 py-2 rounded-md bg-white hover:bg-blue-50 transition-colors text-slate-500 font-small shadow"
+        className="flex items-center px-4 py-2 rounded-md bg-surface hover:bg-surface-2 transition-colors text-muted font-small shadow border border-app"
         id="task"
         type="submit"
         disabled={!inputValue.trim()}

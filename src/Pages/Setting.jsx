@@ -1,116 +1,139 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
+
 import { useTheme } from '../feature/theme';
 import { useTasks } from '../feature/task';
-import { useNavigate } from 'react-router';
-import { ChevronLeft } from 'lucide-react';
+
+import { List, Palette, Pen, Trash } from 'lucide-react';
+import { useToast } from '../feature/toast';
 
 const Setting = () => {
+  const { lists, deleteAllData, removeList, editList } = useTasks();
   const { theme, toggleTheme } = useTheme();
-  const { deleteAllData } = useTasks();
+  const { showToast } = useToast();
 
   const navigate = useNavigate();
 
   const handleDeleteAllData = () => {
     deleteAllData();
+    showToast('danger', 'All Data Deleted');
     navigate('/');
   };
 
   return (
-    <div className="h-screen overflow-hidden font-mono bg-gray-200 dark:bg-gray-900">
-      {/* Settings Title */}
-      <div className="flex items-center justify-between px-8 py-7 rounded-2xl shadow-2xl mb-10 border-b-4 dark:border-fuchsia-400/30">
-        <div
-          className="flex flex-row gap-1 group cursor-pointer text-slate-500 transition hover:text-slate-900"
-          onClick={() => navigate('/')}
-        >
-          <ChevronLeft className="" />
-          <span className="text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 select-none">
-            Back
-          </span>
+    <div className="focusflow-component">
+      {/* Appearance */}
+      <div className="settings-card bg-surface border-app">
+        <div className="settings-card-header">
+          <Palette size={22} className="text-title" />
+          <p className="text-lg font-bold text-title">Appearance</p>
         </div>
-
-        <h1 className="text-5xl font-extrabold tracking-tight bg-clip-text drop-shadow-2xl animate-gradient-x select-none bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 text-transparent dark:text-gray-100 dark:bg-none pb-1">
-          Settings
-        </h1>
-
-        {/* Spacer for symmetry */}
-        <div className="h-9 w-9 opacity-0" />
-      </div>
-      {/* Options */}
-      <div className="flex flex-col p-8 gap-8 max-w-6xl mx-auto">
-        {/* Appearence */}
-        <div>
-          <p className="text-2xl text-yellow-700 dark:text-yellow-300 font-semibold mb-2">
-            Beta Testing: Theme switching is experimental and might not work
-            across the complete app.
-          </p>
-          <p className="text-4xl text-gray-700 dark:text-gray-300 font-bold transition-colors duration-200 hover:text-gray-900 dark:hover:text-gray-50 cursor-pointer">
-            Appearance
-          </p>
-          <div className="flex">
-            <div className="flex-3 basis-3/4 p-8">
-              <p className="text-2xl text-gray-700 dark:text-gray-300 mb-2">
-                Toggle Theme
-              </p>
-              <p className="text-gray-500 dark:text-gray-300/40 text-sm">
-                Switch between <span className="font-semibold">Light</span> and{' '}
-                <span className="font-semibold">Dark</span> modes to change the
-                appearance of the app.
-              </p>
-            </div>
-            <div className="flex-1 basis-1/4 p-3 m-auto">
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-semibold text-center py-3 text-gray-600 dark:text-gray-400">
-                  LIGHT
-                </span>
-                {/* Toggle Switch */}
-                <button
-                  onClick={toggleTheme}
-                  className={`relative inline-flex items-center h-7 w-14 rounded-full transition-colors duration-300 outline-none border-2 ${theme === 'dark' ? 'bg-gray-700 border-gray-400' : 'bg-gray-200 border-gray-300'}`}
-                  aria-label="Toggle theme"
-                  type="button"
-                >
-                  <span
-                    className={`inline-block w-7 h-7 rounded-full bg-white shadow transform transition-transform duration-300 ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`}
-                  />
-                </button>
-                <span className="font-semibold text-center py-3 text-gray-600 dark:text-gray-400">
-                  DARK
-                </span>
-              </div>
+        <div className="settings-card-body">
+          <div>
+            <p className="text-lg text-title">Toggle Theme</p>
+            <p className="ms-1 text-sm font-semibold text-muted">
+              Switch between Light and Dark modes to change the appearance of
+              the app.
+            </p>
+          </div>
+          <div className="flex flex-col justify-center">
+            {/* TOGGLER */}
+            <div className="flex items-center justify-between gap-3">
+              <span className="font-semibold text-center py-3 text-title">
+                LIGHT
+              </span>
+              <button
+                onClick={toggleTheme}
+                className={`relative inline-flex items-center h-7 w-14 rounded-full transition-colors duration-300 outline-none border-2 
+                  ${theme === 'dark' ? 'border-zinc-400 bg-surface-2' : 'border-slate-300 bg-surface-2'}`}
+                aria-label="Toggle theme"
+                type="button"
+              >
+                <span
+                  className={`inline-block w-7 h-7 rounded-full shadow transform transition-transform duration-300 bg-app border border-app
+                  ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`}
+                />
+              </button>
+              <span className="font-semibold text-center py-3 text-title">
+                DARK
+              </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col p-8 gap-8 max-w-6xl mx-auto">
-        {/* DELETE ALL DATA */}
-        <div>
-          <p className="text-4xl text-red-700 dark:text-red-300 font-bold transition-colors duration-200 hover:text-red-900 dark:hover:text-red-100 cursor-pointer mb-2">
-            Delete All Data
-          </p>
-          <div className="flex">
-            <div className="flex-3 basis-3/4 p-8">
-              <p className="text-2xl text-gray-700 dark:text-gray-300 mb-2">
-                Danger Zone
-              </p>
-              <p className="text-gray-500 dark:text-gray-300/40 text-sm">
-                <span className="font-semibold text-red-600 dark:text-red-400">
-                  Warning:
-                </span>{' '}
-                This will <strong>permanently delete all your data</strong> and
-                cannot be undone. Are you sure you want to continue?
-              </p>
-            </div>
-            <div className="flex-1 basis-1/4 p-3 m-auto flex items-center justify-center">
-              <button
-                onClick={handleDeleteAllData}
-                className="px-6 py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold shadow transition-all duration-200 border-2 border-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-                aria-label="Delete all data"
-                type="button"
+      {/* List Management */}
+      <div className="settings-card bg-surface border-app">
+        <div className="settings-card-header">
+          <List size={20} className="text-title" />
+          <p className="text-lg font-bold text-title">List Management</p>
+        </div>
+        <p className="ms-1 text-sm font-semibold text-muted">
+          Organize your lists to keep your tasks structured.
+        </p>
+        <div className="flex flex-col gap-2 mt-2">
+          {Array.isArray(lists) &&
+            lists.map((l) => (
+              <div
+                key={l.id}
+                className="flex flex-row justify-between items-center border border-app rounded-lg bg-surface-2 p-2"
               >
-                Delete All Data
-              </button>
-            </div>
+                <span className="text-sm font-semibold text-title">
+                  {l.title}
+                </span>
+                <div className="flex items-center space-x-3">
+                  <span className="text-sm bg-app text-title font-bold rounded-full px-3 py-1 border border-app">
+                    {0}
+                  </span>
+                  <button
+                    className="p-2 rounded-full hover:bg-surface transition-colors text-title"
+                    aria-label={`Edit list: ${l.title}`}
+                    type="button"
+                    onClick={() => editList(l.id)}
+                  >
+                    <Pen size={18} />
+                  </button>
+                  <button
+                    className="p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900 transition-colors text-title"
+                    aria-label={`Delete list: ${l.title}`}
+                    type="button"
+                    onClick={() => removeList(l.id)}
+                  >
+                    <Trash size={18} className="text-red-500" />
+                  </button>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+      {/* Delete All Data */}
+      <div className="settings-card bg-surface border-app">
+        {/* Delete ALL DATA */}
+        <div className="settings-card-header">
+          <p className="text-lg font-bold text-title">Delete All Data</p>
+        </div>
+        <div className="settings-card-body">
+          {/* DELETE ALL DATA */}
+          <div>
+            <p className="text-sm text-muted">
+              <span className="font-semibold text-red-700 dark:text-red-300">
+                Warning:
+              </span>{' '}
+              This will{' '}
+              <strong className="text-red-700 dark:text-red-300">
+                permanently delete all your data
+              </strong>{' '}
+              and cannot be undone. Are you sure you want to continue?
+            </p>
+          </div>
+          <div className="flex flex-col justify-center">
+            <button
+              onClick={handleDeleteAllData}
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors"
+              aria-label="Delete all data"
+              type="button"
+            >
+              Delete All Data
+            </button>
           </div>
         </div>
       </div>

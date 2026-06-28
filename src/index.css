@@ -2,13 +2,85 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.bg-sidebar {
-  @apply bg-gradient-to-b from-white via-slate-50 to-slate-100 border-r border-slate-200 shadow-xl backdrop-blur-lg;
-  font-family:
-    'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif;
+body {
+  font-family: monospace;
 }
 
-.sidebar-component {
-  @apply border-b border-slate-200;
+.taskdetailspanel-component {
+  @apply border border-slate-200 p-4;
+}
+
+.focusflow-component {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.settings-card {
+  @apply bg-white gap-2 rounded-lg border border-slate-200 p-4;
+}
+
+.settings-card-header {
+  @apply flex flex-row gap-2 items-center;
+}
+.settings-card-body {
+  @apply grid grid-cols-[3fr_1fr];
+}
+
+/* Light */
+
+.bg-app {
+  @apply bg-slate-50;
+}
+
+.bg-surface {
+  @apply bg-white;
+}
+
+.bg-surface-2 {
+  @apply bg-slate-100;
+}
+
+.border-app {
+  @apply border-slate-200;
+}
+
+.text-title {
+  @apply text-slate-900;
+}
+
+.text-body {
+  @apply text-slate-700;
+}
+
+.text-muted {
+  @apply text-slate-500;
+}
+
+/* Dark */
+
+.dark .bg-app {
+  @apply bg-zinc-800;
+}
+
+.dark .bg-surface {
+  @apply bg-zinc-900;
+}
+
+.dark .bg-surface-2 {
+  @apply bg-zinc-700;
+}
+
+.dark .border-app {
+  @apply border-zinc-700;
+}
+
+.dark .text-title {
+  @apply text-zinc-50;
+}
+
+.dark .text-body {
+  @apply text-zinc-200;
+}
+
+.dark .text-muted {
+  @apply text-zinc-400;
 }

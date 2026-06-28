@@ -26,8 +26,17 @@ const TaskProvider = ({ children }) => {
   const [lists, setLists] = useState(() => getInitialData(LIST, initialLists));
 
   // TASK FUNCTIONS
-  const addTask = useCallback((task) => {
-    setTasks((prev) => [...prev, task]);
+  const addTask = useCallback((title) => {
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        title: title,
+        completed: false,
+        subtasks: [],
+        list: '',
+      },
+    ]);
   }, []);
 
   const toggleTask = useCallback((id) => {
@@ -72,7 +81,7 @@ const TaskProvider = ({ children }) => {
     });
   }, []);
 
-  const editList = useCallback(({ id, newTitle }) => {
+  const editList = useCallback((id, newTitle) => {
     setLists((prev) =>
       prev.map((list) =>
         list.id === id ? { ...list, title: newTitle } : list,
@@ -80,7 +89,7 @@ const TaskProvider = ({ children }) => {
     );
   }, []);
 
-  const removeList = useCallback(({ id }) => {
+  const removeList = useCallback((id) => {
     setLists((prev) => prev.filter((list) => list.id !== id));
   }, []);
 

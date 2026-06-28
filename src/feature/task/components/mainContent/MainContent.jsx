@@ -1,21 +1,14 @@
 import React from 'react';
 
-import Header from '../../../../shared/Header';
-
 import TaskList from './TaskList';
-import SearchBar from './SearchBar';
 import AddNewTask from './AddNewTask.jsx';
 
 const MainContent = () => {
   return (
-    <div>
-      <Header />
-      <div className="p-2">
-        <div className="flex flex-col gap-2">
-          <SearchBar />
-          <AddNewTask />
-          <TaskList />
-        </div>
+    <div className="focusflow-component">
+      <div className="bg-surface grid gap-2 rounded-lg border border-app p-4">
+        <AddNewTask />
+        <TaskList />
       </div>
     </div>
   );

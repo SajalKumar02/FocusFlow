@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react';
-
-import { ListIcon, Settings, X } from 'lucide-react';
-
-import SidebarItems from './SidebarItems.jsx';
-import SearchBar from '../mainContent/SearchBar.jsx';
-import { useTasks } from '../../context/useTask.js';
-import { useToast } from '../../../toast';
 import { useNavigate } from 'react-router';
 
-const Sidebar = () => {
+import SidebarItems from './SidebarItems.jsx';
+import SearchBar from './SearchBar.jsx';
+
+import { useTasks } from '../../context/useTask.js';
+import { useToast } from '../../../toast';
+
+import { Settings, X } from 'lucide-react';
+
+const Sidebar = ({ handleSidebarToggle }) => {
   const { lists, defaultListNames, addList } = useTasks();
   const { showToast } = useToast();
 
@@ -33,7 +34,8 @@ const Sidebar = () => {
 
     if (!canAddMoreLists) {
       showToast('warning', "You can't have more than 4 lists. ");
-      showToast('warning', 'LOGIN FIRST');
+      setShowListInput(false);
+      setNewListTitle('');
       return;
     }
 
@@ -44,6 +46,7 @@ const Sidebar = () => {
 
     if (title) {
       addList(title);
+      showToast('success', 'List Added');
       setNewListTitle('');
       setShowListInput(false);
     }
@@ -60,17 +63,20 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="px-4 py-2 flex flex-col gap-3 h-full">
+    <div className="px-4 py-2 flex flex-col gap-3 h-full bg-surface">
       {/* CLOSE BUTTON */}
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row py-1 items-center justify-between">
         <div className="flex items-center">
-          <p className="text-md font-semibold text-slate-700 tracking-tight select-none">
+          <p className="text-lg font-semibold text-title tracking-tight select-none">
             FocusFlow
           </p>
         </div>
         <div>
-          <button className="p-1 rounded hover:bg-slate-100 active:bg-slate-200 cursor-pointer transition-colors">
-            <X className="h-5 w-5 text-slate-400 hover:text-slate-600 transition-colors" />
+          <button
+            className="p-1 rounded hover:bg-slate-100 dark:hover:bg-zinc-700 active:bg-slate-200 dark:active:bg-zinc-600 cursor-pointer transition-colors"
+            onClick={handleSidebarToggle}
+          >
+            <X className="h-5 w-5 text-slate-400 dark:text-zinc-400 hover:text-slate-600 dark:hover:text-zinc-200 transition-colors" />
           </button>
         </div>
       </div>
@@ -80,8 +86,8 @@ const Sidebar = () => {
 
       {/* QUICK VIEW */}
       <div className="flex flex-col gap-2">
-        <div className="">
-          <span className="text-xs font-bold text-slate-500 tracking-wider">
+        <div>
+          <span className="text-xs font-bold text-muted tracking-wider">
             QUICK VIEWS
           </span>
         </div>
@@ -97,12 +103,12 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
-      <div className="border-b border-slate-200" />
+      <div className="border-b border-app" />
 
       {/* LISTS */}
       <div className="flex flex-col gap-2">
-        <div className="">
-          <span className="text-xs font-bold text-slate-500 tracking-wider">
+        <div>
+          <span className="text-xs font-bold text-muted tracking-wider">
             LISTS
           </span>
         </div>
@@ -119,7 +125,7 @@ const Sidebar = () => {
             <input
               type="text"
               placeholder="Add New List"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-title focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 transition"
               ref={inputRef}
               value={newListTitle}
               onChange={(e) => setNewListTitle(e.target.value)}
@@ -129,23 +135,23 @@ const Sidebar = () => {
           )}
 
           <span
-            className="text-center text-xs py-1 font-medium text-blue-400 hover:text-blue-600 cursor-pointer transition-colors"
+            className="text-center text-xs py-1 font-medium text-blue-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 cursor-pointer transition-colors"
             onClick={() => setShowListInput((prev) => !prev)}
           >
             Add New List
           </span>
         </div>
       </div>
-      <div className="border-b border-slate-200" />
+      <div className="border-b border-app" />
 
       {/* Settings */}
       <div className="mt-auto">
         <button
           onClick={() => navigate('/settings')}
-          className="flex w-full items-center gap-2 px-4 py-2.5 hover:bg-slate-200 rounded-xl cursor-pointer transition-colors"
+          className="flex w-full items-center gap-2 px-4 py-2.5 hover:bg-slate-200 dark:hover:bg-zinc-700 rounded-xl cursor-pointer transition-colors"
         >
-          <Settings className="h-5 w-5 text-slate-500" />
-          <span className="text-sm font-medium text-slate-700">Settings</span>
+          <Settings className="h-5 w-5 text-muted" />
+          <span className="text-sm font-medium text-title">Settings</span>
         </button>
       </div>
     </div>

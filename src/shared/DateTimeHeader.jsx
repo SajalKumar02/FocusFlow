@@ -14,10 +14,10 @@ const DateAndTimeHeader = () => {
 
   return (
     <div className="flex flex-col items-start my-1 sm:my-2">
-      <span className="text-base sm:text-md font-semibold text-slate-800">
+      <span className="text-base sm:text-md font-semibold text-title">
         Today
       </span>
-      <span className="text-slate-500 text-xs sm:text-sm">{currentDate()}</span>
+      <span className="text-muted text-xs sm:text-sm">{currentDate()}</span>
     </div>
   );
 };

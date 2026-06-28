@@ -1,26 +1,16 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router';
-import { useTasks } from '../feature/task';
+import React from 'react';
+import TaskDetailsPanel from '../feature/task/components/taskDetails/TaskDetailsPanel';
+
+import BackButton from '../shared/BackButton';
 
 const TaskDetails = () => {
-  const { taskId } = useParams();
-  const { tasks } = useTasks();
-  const [task, setTask] = useState();
-
   return (
-    <div>
-      <div>
-        {/* Header */}
-        {/* Description */}
-        {/* Subtasks */}
-      </div>
-      <div>
-        {/* List */}
-        {/* Due Date */}
-        {/* Priority */}
-        {/* Status */}
-        {/* Created */}
-        {/* lastUpdated */}
+    <div className="h-full p-4 bg-surface text-title">
+      <div className="grid grid-rows-[auto_1fr] gap-4">
+        <div className="flex flex-row">
+          <BackButton />
+        </div>
+        <TaskDetailsPanel />
       </div>
     </div>
   );
