@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import SidebarItems from './SidebarItems.jsx';
-import SearchBar from './SearchBar.jsx';
+import SidebarItems from './SidebarItems';
+import SearchBar from './SearchBar';
 
-import { useTasks } from '../../context/useTask.js';
+import { useTasks } from '../../context/useTask';
 import { useToast } from '../../../toast';
 
 import { Settings, X } from 'lucide-react';

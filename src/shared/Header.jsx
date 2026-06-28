@@ -1,13 +1,35 @@
 import React from 'react';
-
 import { Menu } from 'lucide-react';
-import DateTimeHeader from './DateTimeHeader';
 import { useLocation } from 'react-router';
 
 const Header = ({ handleSidebarToggle }) => {
   const location = useLocation();
-
   const page = location.pathname.split('/')[1];
+
+  const currentDate = () => {
+    const now = new Date();
+    const options = {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    };
+    return now.toLocaleDateString('en-US', options);
+  };
+
+  const getHeaderTitle = () => {
+    if (page === 'settings') return 'Settings';
+    if (page === 'tasks') return 'Task Details';
+    // Add additional pages if needed. Default to Today.
+    return 'Today';
+  };
+
+  const getHeaderDescription = () => {
+    if (page === 'settings')
+      return 'Manage your preferences, lists, and account settings.';
+    if (page === 'tasks') return ''; // Or a suitable description for Task Details
+    return currentDate();
+  };
 
   return (
     <div className="flex flex-row items-center gap-4 p-2 md:py-0 border-b border-app bg-surface">
@@ -18,17 +40,29 @@ const Header = ({ handleSidebarToggle }) => {
           className="cursor-pointer text-muted hover:text-title transition-colors"
         />
       </div>
-      {page === 'settings' ? (
-        <div className="">
+      {(page === 'settings' || page === 'tasks' || page === '') && (
+        <div className="flex flex-col items-start my-1 sm:my-2">
           <span className="text-base sm:text-md font-semibold text-title">
-            Settings
+            {getHeaderTitle()}
           </span>
-          <p className="text-muted text-xs sm:text-sm">
-            Manage your preferences, lists, and account settings.
-          </p>
+          {/* Only render description if it's not empty */}
+          {getHeaderDescription() && (
+            <span className="text-muted text-xs sm:text-sm">
+              {getHeaderDescription()}
+            </span>
+          )}
         </div>
-      ) : (
-        <DateTimeHeader />
+      )}
+      {/* Optionally, for main page (no page), show title/description as well */}
+      {page !== 'settings' && page !== 'tasks' && page !== '' && (
+        <div className="flex flex-col items-start my-1 sm:my-2">
+          <span className="text-base sm:text-md font-semibold text-title">
+            {getHeaderTitle()}
+          </span>
+          <span className="text-muted text-xs sm:text-sm">
+            {getHeaderDescription()}
+          </span>
+        </div>
       )}
     </div>
   );
