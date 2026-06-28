@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TaskList from './TaskList';
-import AddNewTask from './AddNewTask.jsx';
+import AddNewTask from './AddNewTask';
 
 const MainContent = () => {
   return (
