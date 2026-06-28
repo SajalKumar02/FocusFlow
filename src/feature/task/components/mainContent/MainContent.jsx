@@ -6,7 +6,7 @@ import AddNewTask from './AddNewTask.jsx';
 const MainContent = () => {
   return (
     <div className="focusflow-component">
-      <div className="bg-white grid gap-2 rounded-lg border border-slate-200 p-4">
+      <div className="bg-surface grid gap-2 rounded-lg border border-app p-4">
         <AddNewTask />
         <TaskList />
       </div>

@@ -83,7 +83,7 @@ const TaskDetailsPanel = () => {
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-[3fr_2fr] gap-4">
-      <div className="bg-white grid grid-rows-[auto_auto_auto] rounded-lg">
+      <div className="bg-surface grid grid-rows-[auto_auto_auto] rounded-lg">
         {/* Header */}
         <div className="rounded-t-lg taskdetailspanel-component">
           <input
@@ -93,21 +93,21 @@ const TaskDetailsPanel = () => {
             onChange={handleEdit}
             className="mr-2 w-4 h-4 align-middle"
           />
-          <span className="font-bold text-2xl text-slate-900 align-middle">
+          <span className="font-bold text-2xl text-title align-middle">
             {task.title}
           </span>
         </div>
         {/* Description */}
         <div className="taskdetailspanel-component">
           <label
-            className="text-sm font-semibold text-slate-500 mb-1 block"
+            className="text-sm font-semibold text-muted mb-1 block"
             htmlFor="task-description-textarea"
           >
             Description
           </label>
           <textarea
             id="task-description-textarea"
-            className="w-full p-3 border border-slate-200 rounded-lg bg-white text-slate-900 focus:outline-none focus:border-slate-400 text-base"
+            className="w-full p-3 border border-app rounded-lg bg-surface text-title focus:outline-none focus:border-slate-400 text-base"
             rows={3}
             value={task.description || ''}
             name="description"
@@ -118,9 +118,9 @@ const TaskDetailsPanel = () => {
         <div className="rounded-b-lg taskdetailspanel-component flex flex-col gap-2">
           {/* Header */}
           <div className="flex flex-row justify-between items-center">
-            <span className="text-lg font-semibold block text-slate-800">
+            <span className="text-lg font-semibold block text-title">
               Subtasks
-              <span className="text-slate-400">
+              <span className="text-muted">
                 ({Array.isArray(task.subtasks) ? task.subtasks.length : 0})
               </span>
             </span>
@@ -128,7 +128,7 @@ const TaskDetailsPanel = () => {
           <div className="flex flex-row gap-2">
             <input
               type="text"
-              className="flex-1 px-2 py-1 border border-slate-200 rounded text-sm text-slate-800"
+              className="flex-1 px-2 py-1 border border-app rounded text-sm text-title bg-surface"
               placeholder="New subtask..."
               value={newSubTaskTitle}
               onChange={(e) => setNewSubTaskTitle(e.target.value)}
@@ -136,7 +136,7 @@ const TaskDetailsPanel = () => {
             />
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-800 text-sm px-3 py-1 border border-blue-200 rounded transition"
+              className="text-blue-600 hover:text-blue-800 text-sm px-3 py-1 border border-blue-200 rounded transition bg-surface"
               onClick={handleAddSubTask}
               disabled={!newSubTaskTitle.trim()}
               aria-label="Add subtask"
@@ -149,10 +149,10 @@ const TaskDetailsPanel = () => {
             <>
               {/* Progress Bar */}
               <div className="flex flex-col gap-2 mb-4">
-                <span className="text-sm font-medium text-slate-600">
+                <span className="text-sm font-medium text-body">
                   {subTasksCompletePercentage}% complete
                 </span>
-                <div className="w-full h-2 bg-slate-200 rounded overflow-hidden">
+                <div className="w-full h-2 bg-surface-2 rounded overflow-hidden">
                   <div
                     className="h-full bg-blue-500 transition-all"
                     style={{
@@ -182,7 +182,7 @@ const TaskDetailsPanel = () => {
 
                       <span
                         className={
-                          t.completed ? 'line-through text-gray-400' : ''
+                          t.completed ? 'line-through text-muted' : 'text-title'
                         }
                       >
                         {t.title}
@@ -199,19 +199,19 @@ const TaskDetailsPanel = () => {
               </div>
             </>
           ) : (
-            <div className="text-gray-400 italic text-center">
+            <div className="text-muted italic text-center">
               No subtasks available
             </div>
           )}
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="bg-white rounded-lg taskdetailspanel-component">
+        <div className="bg-surface rounded-lg taskdetailspanel-component">
           {/* List */}
           <div className="flex flex-col gap-1 mb-4">
             <label
               htmlFor="task-list-select"
-              className="text-sm font-semibold text-slate-500 mb-1"
+              className="text-sm font-semibold text-muted mb-1"
             >
               List
             </label>
@@ -220,21 +220,21 @@ const TaskDetailsPanel = () => {
                 id="task-list-select"
                 name="list"
                 className="
-                  block w-full rounded-md border border-slate-300 bg-white py-2 pl-3 pr-8 shadow-sm
-                  text-base font-semibold text-slate-700 focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50
+                  block w-full rounded-md border border-app bg-surface py-2 pl-3 pr-8 shadow-sm
+                  text-base font-semibold text-title focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50
                   appearance-none cursor-pointer transition
                 "
                 onChange={handleEdit}
                 value={task.list}
               >
-                <option value="" className="text-slate-700 font-semibold">
+                <option value="" className="text-title font-semibold">
                   Select List
                 </option>
                 {lists.map((list) => (
                   <option
                     key={list.id}
                     value={list.value}
-                    className="text-slate-700 font-semibold"
+                    className="text-title font-semibold"
                   >
                     {list.title}
                   </option>
@@ -247,7 +247,7 @@ const TaskDetailsPanel = () => {
           <div className="flex flex-col gap-1 mb-4">
             <label
               htmlFor="task-due-date"
-              className="text-sm font-semibold text-slate-500 mb-1"
+              className="text-sm font-semibold text-muted mb-1"
             >
               Due Date
             </label>
@@ -255,7 +255,7 @@ const TaskDetailsPanel = () => {
               type="date"
               id="task-due-date"
               name="dueDate"
-              className="w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm text-base font-semibold text-slate-700 focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50 transition"
+              className="w-full rounded-md border border-app bg-surface py-2 px-3 shadow-sm text-base font-semibold text-title focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50 transition"
               value={
                 task.dueDate
                   ? new Date(task.dueDate).toISOString().split('T')[0]
@@ -268,7 +268,7 @@ const TaskDetailsPanel = () => {
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-6 px-4">
           <button
-            className="flex items-center gap-2 px-6 py-3 border-2 border-red-300 text-red-600 font-semibold bg-white rounded-lg transition hover:border-red-400 hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+            className="flex items-center gap-2 px-6 py-3 border-2 border-red-300 text-red-600 font-semibold bg-surface rounded-lg transition hover:border-red-400 hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
             onClick={handleDeleteTask}
             type="button"
           >

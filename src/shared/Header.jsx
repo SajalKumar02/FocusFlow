@@ -10,20 +10,20 @@ const Header = ({ handleSidebarToggle }) => {
   const page = location.pathname.split('/')[1];
 
   return (
-    <div className="flex flex-row items-center gap-4 p-2 md:py-0 border-b border-slate-200">
+    <div className="flex flex-row items-center gap-4 p-2 md:py-0 border-b border-app bg-surface">
       <div className="flex">
         <Menu
           size={24}
           onClick={handleSidebarToggle}
-          className="cursor-pointer text-slate-400 hover:text-slate-500 transition-colors"
+          className="cursor-pointer text-muted hover:text-title transition-colors"
         />
       </div>
       {page === 'settings' ? (
         <div className="">
-          <span className="text-base sm:text-md font-semibold text-slate-800">
+          <span className="text-base sm:text-md font-semibold text-title">
             Settings
           </span>
-          <p className="text-slate-500 text-xs sm:text-sm">
+          <p className="text-muted text-xs sm:text-sm">
             Manage your preferences, lists, and account settings.
           </p>
         </div>
