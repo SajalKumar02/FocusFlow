@@ -119,6 +119,7 @@ const Sidebar = ({ handleSidebarToggle }) => {
               title={list.title}
               value={list.value}
               style={list.style}
+              custom={true}
             />
           ))}
           {showListInput && (

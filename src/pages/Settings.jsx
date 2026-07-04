@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useTheme } from '@/feature/theme';
-import { useTasks } from '@/feature/task';
+import { getTaskCountForList, useTasks } from '@/feature/task';
 import { useToast } from '@/feature/toast';
 
-import { List, Palette, Pen, Trash } from 'lucide-react';
+import { List, Palette, Pen, Save, Trash } from 'lucide-react';
 
 const Settings = () => {
-  const { lists, deleteAllData, removeList, editList } = useTasks();
+  const { lists, tasks, deleteAllData, removeList, editList } = useTasks();
   const { theme, toggleTheme } = useTheme();
   const { showToast } = useToast();
+
+  const [newListTitle, setNewListTitle] = useState('');
+  const [showInput, setShowInput] = useState();
 
   const navigate = useNavigate();
 
@@ -18,6 +21,36 @@ const Settings = () => {
     deleteAllData();
     showToast('danger', 'All Data Deleted');
     navigate('/');
+  };
+
+  const handleEditList = () => {
+    if (!newListTitle.trim()) {
+      showToast('warning', 'No title given');
+      setNewListTitle('');
+      setShowInput();
+      return;
+    }
+    editList(showInput, newListTitle.trim());
+    showToast('success', 'New List Title Saved');
+    setNewListTitle('');
+    setShowInput();
+  };
+
+  const handleInputChange = (e) => {
+    if (e.key === 'Enter') {
+      handleEditList();
+    } else if (e.key === 'Escape') {
+      setShowInput();
+      setNewListTitle('');
+    } else {
+      setNewListTitle(e.target.value);
+    }
+  };
+
+  const handleRemoveList = (id) => {
+    removeList(id);
+    showToast('success', 'List deleted successfully.');
+    showToast('info', 'All tasks within the list have been deleted.');
   };
 
   return (
@@ -77,26 +110,48 @@ const Settings = () => {
                 key={l.id}
                 className="flex flex-row justify-between items-center border border-app rounded-lg bg-surface-2 p-2"
               >
-                <span className="text-sm font-semibold text-title">
-                  {l.title}
-                </span>
+                {showInput === l.id ? (
+                  <input
+                    type="text"
+                    placeholder="New List Name..."
+                    value={newListTitle}
+                    onChange={handleInputChange}
+                    className="p-2 outline rounded-lg bg-surface-1 text-title focus:outline-none focus:ring-2 focus:ring-app dark:bg-surface-2 dark:text-title"
+                  />
+                ) : (
+                  <span className="text-sm font-semibold text-title">
+                    {l.title}
+                  </span>
+                )}
+
                 <div className="flex items-center space-x-3">
                   <span className="text-sm bg-app text-title font-bold rounded-full px-3 py-1 border border-app">
-                    {0}
+                    {getTaskCountForList(l.value, tasks)}
                   </span>
-                  <button
-                    className="p-2 rounded-full hover:bg-surface transition-colors text-title"
-                    aria-label={`Edit list: ${l.title}`}
-                    type="button"
-                    onClick={() => editList(l.id)}
-                  >
-                    <Pen size={18} />
-                  </button>
+                  {showInput === l.id ? (
+                    <button
+                      className="p-2 rounded-full hover:bg-zinc-500 dark:hover:bg-zinc-800 transition-colors text-title"
+                      aria-label={`Edit list: ${l.title}`}
+                      type="button"
+                      onClick={handleEditList}
+                    >
+                      <Save size={18} />
+                    </button>
+                  ) : (
+                    <button
+                      className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-title"
+                      aria-label="show input box"
+                      type="button"
+                      onClick={() => setShowInput(l.id)}
+                    >
+                      <Pen size={18} />
+                    </button>
+                  )}
                   <button
                     className="p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900 transition-colors text-title"
                     aria-label={`Delete list: ${l.title}`}
                     type="button"
-                    onClick={() => removeList(l.id)}
+                    onClick={() => handleRemoveList(l.id)}
                   >
                     <Trash size={18} className="text-red-500" />
                   </button>

@@ -89,9 +89,15 @@ const TaskProvider = ({ children }) => {
     );
   }, []);
 
-  const removeList = useCallback((id) => {
-    setLists((prev) => prev.filter((list) => list.id !== id));
-  }, []);
+  const removeList = useCallback(
+    (id) => {
+      const listValue = lists.find((l) => l.id === id).value;
+      setTasks((prev) => prev.filter((task) => task.list !== listValue));
+
+      setLists((prev) => prev.filter((list) => list.id !== id));
+    },
+    [lists],
+  );
 
   const deleteAllLists = useCallback(() => {
     setLists([]);

@@ -37,7 +37,7 @@ export const getTasksByList = (tasks, listId) => {
 };
 
 export const getTaskCountForList = (listId, tasks) => {
-  const filteredList = getTasksByList(listId, tasks);
+  const filteredList = getTasksByList(tasks, listId);
   return filteredList.length;
 };
 
@@ -46,17 +46,20 @@ export const filterTaskByString = (filteringString, tasks) => {
   return tasks.filter((task) => task.title.toLowerCase().includes(lowerFilter));
 };
 
+// Search Bar Utility
 export const getTasksByString = (tasks, searchString) => {
   if (!Array.isArray(tasks) || !searchString) return tasks;
   const lowerSearch = searchString.toLowerCase();
   return tasks.filter((task) => task.title.toLowerCase().includes(lowerSearch));
 };
 
+// Search Bar
 export const getTaskByTaskId = (tasks, taskId) => {
   if (!Array.isArray(tasks) || !taskId) return [];
   return tasks.filter((task) => String(task.id) === String(taskId));
 };
 
+// View Task Page
 export const getPercentageCompleteCount = (task) => {
   if (!Array.isArray(task.subtasks) || task.subtasks.length === 0) return 0;
   const completedCount = task.subtasks.filter((st) => st.completed).length;
