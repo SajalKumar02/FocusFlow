@@ -1,7 +1,14 @@
 import React from 'react';
 import { useSearchParams } from 'react-router';
-
 import { Search } from 'lucide-react';
+
+/*
+  UI follows design.md and index.css design tokens:
+    - bg-surface, border-app, text-title, text-muted
+    - rounded-lg, px-4, py-2, pl-10 for text alignment with icon
+    - focus:outline-none, focus:ring for active state
+    - consistent placeholder and icon coloring
+*/
 
 const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,16 +27,20 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="relative">
-      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted pointer-events-none">
-        <Search size={18} />
+    <div className="relative mb-2">
+      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none">
+        <Search size={18} aria-hidden="true" />
       </span>
       <input
-        className="rounded-lg px-4 py-1.5 w-full pl-10 border border-app bg-surface text-title placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 transition-all"
+        className="w-full rounded-lg border border-app bg-surface px-4 py-2 pl-10 text-title text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 transition"
         type="text"
         placeholder="Search tasks..."
         value={searchInput}
         onChange={handleInputChange}
+        aria-label="Search tasks"
+        autoComplete="off"
+        maxLength={48}
+        spellCheck={false}
       />
     </div>
   );

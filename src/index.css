@@ -1,86 +1,84 @@
+/*
+  See design.md for UI related decisions and design tokens.
+*/
+
 @import 'tailwindcss';
 
+/* Custom dark variant for class or ancestor ".dark" */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Base styles */
 body {
-  font-family: monospace;
+  font-family: var(--design-font-family-monospace, monospace);
 }
 
+/* Task Details Panel Styling */
 .taskdetailspanel-component {
   @apply border border-slate-200 p-4;
 }
 
+/* Focus Flow component styling */
 .focusflow-component {
   @apply flex flex-col p-4 gap-4;
 }
 
+/* Settings Card styling */
 .settings-card {
   @apply bg-white gap-2 rounded-lg border border-slate-200 p-4;
 }
 
+/* Settings Card Header */
 .settings-card-header {
   @apply flex flex-row gap-2 items-center;
 }
+
+/* Settings Card Body */
 .settings-card-body {
   @apply grid grid-cols-[3fr_1fr];
 }
 
-/* Light */
-
+/* --- Light mode tokens --- */
 .bg-app {
   @apply bg-slate-50;
 }
-
 .bg-surface {
   @apply bg-white;
 }
-
 .bg-surface-2 {
   @apply bg-slate-100;
 }
-
 .border-app {
   @apply border-slate-200;
 }
-
 .text-title {
   @apply text-slate-900;
 }
-
 .text-body {
   @apply text-slate-700;
 }
-
 .text-muted {
   @apply text-slate-500;
 }
 
-/* Dark */
-
+/* --- Dark mode tokens --- */
 .dark .bg-app {
   @apply bg-zinc-800;
 }
-
 .dark .bg-surface {
   @apply bg-zinc-900;
 }
-
 .dark .bg-surface-2 {
   @apply bg-zinc-700;
 }
-
 .dark .border-app {
   @apply border-zinc-700;
 }
-
 .dark .text-title {
   @apply text-zinc-50;
 }
-
 .dark .text-body {
   @apply text-zinc-200;
 }
-
 .dark .text-muted {
   @apply text-zinc-400;
 }

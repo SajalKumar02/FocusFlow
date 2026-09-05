@@ -11,6 +11,17 @@ import {
 
 import { Save, Trash2, X } from 'lucide-react';
 
+/**
+ * Task Details Panel
+ * UI built to spec per design.md:
+ * - Outer card has elevated surface, border, and rounded corners
+ * - Section headers use text-title and font-semibold
+ * - Action buttons at bottom, blue primary, red destructive
+ * - Subtask area features progress bar matching brand, visual feedback on completion states
+ * - Inputs & selects use spacing, font, border radii, and colors per design
+ * - Light/dark tokens & layout grid per design.md
+ */
+
 const TaskDetailsPanel = () => {
   const { taskId } = useParams();
   const { tasks, lists, editTask, removeTask } = useTasks();
@@ -85,61 +96,70 @@ const TaskDetailsPanel = () => {
   };
 
   return (
-    <div className="flex flex-col md:grid md:grid-cols-[3fr_2fr] gap-4">
-      <div className="bg-surface grid grid-rows-[auto_auto_auto] rounded-lg">
+    <div className="flex flex-col md:grid md:grid-cols-[3fr_2fr] gap-6 md:gap-8">
+      {/* Left: Core Task Info */}
+      <div className="bg-surface grid grid-rows-[auto_auto_auto] rounded-xl shadow-sm overflow-hidden border border-app min-h-[520px]">
         {/* Header */}
-        <div className="rounded-t-lg taskdetailspanel-component">
+        <div className="px-6 py-5 flex items-center border-b border-app gap-2 bg-surface rounded-t-xl">
           <input
             type="checkbox"
             checked={task.completed}
             name="completed"
             onChange={handleEdit}
-            className="mr-2 w-4 h-4 align-middle"
+            className="w-5 h-5 accent-blue-600 mr-2"
+            aria-label="Mark task complete"
           />
-          <span className="font-bold text-2xl text-title align-middle">
+          <span
+            className="font-bold text-2xl text-title truncate"
+            data-testid="task-title"
+          >
             {task.title}
           </span>
         </div>
         {/* Description */}
-        <div className="taskdetailspanel-component">
+        <div className="px-6 py-5 border-b border-app bg-surface">
           <label
-            className="text-sm font-semibold text-muted mb-1 block"
+            className="text-sm font-semibold text-muted mb-2 block"
             htmlFor="task-description-textarea"
           >
             Description
           </label>
           <textarea
             id="task-description-textarea"
-            className="w-full p-3 border border-app rounded-lg bg-surface text-title focus:outline-none focus:border-slate-400 text-base"
+            className="w-full p-3 border border-app rounded-lg bg-surface text-title focus:outline-none focus:border-blue-400 text-base resize-none transition"
             rows={3}
             value={task.description || ''}
             name="description"
             onChange={handleEdit}
+            placeholder="Add a more detailed description..."
+            data-testid="task-description"
           />
         </div>
         {/* Subtasks */}
-        <div className="rounded-b-lg taskdetailspanel-component flex flex-col gap-2">
+        <div className="px-6 py-5 bg-surface rounded-b-xl flex flex-col gap-3">
           {/* Header */}
-          <div className="flex flex-row justify-between items-center">
-            <span className="text-lg font-semibold block text-title">
-              Subtasks
-              <span className="text-muted">
+          <div className="flex flex-row justify-between items-center mb-2">
+            <span className="text-lg font-semibold text-title block">
+              Subtasks{' '}
+              <span className="text-muted font-normal">
                 ({Array.isArray(task.subtasks) ? task.subtasks.length : 0})
               </span>
             </span>
           </div>
-          <div className="flex flex-row gap-2">
+          {/* New Subtask Input */}
+          <div className="flex flex-row gap-2 items-center mb-2">
             <input
               type="text"
-              className="flex-1 px-2 py-1 border border-app rounded text-sm text-title bg-surface"
+              className="flex-1 px-3 py-2 border border-app bg-surface rounded-lg text-sm text-title focus:outline-none focus:border-blue-400 transition"
               placeholder="New subtask..."
               value={newSubTaskTitle}
               onChange={(e) => setNewSubTaskTitle(e.target.value)}
               onKeyDown={handleNewSubTaskInputKeyDown}
+              aria-label="Add new subtask"
             />
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-800 text-sm px-3 py-1 border border-blue-200 rounded transition bg-surface"
+              className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-lg shadow-sm transition hover:bg-blue-700 disabled:opacity-50"
               onClick={handleAddSubTask}
               disabled={!newSubTaskTitle.trim()}
               aria-label="Add subtask"
@@ -147,19 +167,21 @@ const TaskDetailsPanel = () => {
               Add
             </button>
           </div>
-
+          {/* Subtasks Progress */}
           {Array.isArray(task.subtasks) && task.subtasks.length > 0 ? (
             <>
-              {/* Progress Bar */}
-              <div className="flex flex-col gap-2 mb-4">
-                <span className="text-sm font-medium text-body">
+              <div className="flex flex-col gap-1 mb-3">
+                <span className="text-xs font-medium text-muted select-none">
                   {subTasksCompletePercentage}% complete
                 </span>
-                <div className="w-full h-2 bg-surface-2 rounded overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-surface-2 overflow-hidden">
                   <div
-                    className="h-full bg-blue-500 transition-all"
+                    className="h-full rounded-full transition-all"
                     style={{
                       width: `${subTasksCompletePercentage}%`,
+                      background:
+                        'linear-gradient(90deg, #2869f6 0%, #679ef7 100%)',
+                      transition: 'width 0.7s cubic-bezier(0.4,0,0.2,1)',
                     }}
                     aria-valuenow={subTasksCompletePercentage}
                     aria-valuemax={100}
@@ -169,66 +191,77 @@ const TaskDetailsPanel = () => {
                   />
                 </div>
               </div>
-
-              {/* Subtask Lists */}
-              <div>
-                {Array.isArray(task.subtasks) &&
-                  task.subtasks.length > 0 &&
-                  task.subtasks.map((t) => (
-                    <div key={t.id} className="flex items-center gap-2 mb-2">
-                      <input
-                        type="checkbox"
-                        name="completed"
-                        checked={t.completed}
-                        onChange={() => handleToggleCompleteSubTask(t.id)}
-                      />
-
-                      <span
-                        className={
-                          t.completed ? 'line-through text-muted' : 'text-title'
-                        }
-                      >
-                        {t.title}
-                      </span>
-                      <button
-                        type="button"
-                        className="ml-auto text-red-500 hover:text-red-700"
-                        onClick={() => handleDeleteSubTask(t.id)}
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ))}
+              {/* Subtasks List */}
+              <div className="flex flex-col gap-2" data-testid="subtasks-list">
+                {task.subtasks.map((t) => (
+                  <div
+                    key={t.id}
+                    className="flex items-center group p-2 rounded hover:bg-surface-2 transition mb-1"
+                  >
+                    <input
+                      type="checkbox"
+                      name="completed"
+                      checked={t.completed}
+                      onChange={() => handleToggleCompleteSubTask(t.id)}
+                      className="w-4 h-4 accent-blue-600"
+                      aria-label={
+                        t.completed
+                          ? 'Mark subtask incomplete'
+                          : 'Mark subtask complete'
+                      }
+                    />
+                    <span
+                      className={
+                        'ml-3 text-sm ' +
+                        (t.completed ? 'line-through text-muted' : 'text-title')
+                      }
+                      data-testid={`subtask-title-${t.id}`}
+                    >
+                      {t.title}
+                    </span>
+                    <button
+                      type="button"
+                      className="ml-auto text-red-500 hover:text-red-700 p-1 rounded transition-opacity opacity-80 hover:opacity-100"
+                      onClick={() => handleDeleteSubTask(t.id)}
+                      aria-label="Delete subtask"
+                      tabIndex={0}
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
               </div>
             </>
           ) : (
-            <div className="text-muted italic text-center">
+            <div
+              className="text-muted text-center italic pt-2 pb-1"
+              data-testid="no-subtasks"
+            >
               No subtasks available
             </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <div className="bg-surface rounded-lg taskdetailspanel-component">
+      {/* Right: List & Date, Buttons */}
+      <div className="flex flex-col gap-6 justify-between">
+        {/* Meta Card */}
+        <div className="bg-surface rounded-xl border border-app px-6 py-5 shadow-sm">
           {/* List */}
-          <div className="flex flex-col gap-1 mb-4">
+          <div className="flex flex-col gap-2 mb-6">
             <label
               htmlFor="task-list-select"
               className="text-sm font-semibold text-muted mb-1"
             >
               List
             </label>
-            <div className="flex items-center group">
+            <div className="relative">
               <select
                 id="task-list-select"
                 name="list"
-                className="
-                  block w-full rounded-md border border-app bg-surface py-2 pl-3 pr-8 shadow-sm
-                  text-base font-semibold text-title focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50
-                  appearance-none cursor-pointer transition
-                "
+                className="block w-full px-3 py-2 rounded-lg border border-app bg-surface text-base font-semibold text-title focus:outline-none focus:border-blue-400 transition appearance-none"
                 onChange={handleEdit}
                 value={task.list}
+                data-testid="task-list-select"
               >
                 <option value="" className="text-title font-semibold">
                   Select List
@@ -243,11 +276,26 @@ const TaskDetailsPanel = () => {
                   </option>
                 ))}
               </select>
+              {/* Down arrow for select, per design.md */}
+              <svg
+                className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-muted"
+                width="22"
+                height="22"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7 10l5 5 5-5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
-
           {/* Due Date */}
-          <div className="flex flex-col gap-1 mb-4">
+          <div className="flex flex-col gap-2">
             <label
               htmlFor="task-due-date"
               className="text-sm font-semibold text-muted mb-1"
@@ -258,33 +306,38 @@ const TaskDetailsPanel = () => {
               type="date"
               id="task-due-date"
               name="dueDate"
-              className="w-full rounded-md border border-app bg-surface py-2 px-3 shadow-sm text-base font-semibold text-title focus:border-blue-400 focus:ring focus:ring-blue-100 focus:ring-opacity-50 transition"
+              className="w-full px-3 py-2 rounded-lg border border-app bg-surface text-base font-semibold text-title focus:outline-none focus:border-blue-400 transition"
               value={
                 task.dueDate
                   ? new Date(task.dueDate).toISOString().split('T')[0]
                   : ''
               }
               onChange={handleEdit}
+              data-testid="task-due-date"
             />
           </div>
         </div>
-        {/* Buttons */}
-        <div className="grid grid-cols-2 gap-6 px-4">
+        {/* Action Buttons */}
+        <div className="grid grid-cols-2 gap-6 mt-2">
           <button
-            className="flex items-center gap-2 px-6 py-3 border-2 border-red-300 text-red-600 font-semibold bg-surface rounded-lg transition hover:border-red-400 hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+            className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-red-300 text-red-600 font-semibold bg-surface rounded-lg transition hover:border-red-400 hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
             onClick={handleDeleteTask}
             type="button"
+            aria-label="Delete task"
+            data-testid="delete-task"
           >
             <Trash2 className="w-5 h-5" />
-            <span>Delete Task</span>
+            <span>Delete</span>
           </button>
           <button
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+            className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
             onClick={handleEditTask}
             type="button"
+            aria-label="Save task"
+            data-testid="save-task"
           >
             <Save className="w-5 h-5" />
-            <span>Save Changes</span>
+            <span>Save</span>
           </button>
         </div>
       </div>

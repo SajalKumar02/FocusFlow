@@ -1,39 +1,32 @@
 import React from 'react';
-
 import { useToast } from '@/feature/toast/context/useToast';
+
+const toastTypeStyles = {
+  success: 'bg-green-600 border-green-700 text-white',
+  warning: 'bg-yellow-50 border-yellow-300 text-yellow-900',
+  deleted: 'bg-rose-600 border-rose-700 text-white',
+  updated: 'bg-blue-600 border-blue-700 text-white',
+  default: 'bg-neutral-800 border-neutral-700 text-white',
+};
 
 const ToastContainer = () => {
   const { toasts } = useToast();
 
-  const getToastColor = (type) => {
-    switch (type) {
-      case 'success':
-        return 'bg-green-500 text-white border-green-700';
-      case 'warning':
-        return 'bg-yellow-100 text-yellow-900 border-yellow-400';
-      case 'deleted':
-        return 'bg-red-500 text-white border-red-700';
-      case 'updated':
-        return 'bg-blue-500 text-white border-blue-700';
-      default:
-        return 'bg-gray-900 text-white border-gray-700';
-    }
-  };
-
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-      {toasts.length === 0
-        ? null
-        : toasts.map((toast, idx) => (
-            <div
-              key={toast.id || idx}
-              className={`px-4 py-2 rounded shadow-lg min-w-[240px] max-w-xs border font-medium ${getToastColor(toast.type)}`}
-              role="alert"
-              aria-live="assertive"
-            >
-              {toast.message}
-            </div>
-          ))}
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3">
+      {toasts.map((toast, idx) => {
+        const type = toast.type || 'default';
+        return (
+          <div
+            key={toast.id || idx}
+            className={`px-5 py-3 rounded-lg shadow-xl border font-semibold text-sm flex items-center min-w-[260px] max-w-sm transition-opacity duration-300 ${toastTypeStyles[type] || toastTypeStyles.default}`}
+            role="alert"
+            aria-live="assertive"
+          >
+            <span>{toast.message}</span>
+          </div>
+        );
+      })}
     </div>
   );
 };

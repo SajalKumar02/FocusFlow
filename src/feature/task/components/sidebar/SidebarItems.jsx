@@ -5,30 +5,31 @@ import { ListIcon } from 'lucide-react';
 import { getTaskCountForList } from '@/feature/task/utils';
 import { useTasks } from '@/feature/task/context/useTask';
 
-const GENERAL_STYLE =
-  'text-slate-700 hover:text-slate-900 hover:bg-slate-100/60 hover:outline-1 hover:outline-slate-900 hover:shadow-md transition-all duration-150';
-
 const SidebarItems = ({ icon, title, value, style, custom = false }) => {
   const { tasks } = useTasks();
   const { listId } = useParams();
   const navigate = useNavigate();
 
   const IconComponent = icon || ListIcon;
+  const isSelected = listId === value;
 
   return (
     <button
       type="button"
-      className={`flex w-full items-center gap-2 px-4 py-2.5 rounded-xl cursor-pointer transition-colors
-        ${style && style.length > 0 ? style : GENERAL_STYLE}
-        ${listId === value ? `outline-1 bg-slate-100/50` : ''}
-   
-      `}
+      className={[
+        'flex w-full items-center gap-2 px-4 py-2.5 rounded-lg transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700',
+        style && style.length > 0
+          ? style
+          : 'bg-transparent text-title hover:bg-surface-2',
+        isSelected ? 'bg-surface-2 outline outline-blue-500' : '',
+      ].join(' ')}
+      aria-current={isSelected ? 'page' : undefined}
       onClick={() => navigate(`/lists/${value}`)}
     >
-      <IconComponent size={20} />
-      <span className="text-sm font-medium">{title}</span>
+      <IconComponent size={20} className="text-muted" aria-hidden="true" />
+      <span className="text-sm font-medium text-title">{title}</span>
       {custom && (
-        <span className="ml-auto items-end">
+        <span className="ml-auto text-xs font-semibold text-accent">
           {getTaskCountForList(value, tasks)}
         </span>
       )}
